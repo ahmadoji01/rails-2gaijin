@@ -1,0 +1,155 @@
+<div class="main-content" style="width: 100%;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="card mx-auto">
+                    <div class="card-header">
+                        <h3>Instant Delivery</h3>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="row">
+                                <div class="col-6 text-center">
+                                    <label>Where to Pick</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fa fa-map-marker-alt"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+                                    </div>
+                                </div>
+                                <div class="col-6 text-center">
+                                    <label>Destination</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fa fa-map-marker-alt"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-footer float-right ml-auto">
+                        <button class="btn btn-primary btn-lg" type="submit" data-toggle="modal" data-target="#checkoutModal">Continue to checkout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row d-none d-lg-block d-md-block">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="card-body" style="background-color: #F17022;">
+                        <div class="card-title text-center">
+                            <h4 style="color: white;">Recently Added Products</h4>
+                        </div>
+                        <div class="owl-carousel owl-theme" id="products-carousel">
+                            <div class="card">
+                                <div class="product-item pb-3">
+                                    <div class="product-image">
+                                        <%= image_tag "2gaijin/20190531_093128-267x150.jpg", alt: "image", class: "gaijin-img-square" %>
+                                    </div>
+                                    <div class="product-details text-center">
+                                        <div class="product-name" style="font-size: 1em;">Wifi Router</div>
+                                        <div class="text-muted text-small">Updated 3 mins ago</div>
+                                        <div class="product-cta">
+                                            <a href="#" class="btn btn-primary">Detail</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="product-item pb-3">
+                                    <div class="product-image">
+                                        <%= image_tag "2gaijin/20190708_162007-267x150.jpg", alt: "image", class: "gaijin-img-square" %>
+                                    </div>
+                                    <div class="product-details text-center">
+                                        <div class="product-name" style="font-size: 1em;">Blender Tescom</div>
+                                        <div class="text-muted text-small">Updated 3 mins ago</div>
+                                        <div class="product-cta">
+                                            <a href="#" class="btn btn-primary">Detail</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="product-item pb-3">
+                                    <div class="product-image">
+                                        <%= image_tag "2gaijin/62071656_318162705771961_1371693639582875648_n-267x150.jpg", alt: "image", class: "gaijin-img-square" %>
+                                    </div>
+                                    <div class="product-details text-center">
+                                        <div class="product-name" style="font-size: 1em;">Laptop Fujitsu</div>
+                                        <div class="text-muted text-small">Updated 3 mins ago</div>
+                                        <div class="product-cta">
+                                            <a href="#" class="btn btn-primary">Detail</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="product-item pb-3">
+                                    <div class="product-image">
+                                        <%= image_tag "2gaijin/66758281_433694347217317_8476850937774735360_n-112x150.jpg", alt: "image", class: "gaijin-img-square" %>
+                                    </div>
+                                    <div class="product-details text-center">
+                                        <div class="product-name" style="font-size: 1em;">Indonesia Mie</div>
+                                        <div class="text-muted text-small">Updated 3 mins ago</div>
+                                        <div class="product-cta">
+                                            <a href="#" class="btn btn-primary">Detail</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="product-item pb-3">
+                                    <div class="product-image">
+                                        <%= image_tag "2gaijin/IMG20190612220919-1-200x150.jpg", alt: "image", class: "gaijin-img-square" %>
+                                    </div>
+                                    <div class="product-details text-center">
+                                        <div class="product-name" style="font-size: 1em;">Bicycle</div>
+                                        <div class="text-muted text-small">Updated 3 mins ago</div>
+                                        <div class="product-cta">
+                                            <a href="#" class="btn btn-primary">Detail</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <h2><center>All Products</center></h2>
+                <div class="row">
+                    <% if @products.count > 0 %>
+                        <% @products.each do |product| %>
+                            <div class="col-lg-3 col-md-3 col-sm-3 mx-auto">
+                                <div class="card">
+                                    <% if product.image? %>
+                                        <%= image_tag product.image.url, class: "card-img-top", alt: "image" %>
+                                    <% else %>
+                                        <%= image_tag "products/product-1-50.png", class: "card-img-top", alt: "image" %>
+                                    <% end %>
+                                    
+                                    <div class="card-body">
+                                        <h5 class="card-title"><%= product.name %></h5>
+                                        <p class="card-text"><%= product.price %></p>
+                                        <%= link_to 'Detail', product_path(product), class: "btn btn-primary" %>
+                                            
+                                    </div>
+                                </div>
+                            </div>
+                        <% end %>
+                        <%= paginate @products %>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,127 @@
+<nav class="navbar navbar-expand-lg navbar-expand-sm main-navbar fixed-top">
+    <ul class="navbar-nav">
+            <li class="d-lg-block d-none">
+                <%= link_to root_url do %>
+                   <%= image_tag "2gaijinheader-1.png", height: "60px", width: "200px" %>
+                <% end %>
+            </li>
+        </ul>
+        <ul class="navbar-nav mr-3">
+            <li class="dropdown dropdown-list-toggle">
+                <a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <div class="dropdown-menu dropdown-list dropdown-menu-left">
+                    <div class="dropdown-list-content dropdown-list-icons">
+                        <a href="#" class="dropdown-item">
+                            <div class="icon-left">
+                                <i class="fa fa-utensils fa-lg"></i> Category 1
+                            </div>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <div class="icon-left">
+                                <i class="fa fa-tshirt fa-lg"></i> Category 2
+                            </div>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <div class="icon-left">
+                                <i class="fa fa-book fa-lg"></i> Category 1
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    <form class="form-inline mr-auto">
+        <div class="search-element">
+            <input class="form-control" type="search" placeholder="Search" aria-label="Search" style="width: 20vw;">
+            <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+            <div class="search-backdrop"></div>
+            <div class="search-result">
+                <div class="search-header">
+                    Result
+                </div>
+                <div class="search-item">
+                    <a href="#">Television</a>
+                    <a href="#" class="search-close"><i class="fas fa-times"></i></a>
+                </div>
+                <div class="search-item">
+                    <a href="#">SOLD</a>
+                    <a href="#" class="search-close"><i class="fas fa-times"></i></a>
+                </div>
+                <div class="search-header">
+                    Result
+                </div>
+                <div class="search-item">
+                    <a href="#">
+                        <%= image_tag "products/product-3-50.png", class: "mr-3 rounded", width: "30", alt: "product" %> iPhone 7s 2nd Fullset like new
+                    </a>
+                </div>
+            </div>
+        </div>
+    </form>
+    <ul class="navbar-nav navbar-right">
+        <li class="dropdown dropdown-list-toggle">
+            <a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle beep"><i class="fa fa-shopping-cart"></i>
+            <!-- <span class="d-none d-lg-block">Packages</span> -->
+            <span class="badge badge-warning">2</span>
+      </a>
+            <div class="dropdown-menu dropdown-list dropdown-menu-right">
+                <div class="dropdown-header">Packages
+                </div>
+                <div class="dropdown-list-content dropdown-list-message">
+                    <a href="#" class="dropdown-item">
+                        <div class="dropdown-item-avatar">
+                            <%= image_tag "products/product-3-50.png", class: "rounded-circle", width: "30", alt: "image" %>
+                        </div>
+                        <div class="dropdown-item-desc">
+                            <b>Laptop Lenovo G405</b>
+                            <div class="float-right">
+                                <i class="fa fa-trash"></i>
+                            </div>
+                            <div class="time">10 Hours Ago</div>
+                        </div>
+                    </a>
+                    <a href="#" class="dropdown-item">
+                        <div class="dropdown-item-avatar">
+                            <%= image_tag "products/product-1-50.png", class: "rounded-circle", width: "30", alt: "image" %>
+                        </div>
+                        <div class="dropdown-item-desc">
+                            <b>Test Product's Name</b>
+                            <div class="float-right">
+                                <i class="fa fa-trash"></i>
+                            </div>
+                            <div class="time">2 Hours Ago</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="dropdown-footer text-center">
+                    <a href="#" data-toggle="modal" data-target="#checkoutModal">Checkout <i class="fas fa-chevron-right"></i></a>
+                </div>
+            </div>
+        </li>
+        <li class="dropdown">
+            <% if user_signed_in? %>
+                <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                    <%= image_tag "avatar/avatar-1.png", class: "rounded-circle mr-1", alt: "image" %>
+                    <div class="d-none d-lg-inline-block">Hi, <%= current_user.first_name %></div>
+                </a> 
+            <div class="dropdown-menu dropdown-menu-right">
+                <!-- <div class="dropdown-title d-inline-block">Hi, Bekti</div> -->
+                <!--<div class="dropdown-title"><small>Logged in 5 min ago</small></div>-->
+                <a href="./profile" class="dropdown-item has-icon">
+                    <i class="far fa-user"></i> Profile
+                </a>
+                <div class="dropdown-divider"></div>
+                <%= link_to destroy_user_session_path, :method => :delete, :class => "dropdown-item has-icon text-danger" do %>
+                    <i class="fas fa-sign-out-alt"></i>Logout
+                <% end %>
+            </div>
+            <% else %>
+                <%- if controller_name != 'sessions' %>
+                    <%= link_to "Log in", new_user_session_path, class: "btn btn-primary btn-lg" %>
+                <% end %>
+            <% end %>
+        </li>
+    </ul>
+</nav>

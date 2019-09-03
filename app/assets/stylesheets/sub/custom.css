@@ -1,0 +1,98 @@
+/**
+ *
+ * You can write your CSS code here, DO NOT touch the default JavaScript file
+ * because it will make it harder for you to update.
+ * 
+ */
+
+/*# sourceMappingURL=custom.css.map */
+
+.navbar-bg {
+    background-color: #F17022;
+}
+.nav-link {
+    color: #30333B;
+}
+
+/* body {
+  background-color: #F17022;
+} */
+
+body.layout-2 .main-content {
+  padding-top: 107px;
+  padding-left: 30px;
+  padding-right: 0;
+  /* width: calc(100% - 200px); */
+}
+
+.card > a > .card-body {
+  color: white;
+  background-color: #F17022;
+}
+
+.card > a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.card-img-wrap {
+  overflow: hidden;
+  position: relative;
+}
+.card-img-wrap:after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(255,255,255,0.3);
+  opacity: 0;
+  transition: opacity .25s;
+}
+.card-img-wrap img {
+  transition: transform .25s;
+  width: 100%;
+}
+.card-img-wrap:hover img {
+  transform: scale(1.2);
+}
+.card-img-wrap:hover:after {
+  opacity: 1;
+}
+.gaijin-img-square {
+  width: 150px;
+  height: 150px;
+}
+/* <<<<<<< HEAD */
+.text-small {
+  font-size: 1vw;
+}
+.gaijin-maps {
+  overflow:hidden;
+  padding-bottom:56.25%;
+  position:relative;
+  height:0;
+}
+.gaijin-maps iframe {
+  left:0;
+  top:0;
+  height:100%;
+  width:100%;
+  position:absolute;
+}
+/* ======= */
+
+.text-small {
+  font-size: 1vw;
+}
+/* >>>>>>> dd5a8e87523234c21eee5976f0785f79ce9ac879 */
+.beep:after{
+  background-color: white;
+}
+.search-element {
+  width: 35vw;
+  position: absolute;
+  top: 10px;
+  /* left: 10px; */
+  /* right: 10px; */
+  z-index: 892;
+  /* display: none; */
+}

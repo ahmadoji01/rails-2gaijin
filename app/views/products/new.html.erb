@@ -1,0 +1,76 @@
+<div class="main-content" style="width: 100%;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header"><h4>Sell Something</h4></div>
+                    <div class="card-body">
+                    	<%= form_with(model: @product, local: true, class: "needs-validation") do |form| %>
+						  	<% if @product.errors.any? %>
+							    <div id="error_explanation">
+							      	<h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+							      	<ul>
+							      	<% @product.errors.full_messages.each do |message| %>
+							        	<li><%= message %></li>
+							      	<% end %>
+							      	</ul>
+							    </div>
+						  	<% end %>
+
+                            <div class="row">
+                                <div class="form-group form-inline">
+                                	<%= form.label :name, style: "width: 190px" %>
+    								<%= form.text_field :name, class: "form-control", style: "width: 200px" %>
+                                </div>
+                            </div>
+                            <!-- <div class="row">
+                                <div class="form-group form-inline">
+                                    <label style="width: 190px;">Categories</label>
+                                    <select class="form-control" id="select2" multiple="" style="width: 300px;">
+                                        <option>Category 1</option>
+                                        <option>Category 2</option>
+                                        <option>Category 3</option>
+                                        <option>Category 4</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-inline">
+                                    <label style="width: 190px;">District</label>
+                                    <select class="form-control" id="city" multiple="" style="width: 300px;">
+                                        <option>Tokyo</option>
+                                        <option>Hokkaido</option>
+                                        <option>Nagasaki</option>
+                                        <option>Hiroshima</option>
+                                    </select>
+                                </div>
+                            </div> -->
+                            <div class="row">
+                                <div class="form-group form-inline">
+                                    <%= form.label :price, style: "width: 190px" %>
+    								<%= form.number_field :price, class: "form-control", style: "width: 200px" %>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-inline">
+                                	<%= form.label :description, style: "width: 190px" %>
+    								<%= form.text_area :description, class: "form-control", style: "width: 200px" %>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-inline"> <!--custom-file-->
+                                	<%= form.label :image, style: "width: 190px" %> 
+                                	<%= form.file_field :image, class: "form-control", style: "width: 300px;" %>
+                                </div>
+                            </div>
+	                        <div class="card-footer text-left">
+	                            <%= form.submit "Save", class: "btn btn-lg btn-primary" %>
+	                        </div>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
