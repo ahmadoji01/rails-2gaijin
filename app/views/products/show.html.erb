@@ -47,7 +47,9 @@
                                 <hr>
                                 <!-- <a href="#" class="btn  btn-primary"> Buy now </a>
                                 <a href="#" class="btn  btn-outline-primary"> <i class="fas fa-shopping-cart"></i> Add to cart </a> -->
-                                <a href="#" class="btn  btn-outline-primary"> <i class="fas fa-phone"></i> Contact Seller </a>
+                                <% if current_user != @product.user %> 
+                                    <a href="#" class="btn  btn-outline-primary"> <i class="fas fa-phone"></i> Contact Seller </a>
+                                <% end %>
                             </article>
                         </aside>
                     </div>

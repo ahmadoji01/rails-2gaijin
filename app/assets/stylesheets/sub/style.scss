@@ -2805,4 +2805,28 @@ body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu li.active ul.dropdown-men
     -webkit-transform: scale(1.2, 1.2);
     opacity: 0.0; } }
 
+.kc_fab_main_btn{
+  background-color:#F44336;
+  width:75px;
+  height:75px;
+  position:fixed;
+  right:10px;
+  bottom:10px;
+  border-radius:100%;
+  background:#F44336;
+  border:none;
+  outline:none;
+  color:#FFF;
+  font-size:36px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  transition:.3s;  
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+.kc_fab_main_btn:focus {
+  transform:scale(1.1);
+  transform:rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
 /*# sourceMappingURL=style.css.map */

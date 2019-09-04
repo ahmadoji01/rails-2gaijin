@@ -17,8 +17,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/edit
   def edit
-    super
-    @products = Product.find(user: current_user).order(created_at: :desc).page(params[:page])
+    @products = Product.all.order(created_at: :desc).page(params[:page])
   end
 
   # PUT /resource

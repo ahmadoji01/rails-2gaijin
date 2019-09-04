@@ -4,7 +4,11 @@
             <div class="card-header">
                 <h4>Edit Photo</h4>
             </div>
-                <%= image_tag "avatar/avatar-1.png", class: "rounded-circle img-thumbnail" %>
+                <% if current_user.avatar? %>
+                    <%= image_tag current_user.avatar.url, class: "rounded-circle img-thumbnail" %>
+                <% else %>
+                    <%= image_tag "avatar/avatar-1.png", class: "rounded-circle img-thumbnail" %>
+                <% end %>
             <div class="form-group text-center">
                 <!-- <label>Upload Image</label> -->
                 <div class="custom-file">

@@ -25,6 +25,8 @@ class User
   field :created_at,              type: Time
   field :updated_at,              type: Time
 
+  mount_uploader :avatar,         AvatarUploader
+
   field :provider,                type: String
   field :uid,                     type: String
 
@@ -55,7 +57,7 @@ class User
       user.password = Devise.friendly_token[0, 20]
       user.first_name = auth.info.first_name   # assuming the user model has a name
       user.last_name = auth.info.last_name   # assuming the user model has a name
-      user.image = auth.info.image # assuming the user model has an image
+      user.avatar = auth.info.image # assuming the user model has an image
       # If you are using confirmable and the provider(s) you use validate emails, 
       # uncomment the line below to skip the confirmation emails.
       # user.skip_confirmation!
