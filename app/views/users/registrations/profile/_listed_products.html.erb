@@ -1,0 +1,141 @@
+<div class="tab-pane" id="listed-product" role="tabpanel" aria-labelledby="listed-product">
+    <div class="col-12">
+        <div class="mb-2">
+            <%= link_to new_product_path do %>
+                <button class="btn btn-primary btn-lg btn-icon icon-left"><i class="fa fa-plus"></i> Sell Something</button>
+            <% end %>
+        </div>
+        <hr>
+        <table class="table">
+            <thead style="color: none;">
+                <tr>
+                    <th>Preview Products</th>
+                    <!-- <th scope="col">Product's Name</th> -->
+                    <th class="text-center">Status</th>
+                    <!--<th class="text-center">Quantity</th>-->
+                    <th class="text-center">Price</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <br>
+                <% if @products.count > 0 %>
+                    <% @products.each do |product| %>
+                    <tr>
+                        <td>
+                            <a href="#" style="text-decoration: none; color: inherit;">
+                                <div class="media m-2">
+                                    <% if product.image? %>
+                                        <%= link_to product_path(product) do %>
+                                            <%= image_tag product.image.url, class: "img-thumbnail align-content-start mr-3", alt: "image", style: "max-width:150px" %>
+                                        <% end %>
+                                    <% else %>
+                                        <%= link_to product_path(product) do %>
+                                            <%= image_tag "products/product-1-50.png", class: "img-thumbnail align-content-start mr-3", alt: "image", style: "max-width:150px" %>
+                                        <% end %>    
+                                    <% end %>
+                                    <div class="media-body vertical-center">
+                                        <%= link_to product_path(product) do %>
+                                            <h5 class="mt-0"><%= product.name %></h5>
+                                        <% end %>
+                                        <!-- <p>Simple Description</p> -->
+                                    </div>
+                                </div>
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <span class="badge badge-success">Available</span>
+                        </td>
+                        <!-- <td class="text-center">2</td> -->
+                        <td class="text-center"><span class="currency">&#165;</span><%= product.price %></td>
+                        <td>
+                            <center>
+                                <button class="btn btn-outline-primary btn-icon icon-left"><i class="fa fa-edit"></i> Edit</button>
+                                <button class="btn btn-outline-danger btn-icon icon-left"><i class="fa fa-trash"></i> Delete</button>
+                            </center>
+                        </td>
+                    </tr>
+                    <% end %>
+                    <%= paginate @products %>
+                    <% else %>
+                        There is no product you have posted. Let's start selling. <%= link_to "Click Here", new_product_path %>
+                <% end %>
+                <!-- <tr>
+                    <td>
+                        <a href="#" style="text-decoration: none; color: inherit;">
+                            <div class="media m-2">
+                                <%= image_tag "products/product-1-50.png", class: "img-thumbnail align-content-start mr-3" %>
+                                <div class="media-body">
+                                    <h5 class="mt-0">Product Name</h5>
+                                    <p>Simple Description</p>
+                                </div>
+                            </div>
+                        </a>
+                    </td>
+                    <td class="text-center">
+                        <span class="badge badge-success">Available</span>
+                    </td>
+                    <td class="text-center">2</td>
+                    <td class="text-center"><span class="currency">&#165;</span>100</td>
+                    <td>
+                        <center>
+                            <button class="btn btn-outline-primary btn-icon icon-left"><i class="fa fa-edit"></i> Edit</button>
+                            <button class="btn btn-outline-danger btn-icon icon-left"><i class="fa fa-trash"></i> Delete</button>
+                        </center>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#" style="text-decoration: none; color: inherit;">
+                            <div class="media m-2">
+                                <%= image_tag "products/product-3-50.png", class: "img-thumbnail align-content-start mr-3" %>
+                                <div class="media-body">
+                                    <h5 class="mt-0">Product Name</h5>
+                                    <p>Simple Description</p>
+                                </div>
+                            </div>
+                        </a>
+                    </td>
+                    <td class="text-center">
+                        <span class="badge badge-success">Available</span>
+                        <span class="badge badge-secondary">Sold</span>
+                    </td>
+                    <td class="text-center">2</td>
+                    <td class="text-center"><span class="currency">&#165;</span>100</td>
+                    <td>
+                        <center>
+                            <button class="btn btn-outline-primary btn-icon icon-left"><i class="fa fa-edit"></i> Edit</button>
+                            <button class="btn btn-outline-danger btn-icon icon-left"><i class="fa fa-trash"></i> Delete</button>
+                        </center>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#" style="text-decoration: none; color: inherit;">
+                            <div class="media m-2">
+                                <%= image_tag "products/product-2-50.png", class: "img-thumbnail align-content-start mr-3" %>
+                                <div class="media-body">
+                                    <h5 class="mt-0">Product Name</h5>
+                                    <p>Simple Description</p>
+                                </div>
+                            </div>
+                        </a>
+                    </td>
+                    <td class="text-center">
+                        <span class="badge badge-success">Available</span>
+                        <span class="badge badge-danger">Empty</span>
+                    </td>
+                    <td class="text-center">0</td>
+                    <td class="text-center"><span class="currency">&#165;</span>100</td>
+                    <td>
+                        <center>
+                            <button class="btn btn-outline-primary btn-icon icon-left"><i class="fa fa-edit"></i> Edit</button>
+                            <button class="btn btn-outline-danger btn-icon icon-left"><i class="fa fa-trash"></i> Delete</button>
+                        </center>
+                    </td>
+                </tr> -->
+            </tbody>
+        </table>
+        <hr>
+    </div>
+</div>

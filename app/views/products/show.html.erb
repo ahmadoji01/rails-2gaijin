@@ -1,0 +1,149 @@
+<div class="main-content" style="width: 100%;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="row no-gutters">
+                        <aside class="col-sm-4 border-right">
+                            <article>
+                                <a href="#" data-fancybox="">
+                                    <% if @product.image? %>
+                                      <%= image_tag @product.image.url, width: "100%" %>
+                                    <% else %>
+                                      <%= image_tag "products/product-1-50.png", width: "100%" %>
+                                    <% end %>
+                                </a>
+                            </article>
+                        </aside>
+                        <aside class="col-sm-8">
+                            <article class="p-5">
+                                <h3 class="title mb-3"><%= @product.name %></h3>
+                                <div class="mb-3">
+                                    <var class="price h3 text-warning"> 
+                                        <span class="currency">&#165;</span><span class="num"><%= @product.price %></span>
+                                    </var>
+                                </div>
+                                <dl class="row">
+                                    <dd class="col-sm-12">by <%= @product.user.first_name %> <%= @product.user.last_name %></dd>
+                                    <dd class="col-12"><small>On <%= @product.created_at.httpdate %></small></dd>    
+                                </dl>
+                                <dl>
+                                    <dt>Description</dt>
+                                    <dd>
+                                        <p><%= @product.description %></p>
+                                    </dd>
+                                </dl>
+                                <dl class="row">
+                                    <dt class="col-sm-3">Category</dt>
+                                    <dd class="col-sm-9">Electronics</dd>
+                                    <dt class="col-sm-3">Location</dt>
+                                    <dd class="col-sm-9">Surabaya, Jawa Timur</dd>
+                                </dl>
+                                <dl>
+                                    <dd>
+                                        <small>Updated in 3 minutes</small>
+                                    </dd>
+                                </dl>
+                                <hr>
+                                <!-- <a href="#" class="btn  btn-primary"> Buy now </a>
+                                <a href="#" class="btn  btn-outline-primary"> <i class="fas fa-shopping-cart"></i> Add to cart </a> -->
+                                <% if current_user != @product.user %> 
+                                    <a href="#" class="btn  btn-outline-primary"> <i class="fas fa-phone"></i> Contact Seller </a>
+                                <% end %>
+                            </article>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-3">
+                <div class="card">
+                    <div class="card-header">Top Product</div>
+                </div>
+            </div> -->
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Related Products</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="owl-carousel owl-theme" id="related-carousel">
+                            <div class="card">
+                                <div class="product-item pb-3">
+                                    <div class="product-image">
+                                        <%= image_tag "2gaijin/20190531_093128-267x150.jpg", alt: "image", class: "gaijin-img-square" %>
+                                        <img alt="image" src="./assets/images/2gaijin/20190531_093128-267x150.jpg" class="gaijin-img-square">
+                                    </div>
+                                    <div class="product-details text-center">
+                                        <div class="product-name">Wifi Router</div>
+                                        <div class="text-muted text-small">Updated 3 mins ago</div>
+                                        <div class="product-cta">
+                                            <a href="#" class="btn btn-primary">Detail</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="product-item pb-3">
+                                    <div class="product-image">
+                                        <%= image_tag "2gaijin/20190708_162007-267x150.jpg", alt: "image", class: "gaijin-img-square" %>
+                                    </div>
+                                    <div class="product-details text-center">
+                                        <div class="product-name">Blender Tescom</div>
+                                        <div class="text-muted text-small">Updated 3 mins ago</div>
+                                        <div class="product-cta">
+                                            <a href="#" class="btn btn-primary">Detail</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="product-item pb-3">
+                                    <div class="product-image">
+                                        <%= image_tag "2gaijin/62071656_318162705771961_1371693639582875648_n-267x150.jpg", alt: "image", class: "gaijin-img-square" %>
+                                    </div>
+                                    <div class="product-details text-center">
+                                        <div class="product-name">Laptop Fujitsu</div>
+                                        <div class="text-muted text-small">Updated 3 mins ago</div>
+                                        <div class="product-cta">
+                                            <a href="#" class="btn btn-primary">Detail</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="product-item pb-3">
+                                    <div class="product-image">
+                                        <%= image_tag "2gaijin/66758281_433694347217317_8476850937774735360_n-112x150.jpg", alt: "image", class: "gaijin-img-square" %>
+                                    </div>
+                                    <div class="product-details text-center">
+                                        <div class="product-name">Indonesia Mie</div>
+                                        <div class="text-muted text-small">Updated 3 mins ago</div>
+                                        <div class="product-cta">
+                                            <a href="#" class="btn btn-primary">Detail</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="product-item pb-3">
+                                    <div class="product-image">
+                                        <%= image_tag "2gaijin/IMG20190612220919-1-200x150.jpg", alt: "image", class: "gaijin-img-square" %>
+                                    </div>
+                                    <div class="product-details text-center">
+                                        <div class="product-name">Bicycle</div>
+                                        <div class="text-muted text-small">Updated 3 mins ago</div>
+                                        <div class="product-cta">
+                                            <a href="#" class="btn btn-primary">Detail</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

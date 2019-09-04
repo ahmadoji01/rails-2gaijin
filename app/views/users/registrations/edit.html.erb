@@ -1,0 +1,35 @@
+<div class="main-content" style="width: 100%;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs card-header-tabs" id="menu-profile" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#edit-profile" role="tab" aria-controls="edit-profile" aria-selected="true"><h4>Edit Profile</h4></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#listed-product" role="tab" aria-controls="listed-product" aria-selected="false"><h4>Listed Products</h4></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#shipping-address" role="tab" aria-controls="shipping-address" aria-selected="false"><h4>Shipping Address</h4></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#user-setting" role="tab" aria-controls="user-setting" aria-selected="false"><h4>Password</h4></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <%= render 'users/registrations/profile/main' %>
+                            <%= render 'users/registrations/profile/listed_products' %>
+                            <%= render 'users/registrations/profile/address' %>
+                            <%= render 'users/registrations/profile/password' %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

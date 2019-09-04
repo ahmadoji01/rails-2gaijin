@@ -1,0 +1,73 @@
+<div class="tab-pane active" id="edit-profile" role="tabpanel">
+    <div class="row">
+        <div class="col-lg-3 col-sm-12">
+            <div class="card-header">
+                <h4>Edit Photo</h4>
+            </div>
+                <% if current_user.avatar? %>
+                    <%= image_tag current_user.avatar.url, class: "rounded-circle img-thumbnail" %>
+                <% else %>
+                    <%= image_tag "avatar/avatar-1.png", class: "rounded-circle img-thumbnail" %>
+                <% end %>
+            <div class="form-group text-center">
+                <!-- <label>Upload Image</label> -->
+                <div class="custom-file">
+                    <input type="file" class="form-control custom-control-input" name="">
+                    <label class="custom-file-label text-left">Browse Images</label>
+                </div>
+            </div>
+        </div>
+        <div class="card col-lg-5">
+            <div class="card-header">
+                <h4>Edit Profile</h4>
+            </div>
+            <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, :class => "need-validation") do |f| %>
+                <!--<div class="row">
+                    <div class="form-group col-lg-12">
+                        <label>Username</label>
+                        <input type="text" class="form-control" value="bektigalan" disabled="">
+                        <div class="has-feedback"><i class="fa fa-info"></i><small> Contact Administrator to change your username</small></div>
+                    </div>
+                </div>-->
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        <%= f.label :first_name %><br />
+                        <%= f.text_field :first_name, autofocus: true, autocomplete: "first-name", class: "form-control", required: true %>
+                        <div class="invalid-feedback">
+                            Please fill in the first name
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <%= f.label :last_name %><br />
+                        <%= f.text_field :last_name, autofocus: true, autocomplete: "last-name", class: "form-control", required: true %>
+                        <div class="invalid-feedback">
+                            Please fill in the last name
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-7">
+                        <%= f.label :email %><br />
+                        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", required: true %>
+                        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                            <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+                        <% end %>
+                        <div class="invalid-feedback">
+                            Please fill in the email correctly
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-5">
+                        <%= f.label :phone %><br />
+                        <%= f.text_field :phone, autofocus: true, autocomplete: "phone", class: "form-control" %>
+                        <div class="invalid-feedback">
+                            Please fill in the phone number correctly
+                        </div>
+                    </div>
+                </div>
+            <div class="card-footer text-right" style="position: absolute; bottom: 0; right: 0;">
+                <%= f.submit "Save Changes", class: "btn btn-primary" %>
+            </div>
+            <% end %>
+        </div>
+    </div>
+</div>
