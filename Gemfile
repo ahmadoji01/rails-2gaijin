@@ -43,6 +43,7 @@ gem 'kaminari-mongoid'
 gem 'kaminari-actionview'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
+gem "browserify-rails"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
