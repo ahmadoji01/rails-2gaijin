@@ -54,14 +54,14 @@
             </div>
             <div class="row sm-gutters">
               <div class="col-6">
-                <a class="btn btn-block btn-social btn-facebook">
+                <%= link_to user_facebook_omniauth_authorize_path, class: "btn btn-block btn-social btn-facebook" do %>
                   <span class="fab fa-facebook"></span> Facebook
-                </a>
+                <% end %>
               </div>
               <div class="col-6">
-                <a class="btn btn-block btn-social btn-wechat">
-                  <span class="fab fa-weixin"></span> Wechat
-                </a>                                
+                <%= link_to user_google_oauth2_omniauth_authorize_path, class: "btn btn-block btn-social btn-google" do %>
+                  <span class="fab fa-google"></span> Google
+                <% end %>                              
               </div>
             </div>
 

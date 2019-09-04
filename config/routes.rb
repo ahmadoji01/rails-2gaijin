@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :products
-  devise_for :users, controllers: { sessions: 'users/sessions', registrations: 'users/registrations' }, path: '', path_names: { sign_in: "login", sign_out: "logout" }
+  devise_for :users, controllers: { sessions: 'users/sessions', registrations: 'users/registrations', omniauth_callbacks: 'users/omniauth_callbacks' }, path: '', path_names: { sign_in: "login", sign_out: "logout" }
   root "home#index"
   resource :products
 

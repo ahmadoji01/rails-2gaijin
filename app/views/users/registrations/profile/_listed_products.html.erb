@@ -10,13 +10,48 @@
                     <th>Preview Products</th>
                     <!-- <th scope="col">Product's Name</th> -->
                     <th class="text-center">Status</th>
-                    <th class="text-center">Quantity</th>
+                    <!--<th class="text-center">Quantity</th>-->
                     <th class="text-center">Price</th>
                     <th class="text-center">Action</th>
                 </tr>
             </thead>
             <tbody>
                 <br>
+                <% if @products.count > 0 %>
+                    <% @products.each do |product| %>
+                    <tr>
+                        <td>
+                            <a href="#" style="text-decoration: none; color: inherit;">
+                                <div class="media m-2">
+                                    <% if product.image? %>
+                                        <%= image_tag product.image.url, class: "img-thumbnail align-content-start mr-3", alt: "image" %>
+                                    <% else %>
+                                        <%= image_tag "products/product-1-50.png", class: "img-thumbnail align-content-start mr-3", alt: "image" %>
+                                    <% end %>
+                                    <div class="media-body">
+                                        <%= link_to product_path(product) do %>
+                                            <h5 class="mt-0"><%= product.name %></h5>
+                                        <% end %>
+                                        <!-- <p>Simple Description</p> -->
+                                    </div>
+                                </div>
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <span class="badge badge-success">Available</span>
+                        </td>
+                        <!-- <td class="text-center">2</td> -->
+                        <td class="text-center"><span class="currency">&#165;</span><%= product.price %></td>
+                        <td>
+                            <center>
+                                <button class="btn btn-outline-primary btn-icon icon-left"><i class="fa fa-edit"></i> Edit</button>
+                                <button class="btn btn-outline-danger btn-icon icon-left"><i class="fa fa-trash"></i> Delete</button>
+                            </center>
+                        </td>
+                    </tr>
+                    <% end %>
+                    <%= paginate @products %>
+                <% end %>
                 <tr>
                     <td>
                         <a href="#" style="text-decoration: none; color: inherit;">
@@ -32,7 +67,7 @@
                     <td class="text-center">
                         <span class="badge badge-success">Available</span>
                     </td>
-                    <td class="text-center">2</td>
+                    <!-- <td class="text-center">2</td> -->
                     <td class="text-center"><span class="currency">&#165;</span>100</td>
                     <td>
                         <center>
@@ -54,9 +89,10 @@
                         </a>
                     </td>
                     <td class="text-center">
-                        <span class="badge badge-secondary">Sold</span>
+                        <span class="badge badge-success">Available</span>
+                        <!-- <span class="badge badge-secondary">Sold</span> -->
                     </td>
-                    <td class="text-center">2</td>
+                    <!-- <td class="text-center">2</td> -->
                     <td class="text-center"><span class="currency">&#165;</span>100</td>
                     <td>
                         <center>
@@ -78,9 +114,10 @@
                         </a>
                     </td>
                     <td class="text-center">
-                        <span class="badge badge-danger">Empty</span>
+                        <span class="badge badge-success">Available</span>
+                        <!-- <span class="badge badge-danger">Empty</span> -->
                     </td>
-                    <td class="text-center">0</td>
+                    <!-- <td class="text-center">0</td> -->
                     <td class="text-center"><span class="currency">&#165;</span>100</td>
                     <td>
                         <center>

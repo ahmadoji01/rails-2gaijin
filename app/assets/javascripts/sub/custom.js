@@ -50,6 +50,6 @@ var cleave = new Cleave('.currency', {
 //         }
 //     });
 
-$('#checkoutModal').modal('toggle');
+//$('#checkoutModal').modal('toggle');
 
 

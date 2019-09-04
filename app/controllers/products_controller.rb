@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :redirect_if_no_session
+  before_action :redirect_if_no_session, only: [:edit, :update, :destroy]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   # GET /products
