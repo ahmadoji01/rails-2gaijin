@@ -64,12 +64,26 @@
         <li class="dropdown dropdown-list-toggle">
             <a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle beep"><i class="fa fa-shopping-cart"></i>
             <!-- <span class="d-none d-lg-block">Packages</span> -->
-            <span class="badge badge-warning">2</span>
+            <span class="badge badge-warning" id="notifications-count">2</span>
       </a>
             <div class="dropdown-menu dropdown-list dropdown-menu-right">
                 <div class="dropdown-header">Packages
                 </div>
-                <div class="dropdown-list-content dropdown-list-message">
+                <div class="dropdown-list-content dropdown-list-message" id="notification">
+                    <% Notification.all.each do |notification| %>
+                        <a href="#" class="dropdown-item">
+                            <div class="dropdown-item-avatar">
+                                <%= image_tag "products/product-3-50.png", class: "rounded-circle", width: "30", alt: "image" %>
+                            </div>
+                            <div class="dropdown-item-desc">
+                                <b><%= notification.name %></b>
+                                <div class="float-right">
+                                    <i class="fa fa-trash"></i>
+                                </div>
+                                <div class="time">10 Hours Ago</div>
+                            </div>
+                        </a>
+                    <% end %>
                     <a href="#" class="dropdown-item">
                         <div class="dropdown-item-avatar">
                             <%= image_tag "products/product-3-50.png", class: "rounded-circle", width: "30", alt: "image" %>
