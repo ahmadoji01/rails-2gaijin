@@ -25,10 +25,10 @@
                                     <%= render partial: 'rooms' %>
                                 </div>
                                 <div class="mesgs">
-                                    <div class="msg_history">
+                                    <div class="msg_history" data-channel-subscribe="room" data-room-id="<%= @room.id %>">
                                         <% @room_messages.each do |room_message| %>
                                             <div class="incoming_msg">
-                                                <div class="incoming_msg_img"> <%= image_tag "avatar/avatar-1.png", class: "rounded-circle" %> </div>
+                                                <div class="incoming_msg_img"> <%= image_tag room_message.user.gravatar_url, class: "rounded-circle" %> </div>
                                                 <div class="received_msg">
                                                     <div class="received_withd_msg">
                                                         <p><%= room_message.message %></p>
@@ -58,6 +58,20 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-none" data-role="message-template">
+    <div class="incoming_msg">
+        <div class="incoming_msg_img" data-role="user-avatar">
+            <img src="" class="rounded-circle" data-role="user-avatar"> 
+        </div>
+        <div class="received_msg">
+            <div class="received_withd_msg">
+                <p data-role="message-text"></p>
+                <span class="time_date" data-role="message-date"></span>
             </div>
         </div>
     </div>
