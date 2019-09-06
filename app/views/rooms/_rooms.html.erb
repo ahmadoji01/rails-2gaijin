@@ -1,0 +1,54 @@
+<div class="inbox_chat">
+	<% if @rooms.present? %>
+		<% @rooms.each do |room| %>
+        	<%= link_to room_path(room) do %>
+                <% if @room.present? %>
+                    <% if room.id == @room.id %>
+                        <div class="chat_list active_chat">
+                    <% else %>
+    				    <div class="chat_list">
+                    <% end %>
+                <% else %>
+                    <div class="chat_list">
+                <% end %>
+                    <div class="chat_people">
+                        <div class="chat_img"> <%= image_tag "avatar/avatar-1.png", class: "rounded-circle" %> </div>
+                        <div class="chat_ib">
+                            <h5>
+                                <%= room.name %>
+                                <!-- <div class=" text-small font-600-bold text-muted" style="float: right;">
+                                    <i class="fas fa-circle"></i> Offline
+                                </div> -->
+                            </h5>
+                            <small>July 27</small>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+		<% end %>
+	<% else %>
+		<div class="text-muted">
+        	The are no rooms
+    	</div>
+	<% end %>
+    <!-- <div class="chat_list active_chat">
+        <div class="chat_people">
+            <div class="chat_img">
+            	<%= image_tag "avatar/avatar-1.png", class: "rounded-circle" %>
+            </div>
+            <div class="chat_ib">
+                <h5>
+                    Bekti Galan
+                    <div class="text-success text-small font-600-bold" style="float: right;">
+                        <i class="fas fa-circle"></i> Online
+                    </div>
+                </h5>
+                <small>August 2</small>
+            </div>
+        </div>
+    </div> -->
+    
+</div>
+<%= link_to new_room_path, class: "btn btn-primary", style: "width: 100%" do %>
+	Create a room
+<% end %>

@@ -48,7 +48,12 @@
                                 <!-- <a href="#" class="btn  btn-primary"> Buy now </a>
                                 <a href="#" class="btn  btn-outline-primary"> <i class="fas fa-shopping-cart"></i> Add to cart </a> -->
                                 <% if current_user != @product.user %> 
-                                    <a href="#" class="btn  btn-outline-primary"> <i class="fas fa-phone"></i> Contact Seller </a>
+                                    <%= form_tag contact_seller_rooms_path, method: :post do %>
+                                        <input id="seller_id" type="hidden" name="seller_id" value="<%= @product.user.id %>">
+                                        <%= button_tag type: "submit", class: "btn btn-outline-primary" do %> 
+                                            <i class="fas fa-phone"></i> Contact Seller
+                                        <% end %> 
+                                    <% end %>
                                 <% end %>
                             </article>
                         </aside>
