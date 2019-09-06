@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
   resources :room_messages
-  resources :rooms
+  
+  resources :rooms do
+    collection do
+      post 'contact_seller'
+    end
+  end
+
   resources :notifications
   resources :products
   devise_for :users, controllers: { sessions: 'users/sessions', registrations: 'users/registrations', omniauth_callbacks: 'users/omniauth_callbacks' }, path: '', path_names: { sign_in: "login", sign_out: "logout" }
