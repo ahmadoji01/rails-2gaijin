@@ -1,0 +1,106 @@
+<div class="main-content" style="width: 100%;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <center><h3>Advanced Search</h3></center>
+                    </div>
+                    <div class="card-body">
+                    	<%= form_tag search_page_path, method: :get do %>
+                            <!--<div class="form-group">
+                                        <div class=" form-inline">
+                                            <input type="checkbox" class="custom-checkbox" name="enable-price" />
+                                            <label>Minimum Price</label>
+                                            <input type="text" class="form-control" placeholder="Rp. 0" name="">
+                                        </div>
+                                        <input type="range" class="custom-range" min="0" max="10" step="0.5" name="price" />
+                                    </div> -->
+
+                            <div class="form-group">
+                                <label>Price</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            ¥
+                                        </div>
+                                    </div>
+                                    <%= number_field_tag :minprice, params[:minprice], placeholder: "Minimum", class: "form-control currency" %>
+                                </div>
+                                <br/>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            ¥
+                                        </div>
+                                    </div>
+                                    <%= number_field_tag :maxprice, params[:maxprice], placeholder: "Maximum", class: "form-control currency" %>
+                                </div>
+                            </div>
+                            <!-- <div class="form-group">
+                                <label>Categories</label>
+                                <select class="form-control" id="select2" multiple="">
+                                    <option>Food</option>
+                                    <option>Kitchen</option>
+                                    <option>Games</option>
+                                    <option>Books</option>
+                                    <option>Home</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Condition</label>
+                                <select class="form-control" id="condition" multiple="">
+                                    <option>New</option>
+                                    <option>Second</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Location</label>
+                                <select class="form-control" id="city">
+                                    <option>Tokyo</option>
+                                    <option>Hokkaido</option>
+                                    <option>Nagawa</option>
+                                    <option>Okinawa</option>
+                                </select>
+                            </div> -->
+                            <%= button_tag "", class: "btn btn-primary btn-icon icon-left float-right", :name => nil do %>
+                            	<i class="fa fa-search"></i> Find Something
+                            <% end %>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-sm-12">
+                <div class="card">
+                    <div class="card-header"><h2>Result</h2></div>
+                    <div class="card-body">
+                            <div class="row">
+                            	<% if @products.count > 0 %>
+			                        <% @products.each do |product| %>
+			                            <div class="col-lg-3 col-md-3 col-sm-3 mx-auto">
+			                                <div class="card">
+			                                    <% if product.image? %>
+			                                        <%= image_tag product.image.url, class: "card-img-top", alt: "image", style: "object-fit: cover;" %>
+			                                    <% else %>
+			                                        <%= image_tag "products/product-1-50.png", class: "card-img-top", alt: "image", style: "object-fit: cover;" %>
+			                                    <% end %>
+			                                    
+			                                    <div class="card-body">
+			                                        <h5 class="card-title"><%= product.name %></h5>
+			                                        <p class="card-text">&#165;<%= product.price %></p>
+			                                        <%= link_to 'Detail', product_path(product), class: "btn btn-primary" %> 
+			                                    </div>
+			                                </div>
+			                            </div>
+			                        <% end %>
+			                        <%= paginate @products %>
+			                    <% end %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

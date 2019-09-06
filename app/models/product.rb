@@ -2,6 +2,8 @@ class Product
   include Mongoid::Document
   include SimpleEnum::Mongoid
 
+  searchkick
+
   paginates_per 8
 
   field :name, type: String

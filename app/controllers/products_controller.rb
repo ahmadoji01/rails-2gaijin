@@ -16,6 +16,7 @@ class ProductsController < ApplicationController
   # GET /products/new
   def new
     @product = Product.new
+    Product.reindex
   end
 
   # GET /products/1/edit
