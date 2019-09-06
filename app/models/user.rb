@@ -32,6 +32,7 @@ class User
 
   has_many :orders
   has_many :user_addresses
+  has_and_belongs_to_many :rooms
 
   ## Trackable
   # field :sign_in_count,      type: Integer, default: 0

@@ -48,7 +48,9 @@
                                 <!-- <a href="#" class="btn  btn-primary"> Buy now </a>
                                 <a href="#" class="btn  btn-outline-primary"> <i class="fas fa-shopping-cart"></i> Add to cart </a> -->
                                 <% if current_user != @product.user %> 
-                                    <a href="#" class="btn  btn-outline-primary"> <i class="fas fa-phone"></i> Contact Seller </a>
+                                    <%= link_to {:controller => "room", :action => "contact_seller_room", :seller_id => @product.user.id } %> 
+                                        <i class="fas fa-phone"></i> Contact Seller 
+                                    <% end %>
                                 <% end %>
                             </article>
                         </aside>

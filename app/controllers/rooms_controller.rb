@@ -3,7 +3,7 @@ class RoomsController < ApplicationController
   before_action :load_entities
 
   def index
-  	@rooms = Room.all
+    @rooms = Room.where()
   end
 
   def new
@@ -12,6 +12,7 @@ class RoomsController < ApplicationController
 
   def create
     @room = Room.new permitted_parameters
+    @room.users << current_user
 
     if @room.save
       flash[:success] = "Room #{@room.name} was created successfully"
@@ -22,6 +23,10 @@ class RoomsController < ApplicationController
   end
 
   def edit
+  end
+
+  def contact_seller_room
+
   end
 
   def update
@@ -46,7 +51,7 @@ class RoomsController < ApplicationController
   end
 
   def permitted_parameters
-    params.require(:room).permit(:name)
+    params.require(:room).permit(:name, :room_type, :seller_id)
   end
 
 end
