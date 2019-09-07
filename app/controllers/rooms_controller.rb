@@ -29,8 +29,9 @@ class RoomsController < ApplicationController
     @seller_user = User.find(id: params[:seller_id])
     @buyer_user = User.find(id: current_user.id)
 
-    @room = Room.find_by(room_type_cd: 0, user_ids: [@buyer_user.id, @seller_user.id])
+    @room = Room.where(room_type_cd: 0, user_ids: [@buyer_user.id, @seller_user.id])
     if @room.present?
+      @room = Room.find_by(room_type_cd: 0, user_ids: [@buyer_user.id, @seller_user.id])
       redirect_to @room
     else
       @newroom = Room.new

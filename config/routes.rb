@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get '/search', :to => 'search#index', :as => 'search_page'
   resources :room_messages
   
   resources :rooms do

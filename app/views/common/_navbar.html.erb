@@ -32,10 +32,12 @@
                 </div>
             </li>
         </ul>
-    <form class="form-inline mr-auto">
+    <%= form_tag search_page_path, method: :get, class: "form-inline mr-auto" do %>
         <div class="search-element">
-            <input class="form-control" type="search" placeholder="Search" aria-label="Search" style="width: 20vw;">
-            <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+            <%= search_field_tag :q, params[:q], class: "form-control", placeholder: "Search", :"aria-label" => "Search", style: "width: 20vw;" %>
+            <%= button_tag "", class: "btn", :name => nil do %>
+                <i class="fas fa-search"></i>
+            <% end %>
             <div class="search-backdrop"></div>
             <div class="search-result">
                 <div class="search-header">
@@ -59,7 +61,7 @@
                 </div>
             </div>
         </div>
-    </form>
+    <% end %>
     <ul class="navbar-nav navbar-right">
         <li class="dropdown dropdown-list-toggle">
             <a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle beep"><i class="fa fa-shopping-cart"></i>

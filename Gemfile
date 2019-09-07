@@ -45,6 +45,7 @@ gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem "browserify-rails"
 gem 'redis', '~> 4.0'
+gem 'searchkick'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
