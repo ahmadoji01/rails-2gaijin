@@ -8,6 +8,7 @@
                     </div>
                     <div class="card-body">
                     	<%= form_tag search_page_path, method: :get do %>
+                            <%= hidden_field_tag :q, params[:q] %>
                             <!--<div class="form-group">
                                         <div class=" form-inline">
                                             <input type="checkbox" class="custom-checkbox" name="enable-price" />

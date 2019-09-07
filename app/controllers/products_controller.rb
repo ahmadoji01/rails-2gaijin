@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   before_action :redirect_if_no_session, only: [:edit, :update, :destroy]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:show]
 
   # GET /products
   # GET /products.json
@@ -16,7 +17,6 @@ class ProductsController < ApplicationController
   # GET /products/new
   def new
     @product = Product.new
-    Product.reindex
   end
 
   # GET /products/1/edit
