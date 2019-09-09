@@ -35,7 +35,7 @@
     <%= form_tag search_page_path, method: :get, class: "form-inline mr-auto" do %>
         <div class="search-element">
             <%= search_field_tag :q, params[:q], class: "form-control", placeholder: "Search", :"aria-label" => "Search", style: "width: 20vw;" %>
-            <%= button_tag "", class: "btn", :name => nil do %>
+            <%= button_tag type: "submit", class: "btn", :name => nil do %>
                 <i class="fas fa-search"></i>
             <% end %>
             <div class="search-backdrop"></div>

@@ -35,13 +35,13 @@
                                 </dl>
                                 <dl class="row">
                                     <dt class="col-sm-3">Category</dt>
-                                    <dd class="col-sm-9">Electronics</dd>
+                                    <dd class="col-sm-9"><% @product.categories.each do |category| %><%= category.name %> <% end %></dd>
                                     <dt class="col-sm-3">Location</dt>
                                     <dd class="col-sm-9">Surabaya, Jawa Timur</dd>
                                 </dl>
                                 <dl>
                                     <dd>
-                                        <small>Updated in 3 minutes</small>
+                                        <small id="updated_at">Updated </small>
                                     </dd>
                                 </dl>
                                 <hr>

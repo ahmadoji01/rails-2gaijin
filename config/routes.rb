@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  
+  resources :addresses do
+    collection do
+      post 'set_primary'
+    end
+  end
+
+  resources :categories
+  get 'category/add'
   get '/search', :to => 'search#index', :as => 'search_page'
   resources :room_messages
   

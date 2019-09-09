@@ -46,6 +46,9 @@ gem 'omniauth-google-oauth2'
 gem "browserify-rails"
 gem 'redis', '~> 4.0'
 gem 'searchkick'
+gem 'mongoid-ancestry'
+gem 'rails-assets-sweetalert2'
+gem 'sweet-alert2-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

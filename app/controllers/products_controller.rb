@@ -17,6 +17,7 @@ class ProductsController < ApplicationController
   # GET /products/new
   def new
     @product = Product.new
+    @categories = Category.all
   end
 
   # GET /products/1/edit
@@ -30,6 +31,13 @@ class ProductsController < ApplicationController
     @product.user = current_user
     @product.created_at = DateTime.now
     @product.updated_at = DateTime.now
+
+    categories = params[:categories]
+
+    categories.each do |category|
+      cat = Category.find(category)
+      @product.categories << cat
+    end
 
     respond_to do |format|
       if @product.save
@@ -45,6 +53,17 @@ class ProductsController < ApplicationController
   # PATCH/PUT /products/1
   # PATCH/PUT /products/1.json
   def update
+
+    @product.categories = []
+    categories = params[:product][:categories]
+
+    categories.each do |category|
+      if !category.blank?
+        cat = Category.find(category)
+        @product.categories << cat
+      end
+    end
+
     respond_to do |format|
       if @product.update(product_params)
         format.html { redirect_to @product, notice: 'Product was successfully updated.' }
@@ -74,7 +93,7 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:name, :description, :price, :created_at, :updated_at, :image)
+      params.require(:product).permit(:name, :description, :price, :created_at, :updated_at, :image, :categories)
     end
 
     def redirect_if_no_session
