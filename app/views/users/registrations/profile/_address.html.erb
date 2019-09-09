@@ -1,34 +1,50 @@
 <div class="tab-pane" id="shipping-address" role="tabpanel" aria-labelledby="shipping-address">
     <div class="col-12">
         <div class="mb-2">
-            <button class="btn btn-primary btn-lg btn-icon icon-left"><i class="fa fa-plus"></i> Add New Address</button>
+            <button class="btn btn-primary btn-lg btn-icon icon-left" data-toggle="modal" data-target="#Modal<%= @newaddress.id %>"><i class="fa fa-plus"></i> Add New Address</button>
         </div>
         <hr>
         <table class="table">
             <thead style="color: none;">
                 <tr>
-                    <th width="200px">Receiver</th>
                     <!-- <th scope="col">Product's Name</th> -->
                     <th class="text-center" width="300px">Address</th>
                     <th class="text-center">District</th>
+                    <th class="text-center">Primary</th>
                     <th class="text-center">Action</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Bekti Galan</td>
-                    <td><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua.</p></td>
-                    <td class="text-center">Hokkaido, Japan</td>
-                    <td>
-                        <center>
-                            <button class="btn btn-outline-primary btn-icon icon-left"><i class="fa fa-edit"></i> Edit</button>
-                            <button class="btn btn-outline-danger btn-icon icon-left"><i class="fa fa-trash"></i> Delete</button>
-                        </center>
-                    </td>
-                </tr>
+                <% @addresses.each do |address| %>
+                    <tr>
+                        <td><p><%= address.full_address %> <%= address.apartment %></p></td>
+                        <td class="text-center"><%= address.city %>, <%= address.state %> 〒<%= address.postal_code %></td>
+                        <td class="text-center">
+                            <% if !address.is_primary %>
+                                <%= form_tag set_primary_addresses_path, method: :post do %>
+                                    <input id="address_id" type="hidden" name="address_id" value="<%= address.id %>">
+                                    <%= button_tag type: "submit", class: "btn btn-outline-primary btn-icon icon-left" do %> 
+                                        <i class="fas fa-phone"></i> Set As Primary
+                                    <% end %> 
+                                <% end %>
+                            <% else %>
+                                <span class="badge badge-success">Primary Address</span>
+                            <% end %>
+                        </td>
+                        <td>
+                            <center>
+                                <button class="btn btn-outline-primary btn-icon icon-left" data-toggle="modal" data-target="#Modal<%= address.id %>"><i class="fa fa-edit"></i> Edit</button>
+                                <%= link_to address, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                                    <button class="btn btn-outline-danger btn-icon icon-left"><i class="fa fa-trash"></i> Delete</button>
+                                <% end %>
+                            </center>
+                        </td>
+                    </tr>
+                    <%= render 'addresses/address_modal', a: address %>
+                <% end %>
             </tbody>
         </table>
         <hr>
+        <%= render 'addresses/address_modal', a: @newaddress %>
     </div>                                
 </div>

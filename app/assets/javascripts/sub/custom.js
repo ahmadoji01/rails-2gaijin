@@ -2,6 +2,7 @@
 
 $(document).ready(function() {
     $('#select2').select2();
+    $('.multiselect2').select2();
 });
 
 $(document).ready(function() {
@@ -51,5 +52,3 @@ var cleave = new Cleave('.currency', {
 //     });
 
 //$('#checkoutModal').modal('toggle');
-
-

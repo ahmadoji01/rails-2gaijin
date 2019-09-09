@@ -24,18 +24,13 @@
     								<%= form.text_field :name, class: "form-control", style: "width: 200px" %>
                                 </div>
                             </div>
-                            <!-- <div class="row">
+                            <div class="row">
                                 <div class="form-group form-inline">
                                     <label style="width: 190px;">Categories</label>
-                                    <select class="form-control" id="select2" multiple="" style="width: 300px;">
-                                        <option>Category 1</option>
-                                        <option>Category 2</option>
-                                        <option>Category 3</option>
-                                        <option>Category 4</option>
-                                    </select>
+                                    <%= select_tag :categories, options_from_collection_for_select(@categories, "id", "name"), { multiple: true, id: "select2", class: "form-control", style: "width: 300px;" } %>
                                 </div>
                             </div>
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="form-group form-inline">
                                     <label style="width: 190px;">District</label>
                                     <select class="form-control" id="city" multiple="" style="width: 300px;">

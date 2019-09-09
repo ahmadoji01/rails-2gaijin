@@ -31,7 +31,7 @@ class User
   field :uid,                     type: String
 
   has_many :orders
-  has_many :user_addresses
+  has_many :addresses
   has_and_belongs_to_many :rooms
 
   ## Trackable

@@ -15,4 +15,6 @@
 //= require jquery3
 //= require popper
 //= require bootstrap
+//= require sweetalert2
+//= require sweet-alert2-rails
 //= require_tree .
