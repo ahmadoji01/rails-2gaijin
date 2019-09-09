@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :orders
   resources :addresses do
     collection do
       post 'set_primary'
@@ -8,9 +9,11 @@ Rails.application.routes.draw do
 
   resources :categories
   get 'category/add'
-  get '/search', :to => 'search#index', :as => 'search_page'
-  resources :room_messages
   
+  get '/search', :to => 'search#index', :as => 'search_page'
+  get '/dashboard', :to => 'dashboard#index'
+
+  resources :room_messages
   resources :rooms do
     collection do
       post 'contact_seller'
