@@ -32,112 +32,213 @@
                 </div>
             </li>
         </ul>
-    <%= form_tag search_page_path, method: :get, class: "form-inline mr-auto" do %>
-        <div class="search-element">
-            <%= search_field_tag :q, params[:q], class: "form-control", placeholder: "Search", :"aria-label" => "Search", style: "width: 20vw;" %>
-            <%= button_tag type: "submit", class: "btn", :name => nil do %>
-                <i class="fas fa-search"></i>
-            <% end %>
-            <div class="search-backdrop"></div>
-            <div class="search-result">
-                <div class="search-header">
-                    Result
-                </div>
-                <div class="search-item">
-                    <a href="#">Television</a>
-                    <a href="#" class="search-close"><i class="fas fa-times"></i></a>
-                </div>
-                <div class="search-item">
-                    <a href="#">SOLD</a>
-                    <a href="#" class="search-close"><i class="fas fa-times"></i></a>
-                </div>
-                <div class="search-header">
-                    Result
-                </div>
-                <div class="search-item">
-                    <a href="#">
-                        <%= image_tag "products/product-3-50.png", class: "mr-3 rounded", width: "30", alt: "product" %> iPhone 7s 2nd Fullset like new
-                    </a>
-                </div>
-            </div>
-        </div>
-    <% end %>
-    <ul class="navbar-nav navbar-right">
-        <li class="dropdown dropdown-list-toggle">
-            <a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle beep"><i class="fa fa-shopping-cart"></i>
-            <!-- <span class="d-none d-lg-block">Packages</span> -->
-            <span class="badge badge-warning" id="notifications-count">2</span>
-      </a>
-            <div class="dropdown-menu dropdown-list dropdown-menu-right">
-                <div class="dropdown-header">Packages
-                </div>
-                <div class="dropdown-list-content dropdown-list-message" id="notification">
-                    <% Notification.all.each do |notification| %>
-                        <a href="#" class="dropdown-item">
-                            <div class="dropdown-item-avatar">
-                                <%= image_tag "products/product-3-50.png", class: "rounded-circle", width: "30", alt: "image" %>
-                            </div>
-                            <div class="dropdown-item-desc">
-                                <b><%= notification.name %></b>
-                                <div class="float-right">
-                                    <i class="fa fa-trash"></i>
-                                </div>
-                                <div class="time">10 Hours Ago</div>
-                            </div>
+        <%= form_tag search_page_path, method: :get, class: "form-inline mr-auto" do %>
+            <div class="search-element">
+                <%= search_field_tag :q, params[:q], class: "form-control", placeholder: "Search", :"aria-label" => "Search", style: "width: 20vw;" %>
+                <%= button_tag type: "submit", class: "btn", :name => nil do %>
+                    <i class="fas fa-search"></i>
+                <% end %>
+                <div class="search-backdrop"></div>
+                <div class="search-result">
+                    <div class="search-header">
+                        Result
+                    </div>
+                    <div class="search-item">
+                        <a href="#">Television</a>
+                        <a href="#" class="search-close"><i class="fas fa-times"></i></a>
+                    </div>
+                    <div class="search-item">
+                        <a href="#">SOLD</a>
+                        <a href="#" class="search-close"><i class="fas fa-times"></i></a>
+                    </div>
+                    <div class="search-header">
+                        Result
+                    </div>
+                    <div class="search-item">
+                        <a href="#">
+                            <%= image_tag "products/product-3-50.png", class: "mr-3 rounded", width: "30", alt: "product" %> iPhone 7s 2nd Fullset like new
                         </a>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+            <ul class="navbar-nav navbar-right">
+                <li class="dropdown dropdown-list-toggle">
+                    <% if user_signed_in? %>
+                    <a href="#" id="package-notif-beep" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle"><i class="fa fa-shopping-cart"></i>
+                        <!-- <span class="d-none d-lg-block">Packages</span> -->
+                            <span id="package-notif-num" class="d-none d-lg-inline badge badge-warning">2</span>
+                    <% else %>
+                    <a href="#" id="package-notif-beep" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle"><i class="fa fa-shopping-cart"></i> 
                     <% end %>
-                    <a href="#" class="dropdown-item">
-                        <div class="dropdown-item-avatar">
-                            <%= image_tag "products/product-3-50.png", class: "rounded-circle", width: "30", alt: "image" %>
-                        </div>
-                        <div class="dropdown-item-desc">
-                            <b>Laptop Lenovo G405</b>
-                            <div class="float-right">
-                                <i class="fa fa-trash"></i>
-                            </div>
-                            <div class="time">10 Hours Ago</div>
-                        </div>
                     </a>
-                    <a href="#" class="dropdown-item">
-                        <div class="dropdown-item-avatar">
-                            <%= image_tag "products/product-1-50.png", class: "rounded-circle", width: "30", alt: "image" %>
+                    <div class="dropdown-menu dropdown-list dropdown-menu-right">
+                        <div class="dropdown-header">Packages
                         </div>
-                        <div class="dropdown-item-desc">
-                            <b>Test Product's Name</b>
-                            <div class="float-right">
-                                <i class="fa fa-trash"></i>
-                            </div>
-                            <div class="time">2 Hours Ago</div>
+                        <% if user_signed_in? %>
+                        <div class="dropdown-list-content dropdown-list-message" id="notification">
+                            <% Notification.all.each do |notification| %>
+                                <a href="#" class="dropdown-item">
+                                    <div class="dropdown-item-avatar">
+                                        <%= image_tag "products/product-3-50.png", class: "rounded-circle", width: "30", alt: "image" %>
+                                    </div>
+                                    <div class="dropdown-item-desc">
+                                        <b><%= notification.name %></b>
+                                        <div class="float-right">
+                                            <i class="fa fa-trash"></i>
+                                        </div>
+                                        <div class="time">10 Hours Ago</div>
+                                    </div>
+                                </a>
+                            <% end %>
+                            <a href="#" class="dropdown-item">
+                                <div class="dropdown-item-avatar">
+                                    <%= image_tag "products/product-3-50.png", class: "rounded-circle", width: "30", alt: "image" %>
+                                </div>
+                                <div class="dropdown-item-desc">
+                                    <b>Laptop Lenovo G405</b>
+                                    <div class="float-right">
+                                        <i class="fa fa-trash"></i>
+                                    </div>
+                                    <div class="time">10 Hours Ago</div>
+                                </div>
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <div class="dropdown-item-avatar">
+                                    <%= image_tag "products/product-1-50.png", class: "rounded-circle", width: "30", alt: "image" %>
+                                </div>
+                                <div class="dropdown-item-desc">
+                                    <b>Test Product's Name</b>
+                                    <div class="float-right">
+                                        <i class="fa fa-trash"></i>
+                                    </div>
+                                    <div class="time">2 Hours Ago</div>
+                                </div>
+                            </a>
                         </div>
+                        <div class="dropdown-footer text-center">
+                            <a href="#" data-toggle="modal" data-target="#checkoutModal">Checkout <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                        <% end %>
+                    </div>
+                </li>
+                <li id="msg-nav" class="dropdown dropdown-list-toggle">
+                    <% if user_signed_in? %>
+                    <a href="#" id="msg-notif-beep" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle"><i class="far fa-envelope"></i>
+                        <!-- <span class="d-none d-lg-block">Packages</span> -->
+                            <span id="msg-notif-num" class="d-none d-lg-inline badge badge-primary"><%= Room.where(:is_read => false).and(:user_ids => current_user.id).count %></span>
+                    <% else %>
+                    <a href="#" id="msg-notif-beep" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle"><i class="far fa-envelope"></i>
+                    <% end %>
                     </a>
-                </div>
-                <div class="dropdown-footer text-center">
-                    <a href="#" data-toggle="modal" data-target="#checkoutModal">Checkout <i class="fas fa-chevron-right"></i></a>
-                </div>
-            </div>
-        </li>
-        <li class="dropdown">
-            <% if user_signed_in? %>
-                <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                    <%= image_tag "avatar/avatar-1.png", class: "rounded-circle mr-1", alt: "image" %>
-                    <div class="d-none d-lg-inline-block">Hi, <%= current_user.first_name %></div>
-                </a> 
-            <div class="dropdown-menu dropdown-menu-right">
-                <!-- <div class="dropdown-title d-inline-block">Hi, Bekti</div> -->
-                <!--<div class="dropdown-title"><small>Logged in 5 min ago</small></div>-->
-                <a href="./profile" class="dropdown-item has-icon">
-                    <i class="far fa-user"></i> Profile
-                </a>
-                <div class="dropdown-divider"></div>
-                <%= link_to destroy_user_session_path, :method => :delete, :class => "dropdown-item has-icon text-danger" do %>
-                    <i class="fas fa-sign-out-alt"></i>Logout
-                <% end %>
-            </div>
-            <% else %>
-                <%- if controller_name != 'sessions' %>
-                    <%= link_to "Log in", new_user_session_path, class: "btn btn-primary btn-lg" %>
-                <% end %>
-            <% end %>
-        </li>
-    </ul>
+                    <div class="dropdown-menu dropdown-list dropdown-menu-right">
+                        <div class="dropdown-header">Message
+                        </div>
+                        <% if user_signed_in? %>
+                        <div class="dropdown-list-content dropdown-list-message" id="notification">
+                            <% Room.where(:user_ids => current_user.id).order_by(last_active: :desc).limit(4).each do |room| %>
+                                <a href="<%= room_path(room) %>" class="dropdown-item" data-room-order="">
+                                    <div class="dropdown-item-avatar">
+                                        <%= image_tag "avatar/avatar-2.png", class: "rounded-circle", width: "30", alt: "image" %>
+                                    </div>
+                                    <div class="dropdown-item-desc">
+                                        <b><%= room.name %></b>
+                                        <div class="float-right">
+                                            <i class="fa fa-inbox"></i>
+                                        </div>
+                                        <div class="msg_time"><%= room.room_messages.last.created_at %></div>
+                                    </div>
+                                </a>
+                            <% end %>
+                        </div>
+                        <div class="dropdown-footer text-center">
+                            <%= link_to rooms_path do %>
+                                All Messages <i class="fas fa-chevron-right"></i>
+                            <% end %>
+                        </div>
+                        <% end %>
+                    </div>
+                </li>
+                <li class="dropdown dropdown-list-toggle">
+                    <% if user_signed_in? %>
+                    <a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle"><i class="far fa-bell"></i>
+                        <!-- <span class="d-none d-lg-block">Packages</span> -->
+                        <span class="d-none d-lg-inline badge badge-warning">2</span>
+                    <% else %>
+                    <a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle"><i class="far fa-bell"></i>
+                    <% end %>
+                    </a>
+                    <div class="dropdown-menu dropdown-list dropdown-menu-right">
+                        <div class="dropdown-header">Notification
+                        </div>
+                        <% if user_signed_in? %>
+                        <div class="dropdown-list-content dropdown-list-message" id="notification">
+                            <% Notification.all.each do |notification| %>
+                                <a href="#" class="dropdown-item">
+                                    <div class="dropdown-item-avatar">
+                                        <%= image_tag "products/product-3-50.png", class: "rounded-circle", width: "30", alt: "image" %>
+                                    </div>
+                                    <div class="dropdown-item-desc">
+                                        <b><%= notification.name %></b>
+                                        <div class="float-right">
+                                            <i class="fa fa-trash"></i>
+                                        </div>
+                                        <div class="time">10 Hours Ago</div>
+                                    </div>
+                                </a>
+                            <% end %>
+                            <a href="#" class="dropdown-item">
+                                <div class="dropdown-item-avatar">
+                                    <%= image_tag "products/product-3-50.png", alt: "image", class: "rounded-circle" %>
+                                </div>
+                                <div class="dropdown-item-desc">
+                                    <b>Bekti Galan</b>
+                                    <div class="float-right">
+                                        <i class="fa fa-reply" title="Reply"></i>
+                                        <i class="fa fa-check" title="Mark As Read"></i>
+                                    </div>
+                                    <div class="time">10 Hours Ago</div>
+                                </div>
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <div class="dropdown-item-avatar">
+                                    <%= image_tag "products/product-1-50.png", class: "rounded-circle", width: "30", alt: "image" %>
+                                </div>
+                                <div class="dropdown-item-desc">
+                                    <b>Test Product's Name</b>
+                                    <div class="float-right">
+                                        <i class="fa fa-trash"></i>
+                                    </div>
+                                    <div class="time">2 Hours Ago</div>
+                                </div>
+                            </a>
+                        </div>
+                        <% end %>
+                    </div>
+                </li>
+                <li class="dropdown d-none d-lg-flex">
+                    <% if user_signed_in? %>
+                        <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                            <%= image_tag "avatar/avatar-1.png", class: "rounded-circle mr-1", alt: "image" %>
+                            <div class="d-none d-lg-inline-block">Hi, <%= current_user.first_name %></div>
+                        </a> 
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <div class="dropdown-title d-inline-block">Hi, <%= current_user.first_name %></div>
+                        <!-- <div class="dropdown-title d-inline-block">Hi, Bekti</div> -->
+                        <!--<div class="dropdown-title"><small>Logged in 5 min ago</small></div>-->
+                        <a href="./profile" class="dropdown-item has-icon">
+                            <i class="far fa-user"></i> Profile
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <%= link_to destroy_user_session_path, :method => :delete, :class => "dropdown-item has-icon text-danger" do %>
+                            <i class="fas fa-sign-out-alt"></i>Logout
+                        <% end %>
+                    </div>
+                    <% else %>
+                        <%- if controller_name != 'sessions' %>
+                            <%= link_to "Log in", new_user_session_path, class: "btn btn-primary btn-lg" %>
+                        <% end %>
+                    <% end %>
+                </li>
+            </ul>
 </nav>

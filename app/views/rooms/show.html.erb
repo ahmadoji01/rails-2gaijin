@@ -50,7 +50,7 @@
                                         <%= form_for @room_message, remote: true do |form| %>
                                             <div class="input_msg_write">
                                                 <%= form.text_field :message, class: "write_msg", placeholder: "Type a message" %>
-                                                <%= form.button :submit, class: "msg_send_btn" do %>
+                                                <%= button_tag type: "submit", class: "msg_send_btn" do %>
                                                     <i class="fa fa-paper-plane"></i>
                                                 <% end %>
                                                 <%= form.hidden_field :room_id %>

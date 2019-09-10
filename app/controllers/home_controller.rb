@@ -2,6 +2,7 @@ class HomeController < ApplicationController
 
 	def index
 		@products = Product.all.order(created_at: :desc).page(params[:page])
+		@recentproducts = Product.all.order(created_at: :desc).limit(8)
 
 		@whiteapplcat = Category.find_by(name: "White Appliances")
 		@furniturecat = Category.find_by(name: "Furnitures")

@@ -48,76 +48,24 @@
                             <h4 style="color: white;">Recently Added Products</h4>
                         </div>
                         <div class="owl-carousel owl-theme" id="products-carousel">
-                            <div class="card">
-                                <div class="product-item pb-3">
-                                    <div class="product-image">
-                                        <%= image_tag "2gaijin/20190531_093128-267x150.jpg", alt: "image", style: "padding: 10px;", class: "gaijin-img-square" %>
-                                    </div>
-                                    <div class="product-details text-center">
-                                        <div class="product-name" style="font-size: 1em;">Wifi Router</div>
-                                        <!-- <div class="text-muted text-small">Updated 3 mins ago</div> -->
-                                        <div class="product-cta">
-                                            <a href="#" class="btn btn-primary">Detail</a>
+                            <% if @recentproducts.count > 0 %>
+                                <% @recentproducts.each do |rproduct| %>
+                                    <div class="card">
+                                        <div class="product-item pb-3">
+                                            <div class="product-image">
+                                                <%= image_tag rproduct.image.url, alt: "image", style: "padding: 10px; object-fit: scale-down", class: "gaijin-img-square" %>
+                                            </div>
+                                            <div class="product-details text-center">
+                                                <div class="product-name" style="font-size: 1em;"><%= rproduct.name %></div>
+                                                <!-- <div class="text-muted text-small">Updated 3 mins ago</div> -->
+                                                <div class="product-cta">
+                                                    <a href="<%= product_path(rproduct) %>" class="btn btn-primary">Detail</a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="product-item pb-3">
-                                    <div class="product-image">
-                                        <%= image_tag "2gaijin/20190708_162007-267x150.jpg", alt: "image", style: "padding: 10px;", class: "gaijin-img-square" %>
-                                    </div>
-                                    <div class="product-details text-center">
-                                        <div class="product-name" style="font-size: 1em;">Blender Tescom</div>
-                                        <!-- <div class="text-muted text-small">Updated 3 mins ago</div> -->
-                                        <div class="product-cta">
-                                            <a href="#" class="btn btn-primary">Detail</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="product-item pb-3">
-                                    <div class="product-image">
-                                        <%= image_tag "2gaijin/62071656_318162705771961_1371693639582875648_n-267x150.jpg", alt: "image", style: "padding: 10px;", class: "gaijin-img-square" %>
-                                    </div>
-                                    <div class="product-details text-center">
-                                        <div class="product-name" style="font-size: 1em;">Laptop Fujitsu</div>
-                                        <!-- <div class="text-muted text-small">Updated 3 mins ago</div> -->
-                                        <div class="product-cta">
-                                            <a href="#" class="btn btn-primary">Detail</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="product-item pb-3">
-                                    <div class="product-image">
-                                        <%= image_tag "2gaijin/66758281_433694347217317_8476850937774735360_n-112x150.jpg", alt: "image", style: "padding: 10px;", class: "gaijin-img-square" %>
-                                    </div>
-                                    <div class="product-details text-center">
-                                        <div class="product-name" style="font-size: 1em;">Indonesia Mie</div>
-                                        <!-- <div class="text-muted text-small">Updated 3 mins ago</div> -->
-                                        <div class="product-cta">
-                                            <a href="#" class="btn btn-primary">Detail</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="product-item pb-3">
-                                    <div class="product-image">
-                                        <%= image_tag "2gaijin/IMG20190612220919-1-200x150.jpg", alt: "image", style: "padding: 10px; width:100px;", class: "gaijin-img-square" %>
-                                    </div>
-                                    <div class="product-details text-center">
-                                        <div class="product-name" style="font-size: 1em;">Bicycle</div>
-                                        <!-- <div class="text-muted text-small">Updated 3 mins ago</div> -->
-                                        <div class="product-cta">
-                                            <a href="#" class="btn btn-primary">Detail</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                <% end %>
+                            <% end %>
                         </div>
                     </div>
                 </div>
