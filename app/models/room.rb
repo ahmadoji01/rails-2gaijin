@@ -3,6 +3,8 @@ class Room
   include SimpleEnum::Mongoid
 
   field :name, type: String
+  field :is_read, type: Boolean
+  field :last_active, type: DateTime
 
   as_enum :room_type, :private => 0, :group => 1, :public => 2
 

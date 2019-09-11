@@ -261,7 +261,7 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   config.omniauth :facebook, '936813033337153', 'd9a728bc5f435f41efd315948a45bd42', info_fields: "email, first_name, last_name"
-  config.omniauth :google_oauth2, '149653523290-hm28do9mnfjdpv06d7rh22bvk4sccgtc.apps.googleusercontent.com', 'Ts_y2neQ_Li8CWvctWF6s7r9', { skip_jwt: true }
+  config.omniauth :google_oauth2, '157907220025-p5c480be4stu2h96teknhfbg4njnpvld.apps.googleusercontent.com', 'eo8LSh03RDhnpfK3LBgW49Vp', { skip_jwt: true }
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

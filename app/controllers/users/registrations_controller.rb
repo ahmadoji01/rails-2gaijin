@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  
+  layout "application"
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
 
@@ -18,6 +18,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # GET /resource/edit
   def edit
     @products = Product.where(user_id: current_user.id).order(created_at: :desc).page(params[:page])
+    @addresses = Address.where(user_id: current_user.id)
+    @newaddress = Address.new
+  end
+
+  def edit_password
+  end
+
+  def edit_product
+    @products = Product.where(user_id: current_user.id).order(created_at: :desc).page(params[:page])
+  end
+
+  def edit_address
     @addresses = Address.where(user_id: current_user.id)
     @newaddress = Address.new
   end

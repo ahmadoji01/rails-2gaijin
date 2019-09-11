@@ -22,10 +22,12 @@ $('#menu-profile a').on('click', function (e) {
 
 $('.dropdown-toggle').dropdown();
 
-var cleave = new Cleave('.currency', {
+/*var cleave = new Cleave('.currency', {
     numeral: true,
     numeralThousandsGroupStyle: 'thousand'
 });
+*/
+
 
 // $('#top-product').owlCarousel({
 //         autoplay:false,

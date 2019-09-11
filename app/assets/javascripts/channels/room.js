@@ -6,6 +6,10 @@ jQuery(document).on('turbolinks:load', function() {
     $element.html(formattedDate);
   });
 
+  $('#msg-nav').click(function() {
+    console.log($('#msg-notif-beep'));
+  });
+
   $('[data-channel-subscribe="room"]').each(function(index, element) {
     var $element = $(element),
         room_id = $element.data('room-id'),

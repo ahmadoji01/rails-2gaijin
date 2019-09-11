@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :orders
   resources :addresses do
     collection do
       post 'set_primary'
@@ -8,9 +9,11 @@ Rails.application.routes.draw do
 
   resources :categories
   get 'category/add'
-  get '/search', :to => 'search#index', :as => 'search_page'
-  resources :room_messages
   
+  get '/search', :to => 'search#index', :as => 'search_page'
+  get '/dashboard', :to => 'dashboard#index'
+
+  resources :room_messages
   resources :rooms do
     collection do
       post 'contact_seller'
@@ -25,7 +28,9 @@ Rails.application.routes.draw do
 
   as :user do
   	get 'profile', :to => 'users/registrations#edit', :as => :user_root
+    get 'listed_product', :to => 'users/registrations#edit_product', :as => :user_product
+    get 'shipping_address', :to => 'users/registrations#edit_address', :as => :user_address
   end
-  
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
