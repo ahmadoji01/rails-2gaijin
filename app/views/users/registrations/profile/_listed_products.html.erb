@@ -1,4 +1,4 @@
-<div class="tab-pane" id="listed-product" role="tabpanel" aria-labelledby="listed-product">
+<div class="tab-pane active" id="listed-product" role="tabpanel" aria-labelledby="listed-product">
     <div class="col-12">
         <div class="mb-2">
             <%= link_to new_product_path do %>
@@ -51,7 +51,9 @@
                         <td>
                             <center>
                                 <button class="btn btn-outline-primary btn-icon icon-left" data-toggle="modal" data-target="#Modal<%= product.id %>"><i class="fa fa-edit"></i> Edit</button>
-                                <button class="btn btn-outline-danger btn-icon icon-left"><i class="fa fa-trash"></i> Delete</button>
+                                <%= link_to product_path(product), remote: true, data: { confirm: 'Are you sure you want to leave this page?' } do %>
+                                    <button class="btn btn-outline-danger btn-icon icon-left"><i class="fa fa-trash"></i> Delete</button>
+                                <% end %>
                             </center>
                             <%= render 'products/edit_modal', p: product %>
                         </td>
@@ -61,80 +63,6 @@
                     <% else %>
                         There is no product you have posted. Let's start selling. <%= link_to "Click Here", new_product_path %>
                 <% end %>
-                <!-- <tr>
-                    <td>
-                        <a href="#" style="text-decoration: none; color: inherit;">
-                            <div class="media m-2">
-                                <%= image_tag "products/product-1-50.png", class: "img-thumbnail align-content-start mr-3" %>
-                                <div class="media-body">
-                                    <h5 class="mt-0">Product Name</h5>
-                                    <p>Simple Description</p>
-                                </div>
-                            </div>
-                        </a>
-                    </td>
-                    <td class="text-center">
-                        <span class="badge badge-success">Available</span>
-                    </td>
-                    <td class="text-center">2</td>
-                    <td class="text-center"><span class="currency">&#165;</span>100</td>
-                    <td>
-                        <center>
-                            <button class="btn btn-outline-primary btn-icon icon-left"><i class="fa fa-edit"></i> Edit</button>
-                            <button class="btn btn-outline-danger btn-icon icon-left"><i class="fa fa-trash"></i> Delete</button>
-                        </center>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#" style="text-decoration: none; color: inherit;">
-                            <div class="media m-2">
-                                <%= image_tag "products/product-3-50.png", class: "img-thumbnail align-content-start mr-3" %>
-                                <div class="media-body">
-                                    <h5 class="mt-0">Product Name</h5>
-                                    <p>Simple Description</p>
-                                </div>
-                            </div>
-                        </a>
-                    </td>
-                    <td class="text-center">
-                        <span class="badge badge-success">Available</span>
-                        <span class="badge badge-secondary">Sold</span>
-                    </td>
-                    <td class="text-center">2</td>
-                    <td class="text-center"><span class="currency">&#165;</span>100</td>
-                    <td>
-                        <center>
-                            <button class="btn btn-outline-primary btn-icon icon-left"><i class="fa fa-edit"></i> Edit</button>
-                            <button class="btn btn-outline-danger btn-icon icon-left"><i class="fa fa-trash"></i> Delete</button>
-                        </center>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#" style="text-decoration: none; color: inherit;">
-                            <div class="media m-2">
-                                <%= image_tag "products/product-2-50.png", class: "img-thumbnail align-content-start mr-3" %>
-                                <div class="media-body">
-                                    <h5 class="mt-0">Product Name</h5>
-                                    <p>Simple Description</p>
-                                </div>
-                            </div>
-                        </a>
-                    </td>
-                    <td class="text-center">
-                        <span class="badge badge-success">Available</span>
-                        <span class="badge badge-danger">Empty</span>
-                    </td>
-                    <td class="text-center">0</td>
-                    <td class="text-center"><span class="currency">&#165;</span>100</td>
-                    <td>
-                        <center>
-                            <button class="btn btn-outline-primary btn-icon icon-left"><i class="fa fa-edit"></i> Edit</button>
-                            <button class="btn btn-outline-danger btn-icon icon-left"><i class="fa fa-trash"></i> Delete</button>
-                        </center>
-                    </td>
-                </tr> -->
             </tbody>
         </table>
         <hr>

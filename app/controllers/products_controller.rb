@@ -56,6 +56,7 @@ class ProductsController < ApplicationController
 
     @product.categories = []
     categories = params[:product][:categories]
+    @product.updated_at = DateTime.now
 
     categories.each do |category|
       if !category.blank?

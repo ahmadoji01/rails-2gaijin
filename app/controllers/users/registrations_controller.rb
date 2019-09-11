@@ -22,6 +22,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @newaddress = Address.new
   end
 
+  def edit_password
+  end
+
+  def edit_product
+    @products = Product.where(user_id: current_user.id).order(created_at: :desc).page(params[:page])
+  end
+
+  def edit_address
+    @addresses = Address.where(user_id: current_user.id)
+    @newaddress = Address.new
+  end
+
   # PUT /resource
   # def update
   #   super

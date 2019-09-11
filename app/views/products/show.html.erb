@@ -25,7 +25,7 @@
                                 </div>
                                 <dl class="row">
                                     <dd class="col-sm-12">by <%= @product.user.first_name %> <%= @product.user.last_name %></dd>
-                                    <dd class="col-12"><small>On <%= @product.created_at.httpdate %></small></dd>    
+                                    <dd class="col-12"><small>On <b class="product_time"><%= @product.created_at %></b></small></dd>    
                                 </dl>
                                 <dl>
                                     <dt>Description</dt>
@@ -37,11 +37,11 @@
                                     <dt class="col-sm-3">Category</dt>
                                     <dd class="col-sm-9"><% @product.categories.each do |category| %><%= category.name %> <% end %></dd>
                                     <dt class="col-sm-3">Location</dt>
-                                    <dd class="col-sm-9">Surabaya, Jawa Timur</dd>
+                                    <dd class="col-sm-9"></dd>
                                 </dl>
                                 <dl>
                                     <dd>
-                                        <small id="updated_at">Updated </small>
+                                        <small id="updated_at">Updated <b class="product_time"><%= @product.updated_at %></b></small>
                                     </dd>
                                 </dl>
                                 <hr>
@@ -78,7 +78,6 @@
                                 <div class="product-item pb-3">
                                     <div class="product-image">
                                         <%= image_tag "2gaijin/20190531_093128-267x150.jpg", alt: "image", class: "gaijin-img-square" %>
-                                        <img alt="image" src="./assets/images/2gaijin/20190531_093128-267x150.jpg" class="gaijin-img-square">
                                     </div>
                                     <div class="product-details text-center">
                                         <div class="product-name">Wifi Router</div>

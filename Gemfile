@@ -47,8 +47,8 @@ gem "browserify-rails"
 gem 'redis', '~> 4.0'
 gem 'searchkick'
 gem 'mongoid-ancestry'
-gem 'rails-assets-sweetalert2', '~> 5.1.1', source: 'https://rails-assets.org'
-gem 'sweet-alert2-rails'
+gem 'rails-sweetalert2-confirm'
+gem 'rails-assets-sweetalert2', source: 'https://rails-assets.org'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -142,11 +142,22 @@
                                         <%= image_tag "avatar/avatar-2.png", class: "rounded-circle", width: "30", alt: "image" %>
                                     </div>
                                     <div class="dropdown-item-desc">
-                                        <b><%= room.name %></b>
-                                        <div class="float-right">
-                                            <i class="fa fa-inbox"></i>
-                                        </div>
-                                        <div class="msg_time"><%= room.room_messages.last.created_at %></div>
+                                        <%  if room.room_type == :private
+                                                room.user_ids.each do |user|
+                                                    if current_user.id != user
+                                                        @roomname = User.find(user).first_name
+                                                    end
+                                                end
+                                            else
+                                                @roomname = room.name
+                                        end %>
+                                        <b class="msg_name"><%= @roomname %></b>
+                                        <% if !room.is_read %>
+                                            <div class="text-success text-small font-600-bold d-none d-lg-inline-block" style="float: right;">
+                                                <i class="fas fa-circle"></i>
+                                            </div>
+                                        <% end %>
+                                        <div class="msg_time"><%= room.last_active %></div>
                                     </div>
                                 </a>
                             <% end %>
@@ -226,7 +237,7 @@
                         <div class="dropdown-title d-inline-block">Hi, <%= current_user.first_name %></div>
                         <!-- <div class="dropdown-title d-inline-block">Hi, Bekti</div> -->
                         <!--<div class="dropdown-title"><small>Logged in 5 min ago</small></div>-->
-                        <a href="./profile" class="dropdown-item has-icon">
+                        <a href="<%= user_root_url %>" class="dropdown-item has-icon">
                             <i class="far fa-user"></i> Profile
                         </a>
                         <div class="dropdown-divider"></div>

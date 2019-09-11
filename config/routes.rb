@@ -28,7 +28,9 @@ Rails.application.routes.draw do
 
   as :user do
   	get 'profile', :to => 'users/registrations#edit', :as => :user_root
+    get 'listed_product', :to => 'users/registrations#edit_product', :as => :user_product
+    get 'shipping_address', :to => 'users/registrations#edit_address', :as => :user_address
   end
-  
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
