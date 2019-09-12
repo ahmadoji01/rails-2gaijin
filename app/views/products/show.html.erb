@@ -37,7 +37,11 @@
                                     <dt class="col-sm-3">Category</dt>
                                     <dd class="col-sm-9"><% @product.categories.each do |category| %><%= category.name %> <% end %></dd>
                                     <dt class="col-sm-3">Location</dt>
-                                    <dd class="col-sm-9"></dd>
+                                    <dd class="col-sm-9">
+                                        <%= button_tag type: "submit", class: "btn btn-outline-primary", data: { toggle: "modal", target: "#locationModal" } do %>
+                                            <i class="fas fa-map-marked-alt"></i> See Map
+                                        <% end %> 
+                                    </dd>
                                 </dl>
                                 <dl>
                                     <dd>
@@ -73,77 +77,29 @@
                         <h3>Related Products</h3>
                     </div>
                     <div class="card-body">
-                        <div class="owl-carousel owl-theme" id="related-carousel">
-                            <div class="card">
-                                <div class="product-item pb-3">
-                                    <div class="product-image">
-                                        <%= image_tag "2gaijin/20190531_093128-267x150.jpg", alt: "image", class: "gaijin-img-square" %>
-                                    </div>
-                                    <div class="product-details text-center">
-                                        <div class="product-name">Wifi Router</div>
-                                        <div class="text-muted text-small">Updated 3 mins ago</div>
-                                        <div class="product-cta">
-                                            <a href="#" class="btn btn-primary">Detail</a>
+                        <div class="owl-carousel owl-theme" id="products-carousel">
+                            <% if @recentproducts.count > 0 %>
+                                <% @recentproducts.each do |rproduct| %>
+                                    <div class="card">
+                                        <div class="product-item pb-3">
+                                            <div class="product-image">
+                                                <% if rproduct.image? %>
+                                                    <%= image_tag rproduct.image.url, alt: "image", style: "padding: 10px; object-fit: scale-down", class: "gaijin-img-square" %>
+                                                <% else %>
+                                                    <%= image_tag "products/product-1-50.png", alt: "image", style: "padding: 10px; object-fit: scale-down", class: "gaijin-img-square" %>
+                                                <% end %>
+                                            </div>
+                                            <div class="product-details text-center">
+                                                <div class="product-name" style="font-size: 1em;"><%= rproduct.name %></div>
+                                                <!-- <div class="text-muted text-small">Updated 3 mins ago</div> -->
+                                                <div class="product-cta">
+                                                    <a href="<%= product_path(rproduct) %>" class="btn btn-primary">Detail</a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="product-item pb-3">
-                                    <div class="product-image">
-                                        <%= image_tag "2gaijin/20190708_162007-267x150.jpg", alt: "image", class: "gaijin-img-square" %>
-                                    </div>
-                                    <div class="product-details text-center">
-                                        <div class="product-name">Blender Tescom</div>
-                                        <div class="text-muted text-small">Updated 3 mins ago</div>
-                                        <div class="product-cta">
-                                            <a href="#" class="btn btn-primary">Detail</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="product-item pb-3">
-                                    <div class="product-image">
-                                        <%= image_tag "2gaijin/62071656_318162705771961_1371693639582875648_n-267x150.jpg", alt: "image", class: "gaijin-img-square" %>
-                                    </div>
-                                    <div class="product-details text-center">
-                                        <div class="product-name">Laptop Fujitsu</div>
-                                        <div class="text-muted text-small">Updated 3 mins ago</div>
-                                        <div class="product-cta">
-                                            <a href="#" class="btn btn-primary">Detail</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="product-item pb-3">
-                                    <div class="product-image">
-                                        <%= image_tag "2gaijin/66758281_433694347217317_8476850937774735360_n-112x150.jpg", alt: "image", class: "gaijin-img-square" %>
-                                    </div>
-                                    <div class="product-details text-center">
-                                        <div class="product-name">Indonesia Mie</div>
-                                        <div class="text-muted text-small">Updated 3 mins ago</div>
-                                        <div class="product-cta">
-                                            <a href="#" class="btn btn-primary">Detail</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="product-item pb-3">
-                                    <div class="product-image">
-                                        <%= image_tag "2gaijin/IMG20190612220919-1-200x150.jpg", alt: "image", class: "gaijin-img-square" %>
-                                    </div>
-                                    <div class="product-details text-center">
-                                        <div class="product-name">Bicycle</div>
-                                        <div class="text-muted text-small">Updated 3 mins ago</div>
-                                        <div class="product-cta">
-                                            <a href="#" class="btn btn-primary">Detail</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                <% end %>
+                            <% end %>
                         </div>
                     </div>
                 </div>
@@ -151,3 +107,5 @@
         </div>
     </div>
 </div>
+
+<%= render 'products/location_modal' %>

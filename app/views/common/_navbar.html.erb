@@ -6,7 +6,7 @@
                 <% end %>
             </li>
         </ul>
-        <ul class="navbar-nav mr-3">
+        <ul class="navbar-nav mr-1">
             <li class="dropdown dropdown-list-toggle">
                 <a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg">
                     <i class="fa fa-bars"></i>
@@ -65,14 +65,14 @@
             <ul class="navbar-nav navbar-right">
                 <li class="dropdown dropdown-list-toggle">
                     <% if user_signed_in? %>
-                    <a href="#" id="package-notif-beep" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle"><i class="fa fa-shopping-cart"></i>
+                    <a href="#" id="package-notif-beep" data-toggle="modal" data-target="#deliveryModal" class="nav-link nav-link-lg message-toggle"><i class="fa fa-truck"></i>
                         <!-- <span class="d-none d-lg-block">Packages</span> -->
-                            <span id="package-notif-num" class="d-none d-lg-inline badge badge-warning">2</span>
+                            <!-- <span id="package-notif-num" class="d-none d-lg-inline badge badge-warning">2</span> -->
                     <% else %>
-                    <a href="#" id="package-notif-beep" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle"><i class="fa fa-shopping-cart"></i> 
+                    <a href="#" id="package-notif-beep" class="nav-link nav-link-lg message-toggle"><i class="fa fa-truck"></i> 
                     <% end %>
                     </a>
-                    <div class="dropdown-menu dropdown-list dropdown-menu-right">
+                    <!-- <div class="dropdown-menu dropdown-list dropdown-menu-right">
                         <div class="dropdown-header">Packages
                         </div>
                         <% if user_signed_in? %>
@@ -120,15 +120,15 @@
                             <a href="#" data-toggle="modal" data-target="#checkoutModal">Checkout <i class="fas fa-chevron-right"></i></a>
                         </div>
                         <% end %>
-                    </div>
+                    </div> -->
                 </li>
                 <li id="msg-nav" class="dropdown dropdown-list-toggle">
                     <% if user_signed_in? %>
-                    <a href="#" id="msg-notif-beep" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle"><i class="far fa-envelope"></i>
+                    <a href="#" id="msg-notif-beep" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle"><i class="fa fa-envelope"></i>
                         <!-- <span class="d-none d-lg-block">Packages</span> -->
                             <span id="msg-notif-num" class="d-none d-lg-inline badge badge-primary"><%= Room.where(:is_read => false).and(:user_ids => current_user.id).count %></span>
                     <% else %>
-                    <a href="#" id="msg-notif-beep" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle"><i class="far fa-envelope"></i>
+                    <a href="#" id="msg-notif-beep" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle"><i class="fa fa-envelope"></i>
                     <% end %>
                     </a>
                     <div class="dropdown-menu dropdown-list dropdown-menu-right">
@@ -172,11 +172,11 @@
                 </li>
                 <li class="dropdown dropdown-list-toggle">
                     <% if user_signed_in? %>
-                    <a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle"><i class="far fa-bell"></i>
+                    <a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle"><i class="fa fa-bell"></i>
                         <!-- <span class="d-none d-lg-block">Packages</span> -->
                         <span class="d-none d-lg-inline badge badge-warning">2</span>
                     <% else %>
-                    <a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle"><i class="far fa-bell"></i>
+                    <a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle"><i class="fa fa-bell"></i>
                     <% end %>
                     </a>
                     <div class="dropdown-menu dropdown-list dropdown-menu-right">

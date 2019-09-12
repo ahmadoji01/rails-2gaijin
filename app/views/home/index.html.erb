@@ -1,6 +1,46 @@
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="position: relative;">
+    <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <%= image_tag "banner/delivery1", class: "w-100", alt: "Delivery Promo" %>
+            <div class="carousel-caption">
+                <h3 class="d-none d-sm-block">Use our delivery service now!*</h3>
+                <h5 class="d-none d-lg-block">Click the button below to order your delivery</h5>
+                <a class="d-none d-sm-block" href="https://www.facebook.com/2gaijin/photos/a.314037062562773/408269996472812/?type=3&theater" target="_blank">
+                    <p><small>*Delivery pricing</small></p>
+                </a>
+                <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#deliveryModal">Order Delivery</button>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <%= image_tag "banner/delivery2", class: "w-100", alt: "Item Promo" %>
+            <div class="carousel-caption">
+                <h3 class="d-none d-sm-block">Post your big item and get 800¥!*</h3>
+                <h5 class="d-none d-lg-block">200¥ for small item</h5>
+                <a class="d-none d-sm-block" href="https://www.facebook.com/2gaijin/photos/a.347612255871920/395246451108500/?type=3&theater" target="_blank">
+                    <p><small>*Terms and condition apply</small></p>
+                </a>
+                <%= link_to new_product_path do %>
+                    <button class="btn btn-primary btn-lg">Post Your Product</button>
+                <% end %>
+            </div>
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
 <div class="main-content" style="width: 100%;">
     <div class="container-fluid">
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="card mx-auto">
                     <div class="card-header">
@@ -39,7 +79,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="row d-none d-lg-block d-md-block">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="card">
@@ -159,8 +199,11 @@
                 </div>
             </div>
         </div>
-        <%= link_to new_product_path do %>
-            <button class="kc_fab_main_btn">+</button>
-        <% end %>
+        <div style="position: absolute; bottom: 10px; right: 10px">
+            <%= link_to new_product_path do %>
+                <button class="kc_fab_main_btn d-lg-none d-md-none" style="width: 30px; height: 30px; font-size: 12px">+</button>
+                <button class="kc_fab_main_btn d-none d-md-block">+</button>
+            <% end %>
+        </div>
     </div>
 </div>

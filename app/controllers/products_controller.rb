@@ -12,6 +12,7 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
+    @recentproducts = Product.all.order(created_at: :desc).limit(8)
   end
 
   # GET /products/new
