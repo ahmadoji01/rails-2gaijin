@@ -25,11 +25,34 @@ class ProductsController < ApplicationController
   def edit
   end
 
+  def mark_as_sold
+    @product = Product.find(params[:id])
+    
+    @status = :sold
+    if @product.status == :sold
+      @status = :active
+    end
+
+    @product.status = @status
+    @product.updated_at = DateTime.now
+
+    respond_to do |format|
+      if @product.update
+        format.html { redirect_to @product, notice: 'Product was successfully updated.' }
+        format.json { render :show, status: :ok, location: @product }
+      else
+        format.html { render :edit }
+        format.json { render json: @product.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # POST /products
   # POST /products.json
   def create
     @product = Product.new(product_params)
     @product.user = current_user
+    @product.status = :active
     @product.created_at = DateTime.now
     @product.updated_at = DateTime.now
 

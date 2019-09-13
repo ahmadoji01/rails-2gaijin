@@ -24,7 +24,12 @@ Rails.application.routes.draw do
   resources :products
   devise_for :users, controllers: { sessions: 'users/sessions', registrations: 'users/registrations', omniauth_callbacks: 'users/omniauth_callbacks' }, path: '', path_names: { sign_in: "login", sign_out: "logout" }
   root "home#index"
-  resource :products
+
+  resource :products do
+    collection do
+      post 'mark_as_sold'
+    end
+  end
 
   as :user do
   	get 'profile', :to => 'users/registrations#edit', :as => :user_root

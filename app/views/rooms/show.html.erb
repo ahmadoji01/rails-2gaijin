@@ -9,7 +9,7 @@
                     <div class="card-body">
                         <div class="messaging">
                             <div class="inbox_msg">
-                                <div class="inbox_people">
+                                <div class="inbox_people d-none d-md-block">
                                     <div class="headind_srch">
                                         <div class="recent_heading">
                                             <h4>Recent Messages</h4>
@@ -24,7 +24,7 @@
                                     </div>
                                     <%= render partial: 'rooms' %>
                                 </div>
-                                <div class="mesgs">
+                                <div class="mesgs w-60 d-lg-block w-100 d-md-block">
                                     <div class="msg_history" data-channel-subscribe="room" data-room-id="<%= @room.id %>" data-user-id="<%= current_user.id %>">
                                         <% @room_messages.each do |room_message| %>
                                             <% if current_user != room_message.user %>

@@ -17,6 +17,11 @@
                         </aside>
                         <aside class="col-sm-8">
                             <article class="p-5">
+                                <% if @product.status == :sold %>
+                                    <div class="alert alert-warning" role="alert">
+                                        This item is <b>Sold Out</b>
+                                    </div>
+                                <% end %>
                                 <h3 class="title mb-3"><%= @product.name %></h3>
                                 <div class="mb-3">
                                     <var class="price h3 text-warning"> 
@@ -56,6 +61,18 @@
                                         <input id="seller_id" type="hidden" name="seller_id" value="<%= @product.user.id %>">
                                         <%= button_tag type: "submit", class: "btn btn-outline-primary" do %> 
                                             <i class="fas fa-phone"></i> Contact Seller
+                                        <% end %> 
+                                    <% end %>
+                                <% else %>
+                                    <%= form_tag mark_as_sold_products_path, method: :post do %>
+                                        <%= hidden_field_tag :id, @product.id %>
+                                        <%= button_tag type: "submit", class: "btn btn-outline-primary" do %> 
+                                            <i class="fas fa-tags"></i> 
+                                            <% if @product.status == :active %>
+                                                Mark as Sold
+                                            <% else %>
+                                                Mark as Available
+                                            <% end %>
                                         <% end %> 
                                     <% end %>
                                 <% end %>

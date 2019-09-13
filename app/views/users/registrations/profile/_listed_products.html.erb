@@ -44,7 +44,12 @@
                             </a>
                         </td>
                         <td class="text-center">
-                            <span class="badge badge-success">Available</span>
+                            <% if product.status == :active %>
+                                <span class="badge badge-success">Available</span>
+                            <% end %>
+                            <% if product.status == :sold %>
+                                <span class="badge badge-warning">Sold</span>
+                            <% end %>
                         </td>
                         <!-- <td class="text-center">2</td> -->
                         <td class="text-center"><span class="currency">&#165;</span><%= product.price %></td>
