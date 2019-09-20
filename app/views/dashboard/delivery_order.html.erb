@@ -1,0 +1,48 @@
+<div class="main-content">
+    <div class="col-12">
+        <!-- <div class="mb-2">
+            <%= link_to new_product_path do %>
+                <button class="btn btn-primary btn-lg btn-icon icon-left"><i class="fa fa-plus"></i> Sell Something</button>
+            <% end %>
+        </div>
+        <hr> -->
+        <table class="table">
+            <thead style="color: none;">
+                <tr>
+                    <th>Name</th>
+                    <!-- <th scope="col">Product's Name</th> -->
+                    <th class="text-center">Phone Number</th>
+                    <!--<th class="text-center">Quantity</th>-->
+                    <th class="text-center">Price</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <br>
+                <% if @deliveries.count > 0 %>
+                    <% @deliveries.each do |delivery| %>
+                    <tr>
+                        <td class="text-center">
+                            <%= delivery.name %>
+                        </td>
+                        <td class="text-center">
+                            <%= delivery.phone %>
+                        </td>
+                        <!-- <td class="text-center">2</td> -->
+                        <td class="text-center"><span class="currency">&#165;</span><%= delivery.price %></td>
+                        <td>
+                            <center>
+                                <button class="btn btn-outline-primary btn-icon icon-left" data-toggle="modal" data-target="#Modal"><i class="fa fa-edit"></i> Edit</button>
+                            </center>
+                        </td>
+                    </tr>
+                    <% end %>
+                    <%= paginate @deliveries %>
+                    <% else %>
+                        There is no product you delivery order
+                <% end %>
+            </tbody>
+        </table>
+        <hr>
+    </div>
+</div>

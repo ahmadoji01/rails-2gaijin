@@ -22,35 +22,5 @@ $('#menu-profile a').on('click', function (e) {
 
 $('.dropdown-toggle').dropdown();
 
-/*var cleave = new Cleave('.currency', {
-    numeral: true,
-    numeralThousandsGroupStyle: 'thousand'
-});
-*/
-
-
-// $('#top-product').owlCarousel({
-//         autoplay:false,
-//         responsiveClass:true,
-//         items : 1, //10 items above 1000px browser width
-//         responsive:{
-//             0:{
-//                 items:1,
-//                 nav:true
-//             },
-//             480:{
-//                 items:2,
-//                 nav:true
-//             },
-//             768:{
-//                 items:1,
-//                 nav:true
-//             },
-//             1000:{
-//                 items:1,
-//                 nav:true,
-//             }
-//         }
-//     });
-
-//$('#checkoutModal').modal('toggle');
+$('.bootstrap-date-picker').bootstrapMaterialDatePicker({ weekStart : 0, time: false }, moment());
+$('.bootstrap-time-picker').bootstrapMaterialDatePicker({ date: false }, moment());

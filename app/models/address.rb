@@ -9,5 +9,8 @@ class Address
 
   field :is_primary, type: Boolean
 
+  field :latitude, type: BigDecimal
+  field :longitude, type: BigDecimal
+
   belongs_to :user
 end

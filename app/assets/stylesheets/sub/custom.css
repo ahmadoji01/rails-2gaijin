@@ -20,7 +20,7 @@
 
 body.layout-2 .main-content {
   padding-top: 107px;
-  padding-left: 30px;
+  padding-left: 0;
   padding-right: 0;
   /* width: calc(100% - 200px); */
 }

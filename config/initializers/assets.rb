@@ -21,6 +21,7 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
  	sub/components.css
  	sub/custom.css
  	sub/chat.css
+ 	sub/bootstrap-material-datetimepicker.css
  )
 
  Rails.application.config.assets.precompile += %w( 
@@ -36,4 +37,8 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
  	sub/custom.js
  	sub/owl.js
  	sub/dashboard.js
+ 	sub/bootstrap-material-datetimepicker.js
+ 	sub/price-counter.js
+ 	sub/rails-gmaps.js
+ 	sub/jquery.placepicker.js
  )

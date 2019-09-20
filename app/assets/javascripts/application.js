@@ -12,9 +12,11 @@
 //
 //= require rails-ujs
 //= require turbolinks
-//= require jquery3
 //= require sweetalert2
 //= require rails-sweetalert2-confirm
 //= require popper
 //= require bootstrap
+//= require moment
+//= require cocoon
+//= require underscore/underscore
 //= require_tree .

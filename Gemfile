@@ -36,6 +36,7 @@ gem 'mongoid'
 gem "font-awesome-rails"
 gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'simple_enum', require: 'simple_enum/mongoid'
 gem 'devise'
 gem 'carrierwave-mongoid'
@@ -49,6 +50,12 @@ gem 'searchkick'
 gem 'mongoid-ancestry'
 gem 'rails-sweetalert2-confirm'
 gem 'rails-assets-sweetalert2', source: 'https://rails-assets.org'
+gem 'cocoon'
+gem 'sweetify'
+gem 'momentjs-rails'
+gem 'geocoder'
+gem 'gmaps4rails'
+gem 'gmaps-autocomplete-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

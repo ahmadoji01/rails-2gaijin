@@ -103,6 +103,7 @@ class ProductsController < ApplicationController
   # DELETE /products/1
   # DELETE /products/1.json
   def destroy
+    sweetalert_error("Are you sure you want to delete this?", title = 'Warning', opts = {})
     @product.destroy
     respond_to do |format|
       format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }

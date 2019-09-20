@@ -6,10 +6,12 @@
                     <div class="card-header">Total Orders</div>
                     <div class="card-body">
                         <i class="fa fa-shopping-cart fa-3x"></i>
-                        <h2 class="float-right">40</h2>
+                        <h2 class="float-right"><%= Delivery.all.count %></h2>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-primary">Details</button>
+                        <%= link_to dashboard_delivery_order_path do %>
+                            <button class="btn btn-primary">Details</button>
+                        <% end %>
                         <!-- <a href="#" class="card-link">Details</a> -->
                     </div>
                 </div>

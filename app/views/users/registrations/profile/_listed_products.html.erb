@@ -56,7 +56,7 @@
                         <td>
                             <center>
                                 <button class="btn btn-outline-primary btn-icon icon-left" data-toggle="modal" data-target="#Modal<%= product.id %>"><i class="fa fa-edit"></i> Edit</button>
-                                <%= link_to product_path(product), remote: true, data: { confirm: 'Are you sure you want to leave this page?' } do %>
+                                <%= link_to product_path(product), method: :delete, remote: true, data: { confirm: "Are you sure?" } do %>
                                     <button class="btn btn-outline-danger btn-icon icon-left"><i class="fa fa-trash"></i> Delete</button>
                                 <% end %>
                             </center>

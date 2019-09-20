@@ -17,17 +17,17 @@
                         </aside>
                         <aside class="col-sm-8">
                             <article class="p-5">
-                                <% if @product.status == :sold %>
-                                    <div class="alert alert-warning" role="alert">
-                                        This item is <b>Sold Out</b>
-                                    </div>
-                                <% end %>
                                 <h3 class="title mb-3"><%= @product.name %></h3>
                                 <div class="mb-3">
                                     <var class="price h3 text-warning"> 
                                         <span class="currency">&#165;</span><span class="num"><%= @product.price %></span>
                                     </var>
                                 </div>
+                                <% if @product.status == :sold %>
+                                    <div class="alert alert-warning" role="alert">
+                                        This item is <b>Sold Out</b>
+                                    </div>
+                                <% end %>
                                 <dl class="row">
                                     <dd class="col-sm-12">by <%= @product.user.first_name %> <%= @product.user.last_name %></dd>
                                     <dd class="col-12"><small>On <b class="product_time"><%= @product.created_at %></b></small></dd>    
@@ -63,7 +63,7 @@
                                             <i class="fas fa-phone"></i> Contact Seller
                                         <% end %> 
                                     <% end %>
-                                <% else %>
+                                <% elsif current_user == @product.user %>
                                     <%= form_tag mark_as_sold_products_path, method: :post do %>
                                         <%= hidden_field_tag :id, @product.id %>
                                         <%= button_tag type: "submit", class: "btn btn-outline-primary" do %> 

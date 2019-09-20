@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   
   get '/search', :to => 'search#index', :as => 'search_page'
   get '/dashboard', :to => 'dashboard#index'
+  get '/dashboard/delivery_order', :to => 'dashboard#delivery_order'
 
   resources :room_messages
   resources :rooms do
@@ -30,6 +31,14 @@ Rails.application.routes.draw do
       post 'mark_as_sold'
     end
   end
+
+  resources :deliveries do
+    member do
+      get :delete
+    end
+  end
+
+  get '/home_delivery', :to => 'deliveries#index'
 
   as :user do
   	get 'profile', :to => 'users/registrations#edit', :as => :user_root

@@ -12,21 +12,66 @@
                     <i class="fa fa-bars"></i>
                 </a>
                 <div class="dropdown-menu dropdown-list dropdown-menu-left">
-                    <div class="dropdown-list-content dropdown-list-icons">
-                        <a href="#" class="dropdown-item">
-                            <div class="icon-left">
-                                <i class="fa fa-utensils fa-lg"></i> Category 1
+                    <div class="dropdown-list-category dropdown-list-icons">
+                        <a href="<%= search_page_path(:category => "Electronics") %>" class="dropdown-item">
+                            <div class="icon-left col-md-1">
+                                <i class="fa fa-plug fa-lg"></i>
                             </div>
+                            <div class="col-md-10">Electronics</div>
+                        </a>
+                        <a href="<%= search_page_path(:category => "White Appliances") %>" class="dropdown-item">
+                            <div class="icon-left col-md-1">
+                                <i class="fa fa-tablet fa-lg"></i> 
+                            </div>
+                            <div class="col-md-10">White Appliances</div>
+                        </a>
+                        <a href="<%= search_page_path(:category => "Furnitures") %>" class="dropdown-item">
+                            <div class="icon-left col-md-1">
+                                <i class="fa fa-couch fa-lg"></i> 
+                            </div>
+                            <div class="col-md-10">Furnitures</div>
                         </a>
                         <a href="#" class="dropdown-item">
-                            <div class="icon-left">
-                                <i class="fa fa-tshirt fa-lg"></i> Category 2
+                            <div class="icon-left col-md-1">
+                                <i class="fa fa-utensils fa-lg"></i> 
                             </div>
+                            <div class="col-md-10">Kitchens</div>
                         </a>
                         <a href="#" class="dropdown-item">
-                            <div class="icon-left">
-                                <i class="fa fa-book fa-lg"></i> Category 1
+                            <div class="icon-left col-md-1">
+                                <i class="fa fa-book fa-lg"></i> 
                             </div>
+                            <div class="col-md-10">Books</div>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <div class="icon-left col-md-1">
+                                <i class="fa fa-tshirt fa-lg"></i> 
+                            </div>
+                            <div class="col-md-10">Apparels</div>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <div class="icon-left col-md-1">
+                                <i class="fa fa-volleyball-ball fa-lg"></i> 
+                            </div>
+                            <div class="col-md-10">Sports</div>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <div class="icon-left col-md-1">
+                                <i class="fa fa-car fa-lg"></i> 
+                            </div>
+                            <div class="col-md-10">Vehicles</div>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <div class="icon-left col-md-1">
+                                <i class="fa fa-shoe-prints fa-lg"></i> 
+                            </div>
+                            <div class="col-md-10">Shoes</div>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <div class="icon-left col-md-1">
+                                <i class="fa fa-ellipsis-h fa-lg"></i> 
+                            </div>
+                            <div class="col-md-10">Miscellaneous</div>
                         </a>
                     </div>
                 </div>
@@ -39,27 +84,6 @@
                     <i class="fas fa-search"></i>
                 <% end %>
                 <div class="search-backdrop"></div>
-                <!-- <div class="search-result">
-                    <div class="search-header">
-                        Result
-                    </div>
-                    <div class="search-item">
-                        <a href="#">Television</a>
-                        <a href="#" class="search-close"><i class="fas fa-times"></i></a>
-                    </div>
-                    <div class="search-item">
-                        <a href="#">SOLD</a>
-                        <a href="#" class="search-close"><i class="fas fa-times"></i></a>
-                    </div>
-                    <div class="search-header">
-                        Result
-                    </div>
-                    <div class="search-item">
-                        <a href="#">
-                            <%= image_tag "products/product-3-50.png", class: "mr-3 rounded", width: "30", alt: "product" %> iPhone 7s 2nd Fullset like new
-                        </a>
-                    </div>
-                </div> -->
             </div>
         <% end %>
             <ul class="navbar-nav navbar-right">
@@ -69,58 +93,9 @@
                         <!-- <span class="d-none d-lg-block">Packages</span> -->
                             <!-- <span id="package-notif-num" class="d-none d-lg-inline badge badge-warning">2</span> -->
                     <% else %>
-                    <a href="#" id="package-notif-beep" class="nav-link nav-link-lg message-toggle"><i class="fa fa-truck"></i> 
+                    <a href="<%= new_user_session_path %>" id="package-notif-beep" class="nav-link nav-link-lg message-toggle"><i class="fa fa-truck"></i> 
                     <% end %>
                     </a>
-                    <!-- <div class="dropdown-menu dropdown-list dropdown-menu-right">
-                        <div class="dropdown-header">Packages
-                        </div>
-                        <% if user_signed_in? %>
-                        <div class="dropdown-list-content dropdown-list-message" id="notification">
-                            <% Notification.all.each do |notification| %>
-                                <a href="#" class="dropdown-item">
-                                    <div class="dropdown-item-avatar">
-                                        <%= image_tag "products/product-3-50.png", class: "rounded-circle", width: "30", alt: "image" %>
-                                    </div>
-                                    <div class="dropdown-item-desc">
-                                        <b><%= notification.name %></b>
-                                        <div class="float-right">
-                                            <i class="fa fa-trash"></i>
-                                        </div>
-                                        <div class="time">10 Hours Ago</div>
-                                    </div>
-                                </a>
-                            <% end %>
-                            <a href="#" class="dropdown-item">
-                                <div class="dropdown-item-avatar">
-                                    <%= image_tag "products/product-3-50.png", class: "rounded-circle", width: "30", alt: "image" %>
-                                </div>
-                                <div class="dropdown-item-desc">
-                                    <b>Laptop Lenovo G405</b>
-                                    <div class="float-right">
-                                        <i class="fa fa-trash"></i>
-                                    </div>
-                                    <div class="time">10 Hours Ago</div>
-                                </div>
-                            </a>
-                            <a href="#" class="dropdown-item">
-                                <div class="dropdown-item-avatar">
-                                    <%= image_tag "products/product-1-50.png", class: "rounded-circle", width: "30", alt: "image" %>
-                                </div>
-                                <div class="dropdown-item-desc">
-                                    <b>Test Product's Name</b>
-                                    <div class="float-right">
-                                        <i class="fa fa-trash"></i>
-                                    </div>
-                                    <div class="time">2 Hours Ago</div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="dropdown-footer text-center">
-                            <a href="#" data-toggle="modal" data-target="#checkoutModal">Checkout <i class="fas fa-chevron-right"></i></a>
-                        </div>
-                        <% end %>
-                    </div> -->
                 </li>
                 <li id="msg-nav" class="dropdown dropdown-list-toggle">
                     <% if user_signed_in? %>
@@ -128,7 +103,7 @@
                         <!-- <span class="d-none d-lg-block">Packages</span> -->
                             <span id="msg-notif-num" class="d-none d-lg-inline badge badge-primary"><%= Room.where(:is_read => false).and(:user_ids => current_user.id).count %></span>
                     <% else %>
-                    <a href="#" id="msg-notif-beep" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle"><i class="fa fa-envelope"></i>
+                    <a href="<%= new_user_session_path %>" id="msg-notif-beep" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle"><i class="fa fa-envelope"></i>
                     <% end %>
                     </a>
                     <div class="dropdown-menu dropdown-list dropdown-menu-right">
@@ -176,7 +151,7 @@
                         <!-- <span class="d-none d-lg-block">Packages</span> -->
                         <span class="d-none d-lg-inline badge badge-warning">2</span>
                     <% else %>
-                    <a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle"><i class="fa fa-bell"></i>
+                    <a href="<%= new_user_session_path %>" class="nav-link nav-link-lg message-toggle"><i class="fa fa-bell"></i>
                     <% end %>
                     </a>
                     <div class="dropdown-menu dropdown-list dropdown-menu-right">

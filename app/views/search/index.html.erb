@@ -83,26 +83,14 @@
             </div>
             <div class="col-lg-9 col-sm-12">
                 <div class="card">
-                    <div class="card-header"><h2>Result</h2></div>
+                    <div class="card-header">
+                        <h2>Results <% if params.has_key?(:category) %>of <%= params[:category] %> <% end %></h2>
+                    </div>
                     <div class="card-body">
                             <div class="row">
                             	<% if @products.count > 0 %>
 			                        <% @products.each do |product| %>
-			                            <div class="col-lg-3 col-md-3 col-sm-3 mx-auto">
-			                                <div class="card">
-			                                    <% if product.image? %>
-			                                        <%= image_tag product.image.url, class: "card-img-top", alt: "image", style: "object-fit: cover;" %>
-			                                    <% else %>
-			                                        <%= image_tag "products/product-1-50.png", class: "card-img-top", alt: "image", style: "object-fit: cover;" %>
-			                                    <% end %>
-			                                    
-			                                    <div class="card-body">
-			                                        <h5 class="card-title"><%= product.name %></h5>
-			                                        <p class="card-text">&#165;<%= product.price %></p>
-			                                        <%= link_to 'Detail', product_path(product), class: "btn btn-primary" %> 
-			                                    </div>
-			                                </div>
-			                            </div>
+                                        <%= render 'common/product_card', product: product %>
 			                        <% end %>
 			                        <%= paginate @products %>
 			                    <% end %>
