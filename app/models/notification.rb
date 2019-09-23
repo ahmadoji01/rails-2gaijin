@@ -7,4 +7,7 @@ class Notification
 
   as_enum :status, :read => 1, :unread => 0
   as_enum :type, :comment => 1
+
+  belongs_to :user
+  belongs_to :product
 end

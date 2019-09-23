@@ -31,6 +31,19 @@ class CommentsController < ApplicationController
     @comment.product = @product
     @comment.created_at = DateTime.now
 
+    @notification = Notification.new
+    @notification.name = current_user.first_name + " commented on your " + @product.name
+    @notification.created_at = DateTime.now
+    @notification.user = current_user
+    @notification.product = @product
+    @notification.status = :unread
+    @notification.type = :comment
+    
+    if @notification.save
+      NotificationChannel.broadcast_to @notification, @notification
+      ActionCable.server.broadcast "notifications_channel_#{current_user.id}", unreadnotifs: count_unread_notifs
+    end
+
     respond_to do |format|
       if @comment.save
         format.html { redirect_to @product, notice: 'Comment was successfully created.' }
@@ -65,6 +78,12 @@ class CommentsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  protected
+
+    def count_unread_notifs
+      Notification.where(:status_cd => 0).and(:user_id => current_user.id).length
+    end
 
   private
     # Use callbacks to share common setup or constraints between actions.
