@@ -75,9 +75,12 @@ jQuery(document).on('turbolinks:load', function() {
   $(".placepicker").placepicker();
   $("#item-loc-input").placepicker();
 
+  
+
   $(document).on('cocoon:after-insert', function(e, added_item) {
     var itemSizes = $('#delivery_form').find("[data-field='item-size']");
     var locInput = added_item.find("#item-loc-input");
     locInput.placepicker();
+    locInput.placeChanged.call("", );
   });
 });

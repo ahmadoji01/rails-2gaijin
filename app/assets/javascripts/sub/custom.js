@@ -22,5 +22,5 @@ $('#menu-profile a').on('click', function (e) {
 
 $('.dropdown-toggle').dropdown();
 
-$('.bootstrap-date-picker').bootstrapMaterialDatePicker({ weekStart : 0, time: false }, moment());
-$('.bootstrap-time-picker').bootstrapMaterialDatePicker({ date: false }, moment());
+/*$('.bootstrap-date-picker').bootstrapMaterialDatePicker({ weekStart : 0, time: false }, moment());
+$('.bootstrap-time-picker').bootstrapMaterialDatePicker({ date: false }, moment());*/

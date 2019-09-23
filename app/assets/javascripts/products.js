@@ -9,4 +9,10 @@ jQuery(document).on('turbolinks:load', function() {
 		var formattedDate = moment($element.html()).calendar();
 		$element.html(formattedDate);
 	});
+
+	$('.comment_time').each(function(index, element) {
+		var $element = $(element);
+		var formattedDate = moment($element.html()).calendar();
+		$element.html(formattedDate);
+	});
 });

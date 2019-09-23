@@ -13,6 +13,8 @@ class ProductsController < ApplicationController
   # GET /products/1.json
   def show
     @recentproducts = Product.all.order(created_at: :desc).limit(8)
+    @comments = Comment.where(product_id: @product.id)
+    @comment = Comment.new
   end
 
   # GET /products/new
@@ -120,6 +122,11 @@ class ProductsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
       params.require(:product).permit(:name, :description, :price, :created_at, :updated_at, :image, :categories)
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def comment_params
+      params.require(:comment).permit(:content)
     end
 
     def redirect_if_no_session

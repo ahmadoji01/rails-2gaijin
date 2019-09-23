@@ -38,6 +38,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :comments
+
   get '/home_delivery', :to => 'deliveries#index'
 
   as :user do

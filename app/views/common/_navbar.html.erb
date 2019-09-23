@@ -161,9 +161,9 @@
                         <div class="dropdown-list-content dropdown-list-message" id="notification">
                             <% Notification.all.each do |notification| %>
                                 <a href="#" class="dropdown-item">
-                                    <div class="dropdown-item-avatar">
+                                    <!-- <div class="dropdown-item-avatar">
                                         <%= image_tag "products/product-3-50.png", class: "rounded-circle", width: "30", alt: "image" %>
-                                    </div>
+                                    </div> -->
                                     <div class="dropdown-item-desc">
                                         <b><%= notification.name %></b>
                                         <div class="float-right">
@@ -173,19 +173,6 @@
                                     </div>
                                 </a>
                             <% end %>
-                            <a href="#" class="dropdown-item">
-                                <div class="dropdown-item-avatar">
-                                    <%= image_tag "products/product-3-50.png", alt: "image", class: "rounded-circle" %>
-                                </div>
-                                <div class="dropdown-item-desc">
-                                    <b>Bekti Galan</b>
-                                    <div class="float-right">
-                                        <i class="fa fa-reply" title="Reply"></i>
-                                        <i class="fa fa-check" title="Mark As Read"></i>
-                                    </div>
-                                    <div class="time">10 Hours Ago</div>
-                                </div>
-                            </a>
                             <a href="#" class="dropdown-item">
                                 <div class="dropdown-item-avatar">
                                     <%= image_tag "products/product-1-50.png", class: "rounded-circle", width: "30", alt: "image" %>

@@ -87,6 +87,49 @@
                 </div>
             </div> -->
         </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Comments</h3>
+                    </div>
+                    <div class="card-body">
+                        <% if @comments.count > 0 %>
+                            <% @comments.each do |comment| %>
+                                <div class="card">
+                                    <div class="card-body">
+                                    <div class="row">
+                                        <div class="d-none d-md-block col-md-2">
+                                            <%= image_tag "avatar/avatar-2.png", class: "rounded-circle img-fluid w-50 mx-auto d-block" %>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <p><a href="#"><strong><%= comment.user.first_name %></strong></a>
+                                            <p class="comment_time d-lg-none d-md-none text-secondary"><%= comment.created_at %></p>
+                                            <span class="comment_time d-none d-lg-block d-md-block text-secondary float-right"><%= comment.created_at %></span>
+                                            </p>
+                                            <p><%= comment.content %></p>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            <% end %>
+                        <% end %>
+
+                        <div class="form-group">
+                            <%= form_for @comment do |f| %>
+                                <%= f.text_area :content, class: "form-control", placeholder: "Write Your Comment Here...", rows: "10"  %>
+                                <%= f.hidden_field :product_id, value: @product.id %>
+                                <%= f.submit class: "btn btn-primary pull-right" do %>
+                                    Add Comment
+                                <% end %>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-12">
                 <div class="card">
