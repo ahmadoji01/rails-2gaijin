@@ -2,7 +2,7 @@ jQuery(document).on('turbolinks:load', function() {
 
 	App.cable.subscriptions.create(
     {
-      channel: "NotificationChannel"
+      channel: "RoomNotificationChannel"
     },
     {
       received: function(data) {

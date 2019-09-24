@@ -15,21 +15,16 @@ jQuery(document).on('turbolinks:load', function() {
         current_user_id = $element.data('user-id'),
         notifTemplate = $('[data-role="notif-template"]');     
 
-    App.cable.subscriptions.create(
+    App.cable.subscriptions.create("NotificationChannel",
       {
-        channel: "NotificationChannel"
-      },
-      {
-        connected: function() {
-          console.log("Notification Channel");
-        },
         received: function(data) {
           var msgDate = moment(data.created_at).calendar();
-          var content = notifTemplate.children.clone(true, true);
+          var content = notifTemplate.children().clone(true, true);
           content.find('[data-role="notif-title"]').text(data.name);
           content.find('[data-role="notif-time"]').text(msgDate);
+          content.find('[data-role="notif-link"]').attr('href', data.link);
           
-          $element.append(content);
+          $element.prepend(content);
           $('#total-notif-number').text(data.unreadnotifs);
         }
       }

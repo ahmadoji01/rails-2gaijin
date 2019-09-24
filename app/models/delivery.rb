@@ -9,8 +9,9 @@ class Delivery
   field :delivery_date, type: DateTime
   field :price, type: Integer
 
-  has_one :destination, :class_name => "Address"
-
+  has_one :address, inverse_of: :delivery
+  accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
+ 
   has_many :delivery_items, inverse_of: :delivery
   accepts_nested_attributes_for :delivery_items, reject_if: :all_blank, allow_destroy: true
 

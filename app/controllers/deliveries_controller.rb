@@ -42,6 +42,7 @@ class DeliveriesController < ApplicationController
   def create
     @delivery = Delivery.new(delivery_params)
     @delivery.user = current_user
+    @delivery.address.user = current_user
 
     respond_to do |format|
       if @delivery.save
@@ -87,6 +88,8 @@ class DeliveriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def delivery_params
-      params.require(:delivery).permit(:name, :email, :phone, :delivery_date, :price, :origins, :destination, delivery_items_attributes: [:id, :name, :size])
+      params.require(:delivery).permit(:name, :email, :phone, :delivery_date, :price,
+                                       address_attributes: [:full_address, :apartment, :city, :state, :postal_code, :latitude, :longitude],
+                                       delivery_items_attributes: [:id, :name, :address, :size])
     end
 end

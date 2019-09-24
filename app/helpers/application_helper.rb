@@ -10,4 +10,12 @@ module ApplicationHelper
 	def user_unread_notifs
 		Notification.where(:status_cd => 0).and(:user_id => current_user.id).length
 	end
+
+	def new_delivery
+		delivery = Delivery.new
+		address = Address.new
+		address.user = current_user
+		delivery.address = address
+		return delivery
+	end
 end

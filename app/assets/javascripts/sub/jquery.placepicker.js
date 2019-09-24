@@ -149,8 +149,10 @@
 
       marker = new google.maps.Marker({
         map: map,
-        draggable: true
+        draggable: true,
       });
+
+      marker.addListener('dragend', markerChange);
 
       service = new google.maps.places.PlacesService(map);
 
@@ -171,6 +173,12 @@
 
         $(e.target).css("display", "");
       });
+    }
+
+    function markerChange(marker) {
+      codeLatLng(marker.latLng);
+      $("#address-lat").val(marker.latLng.lat());
+      $("#address-long").val(marker.latLng.lng());
     }
 
     function initAutoComplete() {

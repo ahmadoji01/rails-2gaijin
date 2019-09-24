@@ -6,6 +6,7 @@
     "browserify-incremental": "^3.1.0",
     "coffeeify": "~0.6",
     "location-picker": "^1.1.1",
+    "smoothscroll-polyfill": "^0.4.4",
     "underscore": "1.9.1"
   },
   "license": "MIT",

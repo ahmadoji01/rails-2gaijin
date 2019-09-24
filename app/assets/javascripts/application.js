@@ -19,4 +19,5 @@
 //= require moment
 //= require cocoon
 //= require underscore/underscore
+//= require smoothscroll-polyfill/dist/smoothscroll
 //= require_tree .

@@ -31,17 +31,16 @@ class CommentsController < ApplicationController
     @comment.product = @product
     @comment.created_at = DateTime.now
 
-    @notification = Notification.new
-    @notification.name = current_user.first_name + " commented on your " + @product.name
-    @notification.created_at = DateTime.now
-    @notification.user = current_user
-    @notification.product = @product
-    @notification.status = :unread
-    @notification.type = :comment
-    
-    if @notification.save
-      NotificationChannel.broadcast_to @notification, @notification
-      ActionCable.server.broadcast "notifications_channel_#{current_user.id}", unreadnotifs: count_unread_notifs
+    if @product.user.id != @comment.user.id
+      @notification = Notification.create name: current_user.first_name + " commented on your " + @product.name,
+                                          created_at: DateTime.now,
+                                          user: @product.user,
+                                          product: @product,
+                                          comment: @comment,
+                                          status: :unread,
+                                          type: :comment
+      
+      broadcast_notif(@notification, @product.user, "Add")
     end
 
     respond_to do |format|
@@ -72,17 +71,30 @@ class CommentsController < ApplicationController
   # DELETE /comments/1
   # DELETE /comments/1.json
   def destroy
+    @notification = Notification.find_by(comment_id: @comment.id)
+    @notification.destroy
+    broadcast_notif(@notification, @notification.product.user, "Delete")
+
     @comment.destroy
     respond_to do |format|
-      format.html { redirect_to comments_url, notice: 'Comment was successfully destroyed.' }
+      format.html { redirect_to @notification.product, notice: 'Comment was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   protected
 
-    def count_unread_notifs
-      Notification.where(:status_cd => 0).and(:user_id => current_user.id).length
+    def count_unread_notifs(user)
+      Notification.where(:status_cd => 0).and(:user_id => user.id).length
+    end
+
+    def broadcast_notif(notification, user, action)
+
+      NotificationChannel.broadcast_to user, notification
+      ActionCable.server.broadcast "notification_channel_#{user.id}", unreadnotifs: count_unread_notifs(user), 
+                                                                      name: notification.name, 
+                                                                      link: product_path(notification.product),
+                                                                      action: action
     end
 
   private
