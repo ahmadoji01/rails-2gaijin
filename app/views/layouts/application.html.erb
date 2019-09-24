@@ -12,33 +12,57 @@
     <%= stylesheet_link_tag    'sub/modules/owlcarousel2/dist/assets/owl.carousel.min' %>
     <%= stylesheet_link_tag    'sub/modules/select2/dist/css/select2.min' %>
     <%= stylesheet_link_tag    'sub/modules/bootstrap-social/bootstrap-social' %>
+    <%= stylesheet_link_tag    'sub/modules/mtr-datepicker/mtr-datepicker.min' %>
+    <%= stylesheet_link_tag    'sub/modules/mtr-datepicker/mtr-datepicker.default-theme.min' %>
     <%= stylesheet_link_tag    'sub/style' %>
     <%= stylesheet_link_tag    'sub/components' %>
     <%= stylesheet_link_tag    'sub/custom' %>
     <%= stylesheet_link_tag    'sub/chat' %>
+    <%= stylesheet_link_tag    'sub/bootstrap-material-datetimepicker' %>
 
+    <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <%= javascript_include_tag 'sub/rails-gmaps' %>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.google_maps_api_key %>&libraries=places&callback=initMap" async defer></script>
+    <script src="js/jquery.placepicker.min.js"></script>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.29.2/sweetalert2.all.js"></script>
   </head>
 
   <body class="layout-2" >
 
     <div class="main-wrapper">
       <div class="navbar-bg"></div>
-      <%= render "common/navbar" %>
-      <%= render "common/checkout_modal" %>
+        <%= render "common/navbar" %>
+        <%= render "common/checkout_modal" %>
+        <% if user_signed_in? %>
+            <%= render "common/delivery_modal", delivery: new_delivery %>
+        <% end %>
     </div>
 
     <%= yield %>
 
+    <%=  render "common/footer" %>
+    <%=  render 'sweetify/alert' %>
+    <%=  render "common/fab_add_product" %>
+
+    <script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"></script>
+    <script src='//cdn.rawgit.com/printercu/google-maps-utility-library-v3-read-only/master/infobox/src/infobox_packed.js' type='text/javascript'></script>
+    
     <%= javascript_include_tag 'sub/modules/popper' %>
     <%= javascript_include_tag 'sub/modules/tooltip' %>
-    <%= javascript_include_tag 'sub/modules/moment.min' %>
+    <%= javascript_include_tag 'sub/price-counter' %>
     <%= javascript_include_tag 'sub/modules/owlcarousel2/dist/owl.carousel.min' %>
     <%= javascript_include_tag 'sub/modules/cleave-js/dist/cleave.min' %>
     <%= javascript_include_tag 'sub/modules/select2/dist/js/select2.min' %>
+    <%= javascript_include_tag 'sub/modules/mtr-datepicker/mtr-datepicker.min' %>
     <%= javascript_include_tag 'sub/modules/chart.min' %>
     <%= javascript_include_tag 'sub/custom' %>
     <%= javascript_include_tag 'sub/owl' %>
     <%= javascript_include_tag 'sub/dashboard' %>
+    <%= javascript_include_tag 'sub/bootstrap-material-datetimepicker' %>
+
   </body>
+
 </html>

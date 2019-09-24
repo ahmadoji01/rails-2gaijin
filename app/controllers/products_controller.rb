@@ -12,6 +12,9 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
+    @recentproducts = Product.all.order(created_at: :desc).limit(8)
+    @comments = Comment.where(product_id: @product.id)
+    @comment = Comment.new
   end
 
   # GET /products/new
@@ -24,11 +27,34 @@ class ProductsController < ApplicationController
   def edit
   end
 
+  def mark_as_sold
+    @product = Product.find(params[:id])
+    
+    @status = :sold
+    if @product.status == :sold
+      @status = :active
+    end
+
+    @product.status = @status
+    @product.updated_at = DateTime.now
+
+    respond_to do |format|
+      if @product.update
+        format.html { redirect_to @product, notice: 'Product was successfully updated.' }
+        format.json { render :show, status: :ok, location: @product }
+      else
+        format.html { render :edit }
+        format.json { render json: @product.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # POST /products
   # POST /products.json
   def create
     @product = Product.new(product_params)
     @product.user = current_user
+    @product.status = :active
     @product.created_at = DateTime.now
     @product.updated_at = DateTime.now
 
@@ -79,6 +105,7 @@ class ProductsController < ApplicationController
   # DELETE /products/1
   # DELETE /products/1.json
   def destroy
+    sweetalert_error("Are you sure you want to delete this?", title = 'Warning', opts = {})
     @product.destroy
     respond_to do |format|
       format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
@@ -95,6 +122,11 @@ class ProductsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
       params.require(:product).permit(:name, :description, :price, :created_at, :updated_at, :image, :categories)
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def comment_params
+      params.require(:comment).permit(:content)
     end
 
     def redirect_if_no_session

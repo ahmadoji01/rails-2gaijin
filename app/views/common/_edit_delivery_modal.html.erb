@@ -1,0 +1,123 @@
+<div class="modal fade" id="editDeliveryModal<%= delivery.id %>" tabindex="-1" role="dialog" aria-labelledby="editDeliveryModal<%= delivery.id %>" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deliveryModalTitle">Delivery</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="edit-delivery-tab-<%= delivery.id %>" data-toggle="tab" href="#edit-delivery-<%= delivery.id %>" role="tab" aria-controls="edit-delivery-<%= delivery.id %>" aria-selected="true">Contact Info</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="edit-shipping-address-tab-<%= delivery.id %>" data-toggle="tab" href="#edit-shipping-address-<%= delivery.id %>" role="tab" aria-controls="edit-shipping-address-<%= delivery.id %>" aria-selected="false">Shipping Address</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="edit-items-tab-<%= delivery.id %>" data-toggle="tab" href="#edit-items-<%= delivery.id %>" role="tab" aria-controls="edit-items-<%= delivery.id %>" aria-selected="false">Items List</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="edit-checkout-delivery-tab-<%= delivery.id %>" data-toggle="tab" href="#edit-checkout-delivery-<%= delivery.id %>" role="tab" aria-controls="edit-checkout-delivery-<%= delivery.id %>" aria-selected="false">Checkout</a>
+          </li>
+        </ul>
+        <%= form_for delivery, html: { id: "delivery_form_#{ delivery.id }" } do |f| %>
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="edit-delivery-<%= delivery.id %>" role="tabpanel" aria-labelledby="edit-delivery-tab-<%= delivery.id %>">
+                <div class="mb-3">
+                  <%= f.label :name %>
+                  <%= f.text_field :name, class: "form-control", required: true %>
+                </div>
+                <div class="mb-3">
+                  <%= f.label :email %>
+                  <%= f.email_field :email, class: "form-control", required: true %>
+                </div>
+                <div class="mb-3">
+                  <%= f.label :phone %>
+                  <%= f.text_field :phone, type: "tel", class: "form-control", placeholder: "Ex. 070-1234-5678" %>
+                </div>
+              <hr class="mb-4">
+            </div>
+            <div class="tab-pane fade" id="edit-shipping-address-<%= delivery.id %>" role="tabpanel" aria-labelledby="edit-shipping-address-tab-<%= delivery.id %>">
+              <%= f.fields_for :address, delivery.address do |builder| %>
+                <div class="mb-3">
+                  <%= builder.label :full_address %>
+                  <%= builder.text_field :full_address, class: "form-control", placeholder: "Ex. Kita 14-jo, Nishi 4-Chome", required: true %>
+                </div>
+                <div class="mb-3">
+                  <%= builder.label :apartment, "Apartment and Room Number (Optional)" %>
+                  <%= builder.text_field :apartment, class: "form-control", placeholder: "Ex. Fujii Building, 305", required: true %>
+                </div>
+                <div class="row">
+                  <div class="col-md-5 mb-3">
+                    <%= builder.label :state %>
+                    <%= builder.select :state, options_for_select(['Hokkaido']), {:selected => delivery.address.state}, { class: "custom-select d-block w-100", required: true } %>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <%= builder.label :city %>
+                    <%= builder.select :city, options_for_select([['Sapporo'], ['Eniwa']]), {:selected => delivery.address.city}, { class: "custom-select d-block w-100", required: true } %>
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <%= builder.label :postal_code %>
+                    <%= builder.text_field :postal_code, class: "form-control", required: true %>                      
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label>Geolocation Address</label>
+                  <div class="form-group">
+                    <input type="text" data-toggle="collapse" href="#collapseOne" class="placepicker form-control" data-map-container-id="collapseOne">
+                  </div>
+                  <div id="collapseOne" class="collapse">
+                    <div class="placepicker-map thumbnail"></div>
+                  </div>
+                  <%= builder.hidden_field :latitude, id: "address-lat" %>
+                  <%= builder.hidden_field :longitude, id: "address-long" %>                      
+                </div>
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="save-info">
+                  <label class="custom-control-label" for="save-info">Save this information for next time</label>
+                </div>
+                <hr class="mb-4">
+                <!-- <button type="button" class="btn btn-secondary btnPrevious">Previous</button>
+                <button type="button" class="btn btn-secondary btnNext">Next</button> -->
+              <% end %>
+            </div>
+            <div class="tab-pane fade" id="edit-items-<%= delivery.id %>" role="tabpanel" aria-labelledby="edit-items-tab-<%= delivery.id %>">
+              <%= f.fields_for :delivery_items do |item| %>
+                <div class="mb-3">
+                  <%= render "deliveries/delivery_item_fields", f: item %>
+                </div>
+                <div class="mb-3">
+                  <span class="pull-right">
+                    <%= link_to_add_association f, :delivery_items, render_options: { wrapper: 'bootstrap' }, partial: 'deliveries/delivery_item_fields' do %>
+                      <button class="btn btn-primary">Add Item</button>
+                    <% end %>
+                  </span>
+                </div>
+              <% end %>
+              <hr class="mb-4">
+            </div>
+            <div class="tab-pane fade" id="edit-checkout-delivery-<%= delivery.id %>" role="tabpanel" aria-labelledby="edit-checkout-delivery-tab-<%= delivery.id %>">
+              <div class="d-block my-3">
+                <div class="custom-control custom-radio">
+                  <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
+                  <label class="custom-control-label" for="credit">Cash on Delivery</label>
+                </div>
+              </div>
+              <%= f.hidden_field :price, id: "delivery_price", value: 0 %>
+              <%= f.label :delivery_date %>
+              <%= f.hidden_field :delivery_date, id: "delivery-date-input", required: true %>
+              <div id="delivery-date" class="col-mb-3">
+              </div>
+              <%= f.button "Check Out", type: :submit, class: "btn btn-primary" %>
+              <hr class="mb-4">
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>

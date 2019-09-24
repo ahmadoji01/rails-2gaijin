@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-expand-sm main-navbar fixed-top">
+<nav class="navbar navbar-expand-lg navbar-expand-sm main-navbar fixed-top" id="navbar-2gaijin">
     <ul class="navbar-nav">
             <li class="d-lg-block d-none">
                 <%= link_to root_url do %>
@@ -6,27 +6,72 @@
                 <% end %>
             </li>
         </ul>
-        <ul class="navbar-nav mr-3">
+        <ul class="navbar-nav mr-1">
             <li class="dropdown dropdown-list-toggle">
                 <a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg">
                     <i class="fa fa-bars"></i>
                 </a>
                 <div class="dropdown-menu dropdown-list dropdown-menu-left">
-                    <div class="dropdown-list-content dropdown-list-icons">
-                        <a href="#" class="dropdown-item">
-                            <div class="icon-left">
-                                <i class="fa fa-utensils fa-lg"></i> Category 1
+                    <div class="dropdown-list-category dropdown-list-icons">
+                        <a href="<%= search_page_path(:category => "Electronics") %>" class="dropdown-item">
+                            <div class="icon-left col-md-1">
+                                <i class="fa fa-plug fa-lg"></i>
                             </div>
+                            <div class="col-md-10">Electronics</div>
+                        </a>
+                        <a href="<%= search_page_path(:category => "White Appliances") %>" class="dropdown-item">
+                            <div class="icon-left col-md-1">
+                                <i class="fa fa-tablet fa-lg"></i> 
+                            </div>
+                            <div class="col-md-10">White Appliances</div>
+                        </a>
+                        <a href="<%= search_page_path(:category => "Furnitures") %>" class="dropdown-item">
+                            <div class="icon-left col-md-1">
+                                <i class="fa fa-couch fa-lg"></i> 
+                            </div>
+                            <div class="col-md-10">Furnitures</div>
                         </a>
                         <a href="#" class="dropdown-item">
-                            <div class="icon-left">
-                                <i class="fa fa-tshirt fa-lg"></i> Category 2
+                            <div class="icon-left col-md-1">
+                                <i class="fa fa-utensils fa-lg"></i> 
                             </div>
+                            <div class="col-md-10">Kitchens</div>
                         </a>
                         <a href="#" class="dropdown-item">
-                            <div class="icon-left">
-                                <i class="fa fa-book fa-lg"></i> Category 1
+                            <div class="icon-left col-md-1">
+                                <i class="fa fa-book fa-lg"></i> 
                             </div>
+                            <div class="col-md-10">Books</div>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <div class="icon-left col-md-1">
+                                <i class="fa fa-tshirt fa-lg"></i> 
+                            </div>
+                            <div class="col-md-10">Apparels</div>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <div class="icon-left col-md-1">
+                                <i class="fa fa-volleyball-ball fa-lg"></i> 
+                            </div>
+                            <div class="col-md-10">Sports</div>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <div class="icon-left col-md-1">
+                                <i class="fa fa-car fa-lg"></i> 
+                            </div>
+                            <div class="col-md-10">Vehicles</div>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <div class="icon-left col-md-1">
+                                <i class="fa fa-shoe-prints fa-lg"></i> 
+                            </div>
+                            <div class="col-md-10">Shoes</div>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <div class="icon-left col-md-1">
+                                <i class="fa fa-ellipsis-h fa-lg"></i> 
+                            </div>
+                            <div class="col-md-10">Miscellaneous</div>
                         </a>
                     </div>
                 </div>
@@ -39,96 +84,26 @@
                     <i class="fas fa-search"></i>
                 <% end %>
                 <div class="search-backdrop"></div>
-                <div class="search-result">
-                    <div class="search-header">
-                        Result
-                    </div>
-                    <div class="search-item">
-                        <a href="#">Television</a>
-                        <a href="#" class="search-close"><i class="fas fa-times"></i></a>
-                    </div>
-                    <div class="search-item">
-                        <a href="#">SOLD</a>
-                        <a href="#" class="search-close"><i class="fas fa-times"></i></a>
-                    </div>
-                    <div class="search-header">
-                        Result
-                    </div>
-                    <div class="search-item">
-                        <a href="#">
-                            <%= image_tag "products/product-3-50.png", class: "mr-3 rounded", width: "30", alt: "product" %> iPhone 7s 2nd Fullset like new
-                        </a>
-                    </div>
-                </div>
             </div>
         <% end %>
             <ul class="navbar-nav navbar-right">
                 <li class="dropdown dropdown-list-toggle">
                     <% if user_signed_in? %>
-                    <a href="#" id="package-notif-beep" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle"><i class="fa fa-shopping-cart"></i>
+                    <a href="#" id="package-notif-beep" data-toggle="modal" data-target="#deliveryModal" class="nav-link nav-link-lg message-toggle"><i class="fa fa-truck"></i>
                         <!-- <span class="d-none d-lg-block">Packages</span> -->
-                            <span id="package-notif-num" class="d-none d-lg-inline badge badge-warning">2</span>
+                            <!-- <span id="package-notif-num" class="d-none d-lg-inline badge badge-warning">2</span> -->
                     <% else %>
-                    <a href="#" id="package-notif-beep" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle"><i class="fa fa-shopping-cart"></i> 
+                    <a href="<%= new_user_session_path %>" id="package-notif-beep" class="nav-link nav-link-lg message-toggle"><i class="fa fa-truck"></i> 
                     <% end %>
                     </a>
-                    <div class="dropdown-menu dropdown-list dropdown-menu-right">
-                        <div class="dropdown-header">Packages
-                        </div>
-                        <% if user_signed_in? %>
-                        <div class="dropdown-list-content dropdown-list-message" id="notification">
-                            <% Notification.all.each do |notification| %>
-                                <a href="#" class="dropdown-item">
-                                    <div class="dropdown-item-avatar">
-                                        <%= image_tag "products/product-3-50.png", class: "rounded-circle", width: "30", alt: "image" %>
-                                    </div>
-                                    <div class="dropdown-item-desc">
-                                        <b><%= notification.name %></b>
-                                        <div class="float-right">
-                                            <i class="fa fa-trash"></i>
-                                        </div>
-                                        <div class="time">10 Hours Ago</div>
-                                    </div>
-                                </a>
-                            <% end %>
-                            <a href="#" class="dropdown-item">
-                                <div class="dropdown-item-avatar">
-                                    <%= image_tag "products/product-3-50.png", class: "rounded-circle", width: "30", alt: "image" %>
-                                </div>
-                                <div class="dropdown-item-desc">
-                                    <b>Laptop Lenovo G405</b>
-                                    <div class="float-right">
-                                        <i class="fa fa-trash"></i>
-                                    </div>
-                                    <div class="time">10 Hours Ago</div>
-                                </div>
-                            </a>
-                            <a href="#" class="dropdown-item">
-                                <div class="dropdown-item-avatar">
-                                    <%= image_tag "products/product-1-50.png", class: "rounded-circle", width: "30", alt: "image" %>
-                                </div>
-                                <div class="dropdown-item-desc">
-                                    <b>Test Product's Name</b>
-                                    <div class="float-right">
-                                        <i class="fa fa-trash"></i>
-                                    </div>
-                                    <div class="time">2 Hours Ago</div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="dropdown-footer text-center">
-                            <a href="#" data-toggle="modal" data-target="#checkoutModal">Checkout <i class="fas fa-chevron-right"></i></a>
-                        </div>
-                        <% end %>
-                    </div>
                 </li>
                 <li id="msg-nav" class="dropdown dropdown-list-toggle">
                     <% if user_signed_in? %>
-                    <a href="#" id="msg-notif-beep" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle"><i class="far fa-envelope"></i>
+                    <a href="#" id="msg-notif-beep" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle"><i class="fa fa-envelope"></i>
                         <!-- <span class="d-none d-lg-block">Packages</span> -->
                             <span id="msg-notif-num" class="d-none d-lg-inline badge badge-primary"><%= Room.where(:is_read => false).and(:user_ids => current_user.id).count %></span>
                     <% else %>
-                    <a href="#" id="msg-notif-beep" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle"><i class="far fa-envelope"></i>
+                    <a href="<%= new_user_session_path %>" id="msg-notif-beep" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle"><i class="fa fa-envelope"></i>
                     <% end %>
                     </a>
                     <div class="dropdown-menu dropdown-list dropdown-menu-right">
@@ -136,7 +111,7 @@
                         </div>
                         <% if user_signed_in? %>
                         <div class="dropdown-list-content dropdown-list-message" id="notification">
-                            <% Room.where(:user_ids => current_user.id).order_by(last_active: :desc).limit(4).each do |room| %>
+                            <% user_rooms.limit(4).each do |room| %>
                                 <a href="<%= room_path(room) %>" class="dropdown-item" data-room-order="">
                                     <div class="dropdown-item-avatar">
                                         <%= image_tag "avatar/avatar-2.png", class: "rounded-circle", width: "30", alt: "image" %>
@@ -157,7 +132,7 @@
                                                 <i class="fas fa-circle"></i>
                                             </div>
                                         <% end %>
-                                        <div class="msg_time"><%= room.last_active %></div>
+                                        <div class="msg_time time"><%= room.last_active %></div>
                                     </div>
                                 </a>
                             <% end %>
@@ -172,57 +147,26 @@
                 </li>
                 <li class="dropdown dropdown-list-toggle">
                     <% if user_signed_in? %>
-                    <a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle"><i class="far fa-bell"></i>
+                    <a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle"><i class="fa fa-bell"></i>
                         <!-- <span class="d-none d-lg-block">Packages</span> -->
-                        <span class="d-none d-lg-inline badge badge-warning">2</span>
+                        <span class="d-none d-lg-inline badge badge-warning" id="total-notif-number"><%= user_unread_notifs %></span>
                     <% else %>
-                    <a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle"><i class="far fa-bell"></i>
+                    <a href="<%= new_user_session_path %>" class="nav-link nav-link-lg message-toggle"><i class="fa fa-bell"></i>
                     <% end %>
                     </a>
                     <div class="dropdown-menu dropdown-list dropdown-menu-right">
                         <div class="dropdown-header">Notification
                         </div>
                         <% if user_signed_in? %>
-                        <div class="dropdown-list-content dropdown-list-message" id="notification">
-                            <% Notification.all.each do |notification| %>
-                                <a href="#" class="dropdown-item">
-                                    <div class="dropdown-item-avatar">
-                                        <%= image_tag "products/product-3-50.png", class: "rounded-circle", width: "30", alt: "image" %>
-                                    </div>
+                        <div class="dropdown-list-content dropdown-list-message" data-channel-subscribe="notification" data-user-id="<%= current_user.id %>" id="notification">
+                            <% user_notifications.limit(4).each do |notification| %>
+                                <a href="<%= product_path(notification.product) %>" class="dropdown-item">
                                     <div class="dropdown-item-desc">
                                         <b><%= notification.name %></b>
-                                        <div class="float-right">
-                                            <i class="fa fa-trash"></i>
-                                        </div>
-                                        <div class="time">10 Hours Ago</div>
+                                        <div class="msg_time time"><%= notification.created_at %></div>
                                     </div>
                                 </a>
                             <% end %>
-                            <a href="#" class="dropdown-item">
-                                <div class="dropdown-item-avatar">
-                                    <%= image_tag "products/product-3-50.png", alt: "image", class: "rounded-circle" %>
-                                </div>
-                                <div class="dropdown-item-desc">
-                                    <b>Bekti Galan</b>
-                                    <div class="float-right">
-                                        <i class="fa fa-reply" title="Reply"></i>
-                                        <i class="fa fa-check" title="Mark As Read"></i>
-                                    </div>
-                                    <div class="time">10 Hours Ago</div>
-                                </div>
-                            </a>
-                            <a href="#" class="dropdown-item">
-                                <div class="dropdown-item-avatar">
-                                    <%= image_tag "products/product-1-50.png", class: "rounded-circle", width: "30", alt: "image" %>
-                                </div>
-                                <div class="dropdown-item-desc">
-                                    <b>Test Product's Name</b>
-                                    <div class="float-right">
-                                        <i class="fa fa-trash"></i>
-                                    </div>
-                                    <div class="time">2 Hours Ago</div>
-                                </div>
-                            </a>
                         </div>
                         <% end %>
                     </div>
@@ -240,6 +184,12 @@
                         <a href="<%= user_root_url %>" class="dropdown-item has-icon">
                             <i class="far fa-user"></i> Profile
                         </a>
+                        <a href="<%= user_product_url %>" class="dropdown-item has-icon">
+                            <i class="far fa-list-alt"></i> Listed Products
+                        </a>
+                        <a href="<%= new_product_path %>" class="dropdown-item has-icon">
+                            <i class="far fa-calendar-plus"></i> Add Product
+                        </a>
                         <div class="dropdown-divider"></div>
                         <%= link_to destroy_user_session_path, :method => :delete, :class => "dropdown-item has-icon text-danger" do %>
                             <i class="fas fa-sign-out-alt"></i>Logout
@@ -253,3 +203,12 @@
                 </li>
             </ul>
 </nav>
+
+<div class="d-none" data-role="notif-template">
+    <a href="" class="dropdown-item" id="notif-link" data-role="notif-link">
+        <div class="dropdown-item-desc">
+            <b data-role="notif-title"></b>
+            <div class="msg_time time" data-role="notif-time"></div>
+        </div>
+    </a>
+</div>

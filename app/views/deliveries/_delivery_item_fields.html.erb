@@ -1,0 +1,25 @@
+<div class="nested-fields">
+	<div class="mb-3">
+		<%= f.label :name, "Item" %>
+		<%= f.text_field :name, class: "form-control", placeholder: "Item Name", required: true %>
+	</div>
+	<div class="mb-3">
+		<%= f.label :address, "Location" %>
+		<%= f.text_field :address, id: "item-loc-input", class: "form-control", placeholder: "Location", required: true %>
+	</div>
+	<div class="d-inline my-3">
+		<div class="custom-control custom-radio">
+			<%= f.radio_button :size, :big, :"data-field" => "item-size", :value => :big, :required => true, class: "custom-control-input" %>
+			<%= f.label :size, "Big (> 30x30x30 cm)", class: "custom-control-label", :value => :big  %>
+		</div>
+		<div class="custom-control custom-radio">
+			<%= f.radio_button :size, :small, :"data-field" => "item-size", :value => :small, class: "custom-control-input" %>
+			<%= f.label :size, "Small (<= 30x30x30 cm)", class: "custom-control-label", :value => :small  %>
+		</div>
+	</div>
+	<div>
+		<%= link_to_remove_association f, style: "color: #fff;" do %>
+			<button class="btn btn-primary">Remove Item</button>
+		<% end %>
+	</div>
+</div>

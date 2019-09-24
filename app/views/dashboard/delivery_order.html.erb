@@ -1,0 +1,61 @@
+<div class="main-content">
+    <div class="col-12">
+        <!-- <div class="mb-2">
+            <%= link_to new_product_path do %>
+                <button class="btn btn-primary btn-lg btn-icon icon-left"><i class="fa fa-plus"></i> Sell Something</button>
+            <% end %>
+        </div>
+        <hr> -->
+        <table class="table">
+            <thead style="color: none;">
+                <tr>
+                    <th class="text-center">Name</th>
+                    <th class="text-center">Delivery Date</th>
+                    <!-- <th scope="col">Product's Name</th> -->
+                    <th class="text-center">Phone Number</th>
+                    <!--<th class="text-center">Quantity</th>-->
+                    <th class="text-center">Price</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <br>
+                <% if @deliveries.count > 0 %>
+                    <% @deliveries.each do |delivery| %>
+                    <tr>
+                        <td class="text-center">
+                            <%= delivery.name %>
+                        </td>
+                        <td class="text-center">
+                            <%= delivery.delivery_date %>
+                        </td>
+                        <td class="text-center">
+                            <%= delivery.phone %>
+                        </td>
+                        <!-- <td class="text-center">2</td> -->
+                        <td class="text-center"><span class="currency">&#165;</span><%= delivery.price %></td>
+                        <td>
+                            <center>
+                                <button class="btn btn-outline-primary btn-icon icon-left" data-toggle="modal" data-target="#editDeliveryModal<%= delivery.id %>"><i class="fa fa-edit"></i> Edit</button>
+                                <% if current_user != delivery.user %> 
+                                    <%= form_tag contact_seller_rooms_path, method: :post do %>
+                                        <input id="seller_id" type="hidden" name="seller_id" value="<%= delivery.user.id %>">
+                                        <%= button_tag type: "submit", class: "btn btn-outline-primary" do %> 
+                                            <i class="fas fa-phone"></i> Contact Customer
+                                        <% end %> 
+                                    <% end %>
+                                <% end %>
+                            </center>
+                        </td>
+                    </tr>
+                    <%= render "common/edit_delivery_modal", delivery: delivery %>
+                    <% end %>
+                    <%= paginate @deliveries %>
+                    <% else %>
+                        There is no product you delivery order
+                <% end %>
+            </tbody>
+        </table>
+        <hr>
+    </div>
+</div>
