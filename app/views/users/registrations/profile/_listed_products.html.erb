@@ -67,6 +67,9 @@
                                         <% end %>
                                     <% end %> 
                                 <% end %>
+                                <%= link_to product, method: :delete, data: { :"confirm-swal" => 'Are you sure?', confirm: 'Are you sure?'} do %>
+                                    <button class="btn btn-outline-danger btn-icon icon-left"><i class="fa fa-trash"></i> Delete</button>
+                                <% end %>
                             </center>
                             <%= render 'products/edit_modal', p: product %>
                         </td>

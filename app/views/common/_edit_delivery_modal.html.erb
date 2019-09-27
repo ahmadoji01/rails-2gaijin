@@ -13,13 +13,13 @@
             <a class="nav-link active" id="edit-delivery-tab-<%= delivery.id %>" data-toggle="tab" href="#edit-delivery-<%= delivery.id %>" role="tab" aria-controls="edit-delivery-<%= delivery.id %>" aria-selected="true">Contact Info</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="edit-shipping-address-tab-<%= delivery.id %>" data-toggle="tab" href="#edit-shipping-address-<%= delivery.id %>" role="tab" aria-controls="edit-shipping-address-<%= delivery.id %>" aria-selected="false">Shipping Address</a>
+            <a class="nav-link" id="edit-shipping-address-tab-<%= delivery.id %>" data-toggle="tab" href="#edit-shipping-address-<%= delivery.id %>" role="tab" aria-controls="edit-shipping-address-<%= delivery.id %>" aria-selected="false">Destination</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" id="edit-items-tab-<%= delivery.id %>" data-toggle="tab" href="#edit-items-<%= delivery.id %>" role="tab" aria-controls="edit-items-<%= delivery.id %>" aria-selected="false">Items List</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="edit-checkout-delivery-tab-<%= delivery.id %>" data-toggle="tab" href="#edit-checkout-delivery-<%= delivery.id %>" role="tab" aria-controls="edit-checkout-delivery-<%= delivery.id %>" aria-selected="false">Checkout</a>
+            <a class="nav-link" id="edit-checkout-delivery-tab-<%= delivery.id %>" data-toggle="tab" href="#edit-checkout-delivery-<%= delivery.id %>" role="tab" aria-controls="edit-checkout-delivery-<%= delivery.id %>" aria-selected="false">Delivery Info</a>
           </li>
         </ul>
         <%= form_for delivery, html: { id: "delivery_form_#{ delivery.id }" } do |f| %>
@@ -74,16 +74,23 @@
                   <%= builder.hidden_field :latitude, id: "address-lat" %>
                   <%= builder.hidden_field :longitude, id: "address-long" %>                      
                 </div>
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id="save-info">
-                  <label class="custom-control-label" for="save-info">Save this information for next time</label>
-                </div>
                 <hr class="mb-4">
                 <!-- <button type="button" class="btn btn-secondary btnPrevious">Previous</button>
                 <button type="button" class="btn btn-secondary btnNext">Next</button> -->
               <% end %>
             </div>
             <div class="tab-pane fade" id="edit-items-<%= delivery.id %>" role="tabpanel" aria-labelledby="edit-items-tab-<%= delivery.id %>">
+              <h6>Products to be Delivered</h6>
+              <% if delivery.products.count > 0 %>
+                <% delivery.products.each do |product| %>
+                  <div class="card mb-3">
+                    <a href="<%= product_path(product)%>"><%= product.name %></a>
+                  </div>
+                <% end %>
+              <% else %>
+                No products added. You can add one by clicking Add to Delivery on product page
+              <% end %>
+              <h6 style="margin-top: 10px;">Other Items to be Delivered</h6>
               <%= f.fields_for :delivery_items do |item| %>
                 <div class="mb-3">
                   <%= render "deliveries/delivery_item_fields", f: item %>
@@ -105,7 +112,6 @@
                   <label class="custom-control-label" for="credit">Cash on Delivery</label>
                 </div>
               </div>
-              <%= f.hidden_field :price, id: "delivery_price", value: 0 %>
               <%= f.label :delivery_date %>
               <%= f.hidden_field :delivery_date, id: "delivery-date-input", required: true %>
               <div id="delivery-date" class="col-mb-3">

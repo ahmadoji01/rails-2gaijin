@@ -160,12 +160,21 @@
                         <% if user_signed_in? %>
                         <div class="dropdown-list-content dropdown-list-message" data-channel-subscribe="notification" data-user-id="<%= current_user.id %>" id="notification">
                             <% user_notifications.limit(4).each do |notification| %>
-                                <a href="<%= product_path(notification.product) %>" class="dropdown-item">
-                                    <div class="dropdown-item-desc">
-                                        <b><%= notification.name %></b>
-                                        <div class="msg_time time"><%= notification.created_at %></div>
-                                    </div>
-                                </a>
+                                <% if notification.type == :comment %>
+                                    <%= link_to product_path(notification.product), class: "dropdown-item" do %>
+                                        <div class="dropdown-item-desc">
+                                            <b><%= notification.name %></b>
+                                            <div class="msg_time time"><%= notification.created_at %></div>
+                                        </div>
+                                    <% end %>
+                                <% elsif notification.type == :order %>
+                                    <%= link_to contact_seller_rooms_path(seller_id: notification.user.id), method: :post, class: "dropdown-item" do %>
+                                        <div class="dropdown-item-desc">
+                                            <b><%= notification.name %></b>
+                                            <div class="msg_time time"><%= notification.created_at %></div>
+                                        </div>
+                                    <% end %>
+                                <% end %>   
                             <% end %>
                         </div>
                         <% end %>
