@@ -18,4 +18,5 @@ class Delivery
   as_enum :status, :active => 1, :processed => 2, :complete => 3, :inactive => 0 
 
   belongs_to :user
+  has_many :products, inverse_of: :delivery
 end

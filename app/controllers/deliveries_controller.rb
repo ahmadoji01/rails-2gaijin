@@ -22,6 +22,27 @@ class DeliveriesController < ApplicationController
   def edit
   end
 
+  def add_to_delivery
+    @product = Product.find(params[:id])
+
+    @delivery = Delivery.where(:status_cd => 1, user_id: current_user.id)[0]
+
+    @delivery.products << @product
+    if @delivery.update
+      redirect_to @product
+    end
+  end
+
+  def remove_from_delivery
+    @product = Product.find(params[:id])
+
+    @delivery = Delivery.where(:status_cd => 1, user_id: current_user.id)[0]
+
+    if @delivery.products.delete(@product)
+      redirect_to @product
+    end
+  end
+
   def checkout
     @delivery = Delivery.new(delivery_params)
     @delivery.user = current_user

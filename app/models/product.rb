@@ -18,4 +18,5 @@ class Product
   has_and_belongs_to_many :categories
   has_and_belongs_to_many :orders
   belongs_to :user
+  belongs_to :delivery
 end

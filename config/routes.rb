@@ -35,6 +35,8 @@ Rails.application.routes.draw do
   resources :deliveries do
     member do
       get :delete
+      post 'add_to_delivery'
+      post 'remove_from_delivery'
     end
   end
 

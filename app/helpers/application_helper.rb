@@ -12,10 +12,21 @@ module ApplicationHelper
 	end
 
 	def new_delivery
-		delivery = Delivery.new
-		address = Address.new
-		address.user = current_user
-		delivery.address = address
-		return delivery
+		delivery = Delivery.where(:user_id => current_user.id, :status_cd => 1)
+		
+		if delivery.present?
+			return delivery[0]
+		else
+			delivery = Delivery.new
+			address = Address.new
+			address.user = current_user
+			delivery.address = address
+			delivery.user = current_user
+			delivery.status = :active
+			
+			if delivery.save
+				return delivery
+			end
+		end
 	end
 end
