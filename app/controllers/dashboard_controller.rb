@@ -8,6 +8,6 @@ class DashboardController < ApplicationController
 	end
 
 	def delivery_order
-		@deliveries = Delivery.all.order(created_at: :desc).page(params[:page])
+		@deliveries = Delivery.where(status_cd: 2).order(created_at: :desc).page(params[:page])
 	end
 end

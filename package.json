@@ -7,6 +7,7 @@
     "coffeeify": "~0.6",
     "location-picker": "^1.1.1",
     "smoothscroll-polyfill": "^0.4.4",
+    "sweetalert2": "^8.17.6",
     "underscore": "1.9.1"
   },
   "license": "MIT",

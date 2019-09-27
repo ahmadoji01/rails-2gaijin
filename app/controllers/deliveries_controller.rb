@@ -29,6 +29,7 @@ class DeliveriesController < ApplicationController
 
     @delivery.products << @product
     if @delivery.update
+      sweetalert_success('Product has successfully been added to the delivery', 'Successfully Added', button: 'Awesome!')
       redirect_to @product
     end
   end
@@ -39,6 +40,7 @@ class DeliveriesController < ApplicationController
     @delivery = Delivery.where(:status_cd => 1, user_id: current_user.id)[0]
 
     if @delivery.products.delete(@product)
+      sweetalert_success('Product has successfully been removed to the delivery', 'Successfully Removed', button: 'Awesome!')
       redirect_to @product
     end
   end
@@ -80,10 +82,25 @@ class DeliveriesController < ApplicationController
   # PATCH/PUT /deliveries/1
   # PATCH/PUT /deliveries/1.json
   def update
+    @delivery.status = :processed
+
+    @delivery.products.each do |product|
+      @notification = Notification.create name: current_user.first_name + " ordered your " + product.name + " for " + params[:delivery][:delivery_date],
+                                          created_at: DateTime.now,
+                                          user: product.user,
+                                          product: product,
+                                          status: :unread,
+                                          type: :order,
+                                          orderer: current_user
+
+      broadcast_notif(@notification, @notification.user, "Add")
+    end
+
     respond_to do |format|
       if @delivery.update(delivery_params)
-        format.html { redirect_to @delivery, notice: 'Delivery was successfully updated.' }
-        format.json { render :show, status: :ok, location: @delivery }
+        sweetalert_success('Your order has been received and we will inform our member', 'Successfully ordered', button: 'Awesome!')
+        format.html { redirect_to root_url, notice: 'Delivery was successfully updated.' }
+        format.json { render :show, status: :ok, location: root_url }
       else
         format.html { render :edit }
         format.json { render json: @delivery.errors, status: :unprocessable_entity }
@@ -100,6 +117,21 @@ class DeliveriesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  protected
+
+    def count_unread_notifs(user)
+      Notification.where(:status_cd => 0).and(:user_id => user.id).length
+    end
+
+    def broadcast_notif(notification, user, action)
+
+      NotificationChannel.broadcast_to user, notification
+      ActionCable.server.broadcast "notification_channel_#{user.id}", unreadnotifs: count_unread_notifs(user), 
+                                                                      name: notification.name, 
+                                                                      link: contact_seller_rooms_path(notification.user.id),
+                                                                      action: action
+    end
 
   private
     # Use callbacks to share common setup or constraints between actions.

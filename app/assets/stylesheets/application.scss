@@ -12,9 +12,9 @@
  *
  *= require_tree .
  *= require_self
- *= require sweetalert2
  *= require gmaps-auto-complete
  */
 
  @import "bootstrap";
  @import "font-awesome";
+ @import "sweetalert2/dist/sweetalert2.min";

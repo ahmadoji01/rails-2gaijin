@@ -48,8 +48,6 @@ gem "browserify-rails"
 gem 'redis', '~> 4.0'
 gem 'searchkick'
 gem 'mongoid-ancestry'
-gem 'rails-sweetalert2-confirm'
-gem 'rails-assets-sweetalert2', source: 'https://rails-assets.org'
 gem 'cocoon'
 gem 'sweetify'
 gem 'momentjs-rails'

@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
 
 	def index
+		
 		@delivery = Delivery.new
 		@products = Product.all.order(created_at: :desc).page(params[:page])
 		@recentproducts = Product.all.order(created_at: :desc).limit(8)
