@@ -168,7 +168,7 @@
                                         </div>
                                     <% end %>
                                 <% elsif notification.type == :order %>
-                                    <%= link_to contact_seller_rooms_path(seller_id: notification.user.id), method: :post, class: "dropdown-item" do %>
+                                    <%= link_to contact_seller_rooms_path(seller_id: notification.orderer.id), method: :post, class: "dropdown-item" do %>
                                         <div class="dropdown-item-desc">
                                             <b><%= notification.name %></b>
                                             <div class="msg_time time"><%= notification.created_at %></div>

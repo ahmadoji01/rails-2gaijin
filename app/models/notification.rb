@@ -10,6 +10,8 @@ class Notification
 
   belongs_to :user
   belongs_to :product
-  belongs_to :comment
+  belongs_to :comment, optional: true
+
+  belongs_to :orderer, :class_name => "User", optional: true
 
 end

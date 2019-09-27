@@ -90,9 +90,10 @@ class DeliveriesController < ApplicationController
                                           user: product.user,
                                           product: product,
                                           status: :unread,
-                                          type: :order
-      
-      broadcast_notif(@notification, product.user, "Add")
+                                          type: :order,
+                                          orderer: current_user
+
+      broadcast_notif(@notification, @notification.user, "Add")
     end
 
     respond_to do |format|
@@ -128,7 +129,7 @@ class DeliveriesController < ApplicationController
       NotificationChannel.broadcast_to user, notification
       ActionCable.server.broadcast "notification_channel_#{user.id}", unreadnotifs: count_unread_notifs(user), 
                                                                       name: notification.name, 
-                                                                      link: product_path(notification.product),
+                                                                      link: contact_seller_rooms_path(notification.user.id),
                                                                       action: action
     end
 
