@@ -83,6 +83,7 @@ class DeliveriesController < ApplicationController
   # PATCH/PUT /deliveries/1.json
   def update
     @delivery.status = :processed
+    @admins = User.where(:role_cd => 94)
 
     @delivery.products.each do |product|
       @notification = Notification.create name: current_user.first_name + " ordered your " + product.name + " for " + params[:delivery][:delivery_date],
@@ -92,6 +93,17 @@ class DeliveriesController < ApplicationController
                                           status: :unread,
                                           type: :order,
                                           orderer: current_user
+
+      broadcast_notif(@notification, @notification.user, "Add")
+    end
+
+    @admins.each do |admin|
+      @notification = Notification.create name: "Delivery order from " + current_user.first_name + " for " + params[:delivery][:delivery_date],
+                                        created_at: DateTime.now,
+                                        user: admin,
+                                        status: :unread,
+                                        type: :delivery,
+                                        orderer: current_user
 
       broadcast_notif(@notification, @notification.user, "Add")
     end

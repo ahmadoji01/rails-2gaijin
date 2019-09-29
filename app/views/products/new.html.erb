@@ -21,7 +21,7 @@
                             <div class="row">
                                 <div class="form-group form-inline">
                                 	<%= form.label :name, style: "width: 190px" %>
-    								<%= form.text_field :name, class: "form-control", style: "width: 200px" %>
+    								<%= form.text_field :name, class: "form-control", style: "width: 300px" %>
                                 </div>
                             </div>
                             <div class="row">
@@ -44,13 +44,13 @@
                             <div class="row">
                                 <div class="form-group form-inline">
                                     <%= form.label :price, style: "width: 190px" %>
-    								<%= form.number_field :price, class: "form-control", style: "width: 200px" %>
+    								<%= form.number_field :price, class: "form-control", style: "width: 300px" %>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group form-inline">
                                 	<%= form.label :description, style: "width: 190px" %>
-    								<%= form.text_area :description, class: "form-control", style: "width: 200px" %>
+    								<%= form.text_area :description, class: "form-control", style: "width: 300px" %>
                                 </div>
                             </div>
                             <div class="row">
@@ -58,6 +58,20 @@
                                 	<%= form.label :image, style: "width: 190px" %> 
                                 	<%= form.file_field :image, class: "form-control", style: "width: 300px;" %>
                                 </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-inline"> <!--custom-file-->
+                                    <label style="width: 190px;">Location</label> 
+                                    <input type="text" id="pac-input" class="form-control" style="width: 300px;">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-inline">
+                                    <label style="width: 190px;">Map</label>
+                                    <div id="product-map" style="width: 300px; height: 200px;"></div>
+                                </div>
+                                <%= form.hidden_field :latitude, id: "address-lat-2" %>
+                                <%= form.hidden_field :longitude, id: "address-long-2" %>
                             </div>
 	                        <div class="card-footer text-left">
 	                            <%= form.submit "Save", class: "btn btn-lg btn-primary" %>

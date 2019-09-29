@@ -187,6 +187,9 @@
         var place = autocomplete.getPlace();
         if (place.geometry) {
           setPlace(place);
+          marker.setPosition(place.geometry.location);
+          $("#address-lat").val(place.geometry.location.lat());
+          $("#address-long").val(place.geometry.location.lng());
         }
       });
     }

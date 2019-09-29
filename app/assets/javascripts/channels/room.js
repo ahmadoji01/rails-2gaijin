@@ -1,4 +1,4 @@
-jQuery(document).on('turbolinks:load', function() {
+$(document).ready( function() {
 
   $('.time_date').each(function(index, element) {
     var $element = $(element);

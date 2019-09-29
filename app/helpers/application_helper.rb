@@ -12,15 +12,24 @@ module ApplicationHelper
 	end
 
 	def new_delivery
-		if user_signed_in? 
+		if user_signed_in?
 			delivery = Delivery.where(:user_id => current_user.id, :status_cd => 1)
-			
-			if delivery.present?
-				return delivery[0]
+			address = Address.where(:user_id => current_user.id, :is_primary => true)
+
+			if address.present?
+				address = address.first
 			else
-				delivery = Delivery.new
 				address = Address.new
 				address.user = current_user
+			end
+			
+			if delivery.present?
+				delivery = delivery.first
+				delivery.address = address
+				return delivery
+			else
+				delivery = Delivery.new
+
 				delivery.address = address
 				delivery.user = current_user
 				delivery.status = :active

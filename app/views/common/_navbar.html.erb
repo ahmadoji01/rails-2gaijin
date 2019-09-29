@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-expand-sm main-navbar fixed-top" id="navbar-2gaijin">
     <ul class="navbar-nav">
             <li class="d-lg-block d-none">
-                <%= link_to root_url do %>
+                <%= link_to root_url, data: { turbolinks: false } do %>
                    <%= image_tag "2gaijinheader-1.png", height: "60px", width: "200px" %>
                 <% end %>
             </li>
@@ -174,6 +174,13 @@
                                             <div class="msg_time time"><%= notification.created_at %></div>
                                         </div>
                                     <% end %>
+                                <% elsif notification.type == :delivery %>
+                                    <%= link_to contact_seller_rooms_path(seller_id: notification.orderer.id), method: :post, class: "dropdown-item" do %>
+                                        <div class="dropdown-item-desc">
+                                            <b><%= notification.name %></b>
+                                            <div class="msg_time time"><%= notification.created_at %></div>
+                                        </div>
+                                    <% end %>
                                 <% end %>   
                             <% end %>
                         </div>
@@ -199,6 +206,11 @@
                         <a href="<%= new_product_path %>" class="dropdown-item has-icon">
                             <i class="far fa-calendar-plus"></i> Add Product
                         </a>
+                        <% if current_user.role == :admin %>
+                            <a href="<%= dashboard_path %>" class="dropdown-item has-icon">
+                                <i class="far fa-toolbox"></i> Dashboard
+                            </a>
+                        <% end %>
                         <div class="dropdown-divider"></div>
                         <%= link_to destroy_user_session_path, :method => :delete, :class => "dropdown-item has-icon text-danger" do %>
                             <i class="fas fa-sign-out-alt"></i>Logout

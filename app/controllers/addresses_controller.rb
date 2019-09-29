@@ -86,7 +86,7 @@ class AddressesController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to addresses_url, notice: 'Address was successfully destroyed.' }
+      format.html { redirect_to user_address_path, notice: 'Address was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

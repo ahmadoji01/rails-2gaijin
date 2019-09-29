@@ -1,4 +1,4 @@
-jQuery(document).on('turbolinks:load', function() {
+$(document).ready( function() {
 	
 	$('.msg_time').each(function(index, element) {
 		var $element = $(element);

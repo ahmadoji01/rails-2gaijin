@@ -2,7 +2,7 @@
 
 //homepage
 
-jQuery(document).on('turbolinks:load', function() {
+$(document).ready( function() {
   $("#products-carousel").owlCarousel({
     items: 6,
     margin: 10,
@@ -24,10 +24,27 @@ jQuery(document).on('turbolinks:load', function() {
       }
     }
   });
-});
-
-document.addEventListener("turbolinks:before-cache", function() {
-  $('#products-carousel').owlCarousel('destroy');
+  $("#products-carousel-2").owlCarousel({
+    items: 6,
+    margin: 10,
+    autoplay: true,
+    autoplayTimeout: 3000,
+    loop: true,
+    responsive: {
+      0: {
+        items: 1
+      },
+      320: {
+        items: 1
+      },
+      768: {
+        items: 2
+      },
+      1200: {
+        items: 6
+      }
+    }
+  });
 });
 
 $("#promos-2gaijin").owlCarousel({
