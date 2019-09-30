@@ -93,6 +93,8 @@
                                         <%= render 'common/product_card', product: product %>
 			                        <% end %>
 			                        <%= paginate @products %>
+                                <% else %>
+                                    <h5>No Products Found. Please Refine Your Search Again</h5>
 			                    <% end %>
                             </div>
                         </div>

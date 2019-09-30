@@ -71,13 +71,17 @@ class CommentsController < ApplicationController
   # DELETE /comments/1
   # DELETE /comments/1.json
   def destroy
-    @notification = Notification.find_by(comment_id: @comment.id)
-    @notification.destroy
-    broadcast_notif(@notification, @notification.product.user, "Delete")
+    @notification = Notification.where(comment_id: @comment.id)
+
+    if @notification.present?
+      @notification = @notification.first
+      @notification.destroy
+      broadcast_notif(@notification, @notification.product.user, "Delete")
+    end
 
     @comment.destroy
     respond_to do |format|
-      format.html { redirect_to @notification.product, notice: 'Comment was successfully destroyed.' }
+      format.html { redirect_to @comment.product, notice: 'Comment was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

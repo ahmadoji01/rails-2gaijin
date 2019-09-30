@@ -9,7 +9,7 @@ class Delivery
   field :delivery_date, type: DateTime
   field :price, type: Integer
 
-  has_one :address, inverse_of: :delivery
+  belongs_to :address, inverse_of: :delivery, autosave: true
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
  
   has_many :delivery_items, inverse_of: :delivery

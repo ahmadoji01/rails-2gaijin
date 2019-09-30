@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   get '/search', :to => 'search#index', :as => 'search_page'
   get '/dashboard', :to => 'dashboard#index'
   get '/dashboard/delivery_order', :to => 'dashboard#delivery_order'
+  get '/dashboard/users', :to => 'dashboard#user_list'
+  get '/dashboard/products', :to => 'dashboard#product_list'
 
   resources :room_messages
   resources :rooms do
@@ -23,7 +25,7 @@ Rails.application.routes.draw do
 
   resources :notifications
   resources :products
-  devise_for :users, controllers: { sessions: 'users/sessions', registrations: 'users/registrations', omniauth_callbacks: 'users/omniauth_callbacks' }, path: '', path_names: { sign_in: "login", sign_out: "logout" }
+  devise_for :users, controllers: { sessions: 'users/sessions', registrations: 'users/registrations', passwords: 'users/passwords', omniauth_callbacks: 'users/omniauth_callbacks' }, path: '', path_names: { sign_in: "login", sign_out: "logout" }
   root "home#index"
 
   resource :products do

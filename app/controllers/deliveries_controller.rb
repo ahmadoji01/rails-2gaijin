@@ -67,6 +67,15 @@ class DeliveriesController < ApplicationController
     @delivery.user = current_user
     @delivery.address.user = current_user
 
+    address = Address.where(:user_id => current_user.id, :is_primary => true)
+
+    if address.present?
+      address = address.first
+    else
+      address = Address.new
+      address.user = current_user
+    end
+
     respond_to do |format|
       if @delivery.save
         sweetalert_success('Your order has been received and we will inform our member', 'Successfully ordered', button: 'Awesome!')
@@ -98,21 +107,23 @@ class DeliveriesController < ApplicationController
     end
 
     @admins.each do |admin|
-      @notification = Notification.create name: "Delivery order from " + current_user.first_name + " for " + params[:delivery][:delivery_date],
-                                        created_at: DateTime.now,
-                                        user: admin,
-                                        status: :unread,
-                                        type: :delivery,
-                                        orderer: current_user
+      if current_user != admin
+        @notification = Notification.create name: "Delivery order from " + current_user.first_name + " for " + params[:delivery][:delivery_date],
+                                          created_at: DateTime.now,
+                                          user: admin,
+                                          status: :unread,
+                                          type: :delivery,
+                                          orderer: current_user
 
-      broadcast_notif(@notification, @notification.user, "Add")
+        broadcast_notif(@notification, @notification.user, "Add")
+      end
     end
 
     respond_to do |format|
       if @delivery.update(delivery_params)
         sweetalert_success('Your order has been received and we will inform our member', 'Successfully ordered', button: 'Awesome!')
         format.html { redirect_to root_url, notice: 'Delivery was successfully updated.' }
-        format.json { render :show, status: :ok, location: root_url }
+        format.json { render :show, status: :ok, location: root_url } 
       else
         format.html { render :edit }
         format.json { render json: @delivery.errors, status: :unprocessable_entity }
@@ -154,7 +165,7 @@ class DeliveriesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def delivery_params
       params.require(:delivery).permit(:name, :email, :phone, :delivery_date, :price,
-                                       address_attributes: [:full_address, :apartment, :city, :state, :postal_code, :latitude, :longitude],
+                                       address_attributes: [:id, :full_address, :apartment, :city, :state, :postal_code, :user_id, :latitude, :longitude],
                                        delivery_items_attributes: [:id, :name, :address, :size])
     end
 end
