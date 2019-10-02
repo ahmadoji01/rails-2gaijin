@@ -5,29 +5,40 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
 
-    <%= stylesheet_link_tag    'sub/modules/fontawesome/css/all.min' %>
     <%= stylesheet_link_tag    'sub/modules/owlcarousel2/dist/assets/owl.theme.default.min' %>
     <%= stylesheet_link_tag    'sub/modules/owlcarousel2/dist/assets/owl.carousel.min' %>
     <%= stylesheet_link_tag    'sub/modules/select2/dist/css/select2.min' %>
     <%= stylesheet_link_tag    'sub/modules/bootstrap-social/bootstrap-social' %>
-    <%= stylesheet_link_tag    'sub/modules/mtr-datepicker/mtr-datepicker.min' %>
-    <%= stylesheet_link_tag    'sub/modules/mtr-datepicker/mtr-datepicker.default-theme.min' %>
     <%= stylesheet_link_tag    'sub/style' %>
     <%= stylesheet_link_tag    'sub/components' %>
     <%= stylesheet_link_tag    'sub/custom' %>
     <%= stylesheet_link_tag    'sub/chat' %>
     <%= stylesheet_link_tag    'sub/bootstrap-material-datetimepicker' %>
 
-    <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+    <%= javascript_include_tag 'application' %>
+
+    <!-- <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script> -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <%= javascript_include_tag 'sub/rails-gmaps' %>
-    <script src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.google_maps_api_key %>&libraries=places&callback=initMap" async defer></script>
-    <script src="js/jquery.placepicker.min.js"></script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.google_maps_api_key %>&libraries=places&callback=initMap"></script>
+    <%= javascript_include_tag 'sub/jquery.placepicker' %>
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-    <%= javascript_include_tag 'sub/rails-ujs-sweetalert2' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload', async: true %>
+    <script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"></script>
+    <script src='//cdn.rawgit.com/printercu/google-maps-utility-library-v3-read-only/master/infobox/src/infobox_packed.js' type='text/javascript'></script>
+    
+    <%= javascript_include_tag 'sub/rails-gmaps' %>
+
+    <%= javascript_include_tag 'sub/modules/popper' %>
+    <%= javascript_include_tag 'sub/modules/tooltip' %>
+    <%= javascript_include_tag 'sub/modules/owlcarousel2/dist/owl.carousel.min' %>
+    <%= javascript_include_tag 'sub/modules/cleave-js/dist/cleave.min' %>
+    <%= javascript_include_tag 'sub/modules/select2/dist/js/select2.min' %>
+    <%= javascript_include_tag 'sub/modules/chart.min' %>
+    <%= javascript_include_tag 'sub/owl' %>
+    <%= javascript_include_tag 'sub/dashboard' %>
+    <%= javascript_include_tag 'sub/custom' %>
   </head>
 
   <body class="layout-2" >
@@ -47,21 +58,9 @@
     <%=  render 'sweetify/alert' %>
     <%=  render "common/fab_add_product" %>
 
-    <script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"></script>
-    <script src='//cdn.rawgit.com/printercu/google-maps-utility-library-v3-read-only/master/infobox/src/infobox_packed.js' type='text/javascript'></script>
     
-    <%= javascript_include_tag 'sub/modules/popper' %>
-    <%= javascript_include_tag 'sub/modules/tooltip' %>
-    <%= javascript_include_tag 'sub/modules/owlcarousel2/dist/owl.carousel.min' %>
-    <%= javascript_include_tag 'sub/modules/cleave-js/dist/cleave.min' %>
-    <%= javascript_include_tag 'sub/modules/select2/dist/js/select2.min' %>
-    <%= javascript_include_tag 'sub/modules/mtr-datepicker/mtr-datepicker.min' %>
-    <%= javascript_include_tag 'sub/modules/chart.min' %>
-    <%= javascript_include_tag 'sub/custom' %>
-    <%= javascript_include_tag 'sub/owl' %>
-    <%= javascript_include_tag 'sub/dashboard' %>
-    <%= javascript_include_tag 'sub/bootstrap-material-datetimepicker' %>
 
   </body>
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
 
 </html>

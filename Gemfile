@@ -16,8 +16,6 @@ gem 'uglifier', '>= 1.3.0'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
@@ -33,18 +31,22 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 # External Gem Bundle
 gem 'mongoid'
-gem "font-awesome-rails"
 gem 'bootstrap', '~> 4.3.1'
+gem 'font-awesome-sass', '~> 5.11.2'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'simple_enum', require: 'simple_enum/mongoid'
 gem 'devise'
 gem 'carrierwave-mongoid'
+gem "mini_magick"
+gem 'fog-core', '2.1.0'
+gem "fog-google"
+gem "google-api-client", "> 0.8.5", "< 0.9"
+gem "mime-types"
 gem 'kaminari-mongoid'
 gem 'kaminari-actionview'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
-gem "browserify-rails"
 gem 'redis', '~> 4.0'
 gem 'searchkick'
 gem 'mongoid-ancestry'

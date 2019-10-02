@@ -1,4 +1,4 @@
-jQuery(document).on('turbolinks:load', function() {
+$(document).ready( function() {
 
   $('.time_date').each(function(index, element) {
     var $element = $(element);
@@ -37,6 +37,12 @@ jQuery(document).on('turbolinks:load', function() {
             content.find('[data-role="message-text"]').text(data.message);
             content.find('[data-role="message-date"]').text(msgDate);
           }
+
+          $('.active_msg_time').each(function(index, element) {
+            var $element = $(element);
+            $element.html(msgDate);
+          });
+          
           $('.write_msg').val("");
           $element.append(content);
           $element.animate({ scrollTop: $element.prop("scrollHeight")}, 1000);

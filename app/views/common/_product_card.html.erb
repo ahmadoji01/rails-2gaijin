@@ -1,4 +1,4 @@
-<div class="col-lg-3 col-md-3 col-sm-3 mx-auto" style="width: 250px; height:100%">
+<div class="col-lg-3 col-md-3 col-sm-3 mx-auto" onclick="location.href='<%= product_path(product) %>';" style="width: 250px; height:100%">
     <div class="card">
         <% if product.status == :sold %>
             <div class="ribbon ribbon-top-left"><span>Sold Out</span></div>
@@ -11,8 +11,13 @@
         
         <div class="card-body">
             <h5 class="card-title"><%= product.name %></h5>
-            <p class="card-text">&#165;<%= product.price %></p>
-            <%= link_to 'Detail', product_path(product), class: "btn btn-primary" %> 
+            <var class="price h5 text-warning">
+                <% if product.price == 0 %>
+                    <span class="currency">FREE</span>
+                <% else %> 
+                    <span class="currency">&#165;</span><span class="num"><%= product.price %></span>
+                <% end %>
+            </var>
         </div>
     </div>
 </div>

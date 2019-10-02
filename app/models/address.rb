@@ -13,5 +13,5 @@ class Address
   field :longitude, type: BigDecimal
 
   belongs_to :user
-  belongs_to :delivery
+  has_many :deliveries
 end

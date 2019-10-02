@@ -47,16 +47,16 @@
                 </div>
                 <div class="mb-3">
                   <%= builder.label :apartment, "Apartment and Room Number (Optional)" %>
-                  <%= builder.text_field :apartment, class: "form-control", placeholder: "Ex. Fujii Building, 305", required: true %>
+                  <%= builder.text_field :apartment, class: "form-control", placeholder: "Ex. Fujii Building, 115", required: true %>
                 </div>
                 <div class="row">
                   <div class="col-md-5 mb-3">
                     <%= builder.label :state %>
-                    <%= builder.select :state, options_for_select(['Hokkaido']), {}, { class: "custom-select d-block w-100", required: true } %>
+                    <%= builder.select :state, options_for_select(['Hokkaido'], delivery.address.state), {}, { class: "custom-select d-block w-100", required: true } %>
                   </div>
                   <div class="col-md-4 mb-3">
                     <%= builder.label :city %>
-                    <%= builder.select :city, options_for_select([['Sapporo'], ['Eniwa']]), {}, { class: "custom-select d-block w-100", required: true } %>
+                    <%= builder.select :city, options_for_select([['Sapporo'], ['Eniwa']], delivery.address.city), {}, { class: "custom-select d-block w-100", required: true } %>
                   </div>
                   <div class="col-md-3 mb-3">
                     <%= builder.label :postal_code %>
@@ -75,28 +75,24 @@
                   <%= builder.hidden_field :latitude, id: "address-lat" %>
                   <%= builder.hidden_field :longitude, id: "address-long" %>                      
                 </div>
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id="save-info">
-                  <label class="custom-control-label" for="save-info">Save this information for next time</label>
-                </div>
                 <hr class="mb-4">
                 <!-- <button type="button" class="btn btn-secondary btnPrevious">Previous</button>
                 <button type="button" class="btn btn-secondary btnNext">Next</button> -->
               <% end %>
             </div>
             <div class="tab-pane fade" id="items" role="tabpanel" aria-labelledby="items-tab">
-              <h6>Products to be Delivered</h6>
+              <h6>Listed Items to be Delivered</h6>
               <% if delivery.products.count > 0 %>
                 <% delivery.products.each do |product| %>
-                  <div class="card mb-3">
+                  <div class="card mb-3" style="padding: 10px;">
                     <a href="<%= product_path(product)%>"><%= product.name %></a>
-                    <span class="pull-right">
-                      <%= link_to "x", remove_from_delivery_delivery_path(id: product.id), method: :post, class: "btn btn-outline-primary" %> 
+                    <span>
+                      <%= link_to "x", remove_from_delivery_delivery_path(id: product.id), method: :post, style: "position: absolute; right: 5px; top: 5px;", class: "btn btn-outline-primary" %> 
                     </span>
                   </div>
                 <% end %>
               <% else %>
-                No products added. You can add one by clicking Add to Delivery on product page
+                No listed items added. You can add one by clicking Add to Delivery on product page
               <% end %>
               <h6 style="margin-top: 10px;">Other Items to be Delivered</h6>
               <%= f.fields_for :delivery_items, DeliveryItem.new do |item| %>
@@ -104,9 +100,9 @@
                   <%= render "deliveries/delivery_item_fields", f: item %>
                 </div>
                 <div class="mb-3">
-                  <span class="pull-right">
+                  <span class="float-right">
                     <%= link_to_add_association f, :delivery_items, render_options: { wrapper: 'bootstrap' }, partial: 'deliveries/delivery_item_fields' do %>
-                      <button class="btn btn-primary">Add Item</button>
+                      <button class="btn btn-danger" >Add Item</button>
                     <% end %>
                   </span>
                 </div>
@@ -121,11 +117,9 @@
                 </div>
               </div>
               <h6>Delivery Date</h6>
-              <%= f.hidden_field :delivery_date, id: "delivery-date-input", required: true %>
-              <div id="delivery-date" class="col-mb-3">
-              </div>
-              <%= f.button "Check Out", type: :submit, class: "btn btn-primary" %>
+              <%= f.datetime_local_field :delivery_date, required: true %>
               <hr class="mb-4">
+              <%= f.button "Check Out", type: :submit, class: "btn btn-primary" %>
             </div>
           </div>
         </div>

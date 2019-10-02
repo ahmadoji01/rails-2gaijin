@@ -1,10 +1,11 @@
 class NotificationsController < ApplicationController
   before_action :set_notification, only: [:show, :edit, :update, :destroy]
+  before_action :authorized_user, except: [:index, :create, :update, :destroy]
 
   # GET /notifications
   # GET /notifications.json
   def index
-    @notifications = Notification.all
+    @notifications = Notification.where(user_id: current_user.id)
   end
 
   # GET /notifications/1
@@ -71,5 +72,11 @@ class NotificationsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def notification_params
       params.require(:notification).permit(:name)
+    end
+
+    def authorized_user
+      if current_user.role != :admin
+        redirect_to root_url
+      end
     end
 end

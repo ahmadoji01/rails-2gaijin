@@ -10,13 +10,12 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require jquery3
 //= require rails-ujs
-//= require turbolinks
 //= require popper
 //= require bootstrap
 //= require moment
 //= require cocoon
 //= require underscore/underscore
-//= require smoothscroll-polyfill/dist/smoothscroll
 //= require sweetalert2/dist/sweetalert2.all.min
 //= require_tree .

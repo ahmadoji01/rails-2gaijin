@@ -9,7 +9,7 @@
         <table class="table">
             <thead style="color: none;">
                 <tr>
-                    <th>Preview Products</th>
+                    <th>Preview Items</th>
                     <!-- <th scope="col">Product's Name</th> -->
                     <th class="text-center">Status</th>
                     <!--<th class="text-center">Quantity</th>-->
@@ -77,7 +77,7 @@
                     <% end %>
                     <%= paginate @products %>
                     <% else %>
-                        There is no product you have posted. Let's start selling. <%= link_to "Click Here", new_product_path %>
+                        There is no item you have listed. Let's start selling. <%= link_to "Click Here", new_product_path %>
                 <% end %>
             </tbody>
         </table>

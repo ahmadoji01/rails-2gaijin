@@ -1,10 +1,10 @@
-jQuery(document).on('turbolinks:load', function() {
+$(document).ready( function() {
 
-  $('.time_date').each(function(index, element) {
+  /*$('.time_date').each(function(index, element) {
     var $element = $(element);
     var formattedDate = moment($element.html()).calendar();
     $element.html(formattedDate);
-  });
+  });*/
 
   $('#msg-nav').click(function() {
     console.log($('#msg-notif-beep'));

@@ -149,12 +149,20 @@
 
       marker = new google.maps.Marker({
         map: map,
-        draggable: true,
+        draggable: true
       });
 
       marker.addListener('dragend', markerChange);
 
       service = new google.maps.places.PlacesService(map);
+
+      if( $("#address-lat").val() && $("#address-long").val() ) {
+        var myLat = parseFloat($("#address-lat").val());
+        var myLng = parseFloat($("#address-long").val());
+        var myLatLng = new google.maps.LatLng({lat: myLat, lng: myLng});
+        codeLatLng(myLatLng);
+        marker.setPosition(myLatLng);
+      }
 
       // When the map is made visible, if we have no location set then
       // attempt geolocation. The css() calls ensure that the map is
@@ -187,6 +195,9 @@
         var place = autocomplete.getPlace();
         if (place.geometry) {
           setPlace(place);
+          marker.setPosition(place.geometry.location);
+          $("#address-lat").val(place.geometry.location.lat());
+          $("#address-long").val(place.geometry.location.lng());
         }
       });
     }

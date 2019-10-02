@@ -1,6 +1,7 @@
 class AddressesController < ApplicationController
   before_action :set_address, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  before_action :authorized_user, except: [:set_primary, :create, :update, :destroy]
 
   # GET /addresses
   # GET /addresses.json
@@ -86,7 +87,7 @@ class AddressesController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to addresses_url, notice: 'Address was successfully destroyed.' }
+      format.html { redirect_to user_address_path, notice: 'Address was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -100,5 +101,11 @@ class AddressesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def address_params
       params.require(:address).permit(:full_address, :apartment, :city, :state, :postal_code, :is_primary, :address_id, :longitude, :latitude)
+    end
+
+    def authorized_user
+      if current_user.role != :admin
+        redirect_to root_url
+      end
     end
 end

@@ -12,14 +12,11 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
  Rails.application.config.assets.precompile += %w( 
- 	sub/rails-ujs-sweetalert2.js
  	sub/modules/fontawesome/css/all.min.css 
  	sub/modules/owlcarousel2/dist/assets/owl.theme.default.min.css
  	sub/modules/owlcarousel2/dist/assets/owl.carousel.min.css
  	sub/modules/bootstrap-social/bootstrap-social.css
  	sub/modules/select2/dist/css/select2.min.css
- 	sub/modules/mtr-datepicker/mtr-datepicker.min.css
- 	sub/modules/mtr-datepicker/mtr-datepicker.default-theme.min.css
  	sub/style.css
  	sub/components.css
  	sub/custom.css
@@ -28,6 +25,7 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
  )
 
  Rails.application.config.assets.precompile += %w( 
+ 	sub/rails-ujs-sweetalert2.js
  	sub/modules/popper.js 
  	sub/modules/tooltip.js
  	sub/modules/bootstrap/js/bootstrap.min.js
@@ -36,7 +34,6 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
  	sub/modules/owlcarousel2/dist/owl.carousel.min.js
  	sub/modules/cleave-js/dist/cleave.min.js
  	sub/modules/select2/dist/js/select2.min.js
- 	sub/modules/mtr-datepicker/mtr-datepicker.min.js
  	sub/modules/chart.min.js
  	sub/custom.js
  	sub/owl.js

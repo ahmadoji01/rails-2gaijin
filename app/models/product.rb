@@ -10,11 +10,12 @@ class Product
   field :price, type: Integer
   field :created_at, type: DateTime
   field :updated_at, type: DateTime
+  field :latitude, type: BigDecimal
+  field :longitude, type: BigDecimal
   
   as_enum :status, :active => 1, :inactive => 0, :sold => 2
   
   mount_uploader :image, ProductImageUploader
-  has_one :product_location
   has_and_belongs_to_many :categories
   has_and_belongs_to_many :orders
   belongs_to :user

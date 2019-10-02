@@ -1,4 +1,4 @@
-jQuery(document).on('turbolinks:load', function() {
+$(document).ready( function() {
 
 	App.cable.subscriptions.create(
     {

@@ -11,10 +11,15 @@
                 <% end %>
             <div class="form-group text-center">
                 <!-- <label>Upload Image</label> -->
-                <div class="custom-file">
-                    <input type="file" class="form-control custom-control-input" name="">
-                    <label class="custom-file-label text-left">Browse Images</label>
-                </div>
+                <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, :class => "need-validation") do |f| %>
+                    <div class="custom-file">
+                        <%= f.label :avatar, "Upload an Avatar", class: "custom-file-label text-left" %> 
+                        <%= f.file_field :avatar, class: "form-control" %>
+                    </div>
+                    <div class="card-footer text-right">
+                        <%= f.submit "Upload Image", class: "btn btn-primary" %>
+                    </div>
+                <% end %>
             </div>
         </div>
         <div class="card col-lg-5">

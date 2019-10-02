@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
+  before_action :authorized_user, except: [:create, :update, :destroy]
 
   # GET /comments
   # GET /comments.json
@@ -71,13 +72,17 @@ class CommentsController < ApplicationController
   # DELETE /comments/1
   # DELETE /comments/1.json
   def destroy
-    @notification = Notification.find_by(comment_id: @comment.id)
-    @notification.destroy
-    broadcast_notif(@notification, @notification.product.user, "Delete")
+    @notification = Notification.where(comment_id: @comment.id)
+
+    if @notification.present?
+      @notification = @notification.first
+      @notification.destroy
+      broadcast_notif(@notification, @notification.product.user, "Delete")
+    end
 
     @comment.destroy
     respond_to do |format|
-      format.html { redirect_to @notification.product, notice: 'Comment was successfully destroyed.' }
+      format.html { redirect_to @comment.product, notice: 'Comment was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -106,5 +111,11 @@ class CommentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
       params.require(:comment).permit(:content, :product_id)
+    end
+
+    def authorized_user
+      if current_user.role != :admin
+        redirect_to root_url
+      end
     end
 end
