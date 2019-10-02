@@ -9,17 +9,8 @@ production:
       # Provides the hosts the default client can connect to. Must be an array
       # of host:port pairs. (required)
       hosts:
-        - 34.80.229.117:27017
+        - mongodb://mongodb-1-servers-vm-0,mongodb-1-servers-vm-1/myDB?replicaSet=rs0
       options:
-        # The name of the user for authentication.
-        user: 'rails2gaijinuser'
-
-        # The password of the user for authentication.
-        password: '4Managing2GaijinDB2020!'
-
-        # The user's database roles.
-        roles:
-          - 'dbAdmin'
 
 development:
   # Configure available database clients. (required)
@@ -32,7 +23,7 @@ development:
       # Provides the hosts the default client can connect to. Must be an array
       # of host:port pairs. (required)
       hosts:
-        - localhost:27017
+        - mongodb://mongodb-1-servers-vm-0,mongodb-1-servers-vm-1/myDB?replicaSet=rs0
       options:
         # Note that all options listed below are Ruby driver client options (the mongo gem).
         # Please refer to the driver documentation of the version of the mongo gem you are using
