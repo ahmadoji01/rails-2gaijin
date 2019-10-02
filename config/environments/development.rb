@@ -41,8 +41,8 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     :address              => "smtp.gmail.com",
     :port                 => 587,
-    :user_name            => "2gaijin@kitalabs.com",
-    :password             => "4Managing2GaijinEmail2020!",
+    :user_name            => Rails.application.credentials.mailer_username,
+    :password             => Rails.application.credentials.mailer_password,
     :authentication       => "plain"
   }
 
