@@ -1,27 +1,24 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Notifications</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
+<div style="margin-top: 30px; padding: 50px;" id="main-content">
+  <h2>Your Notifications</h2>
     <% @notifications.each do |notification| %>
-      <tr>
-        <td><%= notification.name %></td>
-        <td><%= link_to 'Show', notification %></td>
-        <td><%= link_to 'Edit', edit_notification_path(notification) %></td>
-        <td><%= link_to 'Destroy', notification, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <% if notification.type == :comment %>
+        <%= link_to product_path(notification.product), class: "dropdown-item" do %>
+            <div class="text-center card align-middle" style="padding-top: 10px; padding-bottom: 10px;">
+                <%= notification.name %>
+            </div>
+        <% end %>
+      <% elsif notification.type == :order %>
+        <%= link_to contact_seller_rooms_path(seller_id: notification.orderer.id), method: :post, class: "dropdown-item" do %>
+            <div class="text-center card align-middle" style="padding-top: 10px; padding-bottom: 10px;">
+                <%= notification.name %>
+            </div>
+        <% end %>
+      <% elsif notification.type == :delivery %>
+        <%= link_to contact_seller_rooms_path(seller_id: notification.orderer.id), method: :post, class: "dropdown-item" do %>
+            <div class="text-center card align-middle" style="padding-top: 10px; padding-bottom: 10px;">
+                <%= notification.name %>
+            </div>
+        <% end %>
+      <% end %>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Notification', new_notification_path %>
+</div>

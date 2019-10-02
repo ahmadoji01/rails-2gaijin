@@ -105,11 +105,8 @@
                   <label class="custom-control-label" for="credit">Cash on Delivery</label>
                 </div>
               </div>
-              <%= f.label :delivery_date %>
-              <%= f.hidden_field :delivery_date, id: "delivery-date-input", required: true %>
-              <div id="delivery-date" class="col-mb-3">
-              </div>
-              <%= f.button "Check Out", type: :submit, class: "btn btn-primary" %>
+              <h6>Delivery Date</h6>
+              <%= f.datetime_local_field :delivery_date, required: true %>
               <hr class="mb-4">
             </div>
           </div>

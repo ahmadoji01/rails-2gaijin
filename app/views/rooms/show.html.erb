@@ -9,23 +9,48 @@
                     <div class="card-body">
                         <div class="messaging">
                             <div class="inbox_msg">
-                                <div class="inbox_people d-none d-md-block">
+                                <div class="inbox_people col-lg-6 d-lg-block d-md-none d-sm-none">
                                     <div class="headind_srch">
                                         <div class="recent_heading">
                                             <h4>Recent Messages</h4>
                                         </div>
-                                        <div class="srch_bar">
+                                        <!-- <div class="srch_bar">
                                             <div class="stylish-input-group">
                                                 <input type="text" class="search-bar" placeholder="Search">
                                                 <span class="input-group-addon">
                                             <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
                                         </span> </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <%= render partial: 'rooms' %>
                                 </div>
-                                <div class="mesgs">
-                                    <div class="msg_history" data-channel-subscribe="room" data-room-id="<%= @room.id %>" data-user-id="<%= current_user.id %>">
+                                <div class="mesgs col-lg-6 col-sm-12">
+                                    <div class="card" style="padding: 30px;">
+                                        <div class="chat_people">
+                                            <%  if @room.room_type == :private
+                                                @room.user_ids.each do |user|
+                                                    if current_user.id != user
+                                                        @thisroomuser = User.find(user) 
+                                                        @thisroomname = @thisroomuser.first_name
+                                                    end
+                                                end
+                                            else
+                                                @thisroomname = room.name
+                                                @thisroomuser = room.users.first
+                                            end %>
+                                            <div class="chat_img"><%= image_tag another_user_avatar(@thisroomuser), class: "rounded-circle" %> </div>
+                                            <div class="chat_ib">
+                                                <h5>
+                                                    <%= @thisroomname %>
+                                                    <!-- <div class=" text-small font-600-bold text-muted" style="float: right;">
+                                                        <i class="fas fa-circle"></i> Offline
+                                                    </div> -->
+                                                </h5>
+                                                <small class="active_msg_time"><%= @room.last_active %></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="msg_history" data-channel-subscribe="room" data-room-id="<%= @room.id %>" data-user-id="<%= current_user.id %>"style="padding-left: 15px; padding-right: 15px;">
                                         <% @room_messages.each do |room_message| %>
                                             <% if current_user != room_message.user %>
                                                 <div class="incoming_msg">

@@ -11,7 +11,13 @@
         
         <div class="card-body">
             <h5 class="card-title"><%= product.name %></h5>
-            <p class="card-text">&#165;<%= product.price %></p>
+            <var class="price h5 text-warning">
+                <% if product.price == 0 %>
+                    <span class="currency">FREE</span>
+                <% else %> 
+                    <span class="currency">&#165;</span><span class="num"><%= product.price %></span>
+                <% end %>
+            </var>
         </div>
     </div>
 </div>

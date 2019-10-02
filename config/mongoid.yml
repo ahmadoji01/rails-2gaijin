@@ -1,3 +1,26 @@
+production:
+  # Configure available database clients. (required)
+  clients:
+    # Defines the default client. (required)
+    default:
+      # Defines the name of the default database that Mongoid can connect to.
+      # (required).
+      database: rails2gaijin_production
+      # Provides the hosts the default client can connect to. Must be an array
+      # of host:port pairs. (required)
+      hosts:
+        - 34.80.229.117:27017
+      options:
+        # The name of the user for authentication.
+        user: 'rails2gaijinuser'
+
+        # The password of the user for authentication.
+        password: '4Managing2GaijinDB2020!'
+
+        # The user's database roles.
+        roles:
+          - 'dbAdmin'
+
 development:
   # Configure available database clients. (required)
   clients:

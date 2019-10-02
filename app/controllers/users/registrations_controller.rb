@@ -26,14 +26,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def edit_product
-    render :layout => 'application'
     @products = Product.where(user_id: current_user.id).order(created_at: :desc).page(params[:page])
+    render :layout => 'application'
   end
 
   def edit_address
-    render :layout => 'application'
     @addresses = Address.where(user_id: current_user.id)
     @newaddress = Address.new
+    render :layout => 'application'
   end
 
   # PUT /resource
@@ -73,7 +73,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
     update_attrs = [:password, :password_confirmation, :current_password]
-    devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name, :phone, :attribute, :update_attrs])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name, :phone, :attribute, :avatar, :update_attrs])
   end
 
   # The path used after sign up.

@@ -19,8 +19,12 @@
                             <article class="p-5">
                                 <h3 class="title mb-3"><%= @product.name %></h3>
                                 <div class="mb-3">
-                                    <var class="price h3 text-warning"> 
-                                        <span class="currency">&#165;</span><span class="num"><%= @product.price %></span>
+                                    <var class="price h3 text-warning">
+                                        <% if @product.price == 0 %>
+                                            <span class="currency">FREE</span>
+                                        <% else %> 
+                                            <span class="currency">&#165;</span><span class="num"><%= @product.price %></span>
+                                        <% end %>
                                     </var>
                                 </div>
                                 <% if @product.status == :sold %>
@@ -48,50 +52,32 @@
                                         <% end %> 
                                     </dd>
                                 </dl>
-                                <dl>
-                                    <dd>
-                                        <!-- <small id="updated_at">Updated <b class="product_time"><%= @product.updated_at %></b></small> -->
-                                    </dd>
-                                </dl>
                                 <hr>
-                                <!-- <a href="#" class="btn  btn-primary"> Buy now </a>
-                                <a href="#" class="btn  btn-outline-primary"> <i class="fas fa-shopping-cart"></i> Add to cart </a> -->
                                 <% if user_signed_in? %>
-                                    <% if current_user != @product.user %> 
-                                        <%= form_tag contact_seller_rooms_path, method: :post do %>
-                                            <input id="seller_id" type="hidden" name="seller_id" value="<%= @product.user.id %>">
-                                            <%= button_tag type: "submit", class: "btn btn-outline-primary" do %> 
-                                                <i class="fas fa-phone"></i> Contact Seller
-                                            <% end %> 
-                                        <% end %>
+                                    <% if current_user != @product.user %>
+                                        <%= link_to contact_seller_rooms_path(seller_id: @product.user.id), method: :post, class: "btn btn-outline-primary" do %>
+                                            <i class="fas fa-phone"></i> Contact Seller
+                                        <% end %> 
                                     <% elsif current_user == @product.user %>
-                                        <%= form_tag mark_as_sold_products_path, method: :post do %>
-                                            <%= hidden_field_tag :id, @product.id %>
-                                            <%= button_tag type: "submit", class: "btn btn-outline-primary" do %> 
-                                                <i class="fas fa-tags"></i> 
-                                                <% if @product.status == :active %>
-                                                    Mark as Sold
-                                                <% else %>
-                                                    Mark as Available
-                                                <% end %>
-                                            <% end %> 
+                                        <% if @product.status == :active %>
+                                            <%= link_to mark_as_sold_products_path(id: @product.id), method: :post, class: "btn btn-outline-primary" do %>
+                                                <i class="fas fa-tags"></i> Mark as Sold
+                                            <% end %>
+                                        <% elsif @product.status == :sold %>
+                                            <%= link_to mark_as_sold_products_path(id: @product.id), method: :post, class: "btn btn-outline-primary" do %>
+                                                <i class="fas fa-tags"></i> Mark as Available
+                                            <% end %>
                                         <% end %>
                                     <% end %>
-                                    <% if @product.status == :active %>
-                                        <% if Delivery.where(:status_cd => 1, user_id: current_user.id, product_ids: @product.id).present? %>
-                                            <%= form_tag remove_from_delivery_delivery_path, method: :post do %>
-                                                <%= hidden_field_tag :id, @product.id %>
-                                                <%= button_tag type: "submit", class: "btn btn-outline-primary" do %> 
-                                                    <i class="fas fa-truck"></i>
-                                                    Remove From Delivery
+                                    <% if current_user != @product.user %>
+                                        <% if @product.status == :active %>
+                                            <% if Delivery.where(:status_cd => 1, user_id: current_user.id, product_ids: @product.id).present? %>
+                                                <%= link_to remove_from_delivery_delivery_path(id: @product.id), method: :post, class: "btn btn-outline-primary" do %>
+                                                    <i class="fas fa-truck"></i> Remove from Delivery
                                                 <% end %>
-                                            <% end %>
-                                        <% else %>
-                                            <%= form_tag add_to_delivery_delivery_path, method: :post do %>
-                                                <%= hidden_field_tag :id, @product.id %>
-                                                <%= button_tag type: "submit", class: "btn btn-outline-primary" do %> 
-                                                    <i class="fas fa-truck"></i>
-                                                    Add To Delivery
+                                            <% else %>
+                                                <%= link_to add_to_delivery_delivery_path(id: @product.id), method: :post, class: "btn btn-outline-primary" do %>
+                                                    <i class="fas fa-truck"></i> Add to Delivery
                                                 <% end %>
                                             <% end %>
                                         <% end %>
@@ -129,7 +115,7 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="d-none d-md-block col-md-2">
-                                                <%= image_tag "avatar/avatar-2.png", class: "rounded-circle img-fluid w-50 mx-auto d-block" %>
+                                                <%= image_tag another_user_avatar(comment.user), class: "rounded-circle img-fluid w-50 mx-auto d-block" %>
                                             </div>
                                             <div class="col-md-10">
                                                 <p><a href="#"><strong><%= comment.user.first_name %></strong></a>
@@ -137,7 +123,7 @@
                                                 <span class="comment_time d-none d-lg-block d-md-block text-secondary float-right"><%= comment.created_at %></span>
                                                 </p>
                                                 <p><%= comment.content %></p>
-                                                <% if @product.user == current_user %>
+                                                <% if @product.user == current_user || comment.user == current_user %>
                                                     <%= link_to comment_path(comment), method: :delete, class: "btn btn-outline-danger" do %>
                                                         <i class="fas fa-trash"></i> Delete
                                                     <% end %>
@@ -149,11 +135,15 @@
                             <% end %>
                         <% end %>
 
-                        <div class="form-group">
-                            <%= form_for @comment do |f| %>
-                                <%= f.text_area :content, class: "form-control", placeholder: "Write Your Comment Here...", rows: "10", required: true %>
-                                <%= f.hidden_field :product_id, value: @product.id %>
-                                <%= f.button "Add Comment", type: :submit, class: "btn btn-primary pull-right" %>
+                        <div class="form-group text-center">
+                            <% if user_signed_in? %>
+                                <%= form_for @comment do |f| %>
+                                    <%= f.text_area :content, class: "form-control", placeholder: "Write Your Comment Here...", rows: "10", required: true %>
+                                    <%= f.hidden_field :product_id, value: @product.id %>
+                                    <%= f.button "Add Comment", type: :submit, class: "btn btn-primary float-right" %>
+                                <% end %>
+                            <% else %>
+                                <h5><a href="<%= new_user_session_path %>">Login</a> to add your comment on this product</h5>
                             <% end %>
                         </div>
                     </div>
@@ -168,7 +158,7 @@
                         <h3>More Product From This User</h3>
                     </div>
                     <div class="card-body">
-                        <div class="owl-carousel owl-theme" id="products-carousel">
+                        <div class="owl-carousel owl-theme" id="products-carousel-2">
                             <% if @userproducts.count > 0 %>
                                 <% @userproducts.each do |uproduct| %>
                                     <%= render 'common/rproduct_card', rproduct: uproduct %>
@@ -187,7 +177,7 @@
                         <h3>Related Products</h3>
                     </div>
                     <div class="card-body">
-                        <div class="owl-carousel owl-theme" id="products-carousel-2">
+                        <div class="owl-carousel owl-theme" id="products-carousel">
                             <% if @relatedproducts.count > 0 %>
                                 <% @relatedproducts.each do |rproduct| %>
                                     <%= render 'common/rproduct_card', rproduct: rproduct %>

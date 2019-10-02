@@ -47,7 +47,7 @@
                 </div>
                 <div class="mb-3">
                   <%= builder.label :apartment, "Apartment and Room Number (Optional)" %>
-                  <%= builder.text_field :apartment, class: "form-control", placeholder: "Ex. Fujii Building, 305", required: true %>
+                  <%= builder.text_field :apartment, class: "form-control", placeholder: "Ex. Fujii Building, 115", required: true %>
                 </div>
                 <div class="row">
                   <div class="col-md-5 mb-3">
@@ -81,7 +81,7 @@
               <% end %>
             </div>
             <div class="tab-pane fade" id="items" role="tabpanel" aria-labelledby="items-tab">
-              <h6>Products to be Delivered</h6>
+              <h6>Listed Items to be Delivered</h6>
               <% if delivery.products.count > 0 %>
                 <% delivery.products.each do |product| %>
                   <div class="card mb-3" style="padding: 10px;">
@@ -92,7 +92,7 @@
                   </div>
                 <% end %>
               <% else %>
-                No products added. You can add one by clicking Add to Delivery on product page
+                No listed items added. You can add one by clicking Add to Delivery on product page
               <% end %>
               <h6 style="margin-top: 10px;">Other Items to be Delivered</h6>
               <%= f.fields_for :delivery_items, DeliveryItem.new do |item| %>
@@ -100,9 +100,9 @@
                   <%= render "deliveries/delivery_item_fields", f: item %>
                 </div>
                 <div class="mb-3">
-                  <span class="pull-right">
+                  <span class="float-right">
                     <%= link_to_add_association f, :delivery_items, render_options: { wrapper: 'bootstrap' }, partial: 'deliveries/delivery_item_fields' do %>
-                      <button class="btn btn-primary">Add Item</button>
+                      <button class="btn btn-danger" >Add Item</button>
                     <% end %>
                   </span>
                 </div>
@@ -117,11 +117,9 @@
                 </div>
               </div>
               <h6>Delivery Date</h6>
-              <%= f.hidden_field :delivery_date, id: "delivery-date-input", required: true %>
-              <div id="delivery-date" class="col-mb-3">
-              </div>
-              <%= f.button "Check Out", type: :submit, class: "btn btn-primary" %>
+              <%= f.datetime_local_field :delivery_date, required: true %>
               <hr class="mb-4">
+              <%= f.button "Check Out", type: :submit, class: "btn btn-primary" %>
             </div>
           </div>
         </div>

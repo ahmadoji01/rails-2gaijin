@@ -2,6 +2,7 @@ class ProductsController < ApplicationController
   before_action :redirect_if_no_session, only: [:edit, :update, :destroy]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:show]
+  before_action :authorized_user, except: [:show, :new, :mark_as_sold, :create, :update, :destroy]
 
   # GET /products
   # GET /products.json
@@ -131,6 +132,12 @@ class ProductsController < ApplicationController
 
     def redirect_if_no_session
       if !user_signed_in?
+        redirect_to root_url
+      end
+    end
+
+    def authorized_user
+      if current_user.role != :admin
         redirect_to root_url
       end
     end

@@ -1,6 +1,7 @@
 class RoomsController < ApplicationController
   before_action :authenticate_user!
   before_action :load_entities
+  before_action :authorized_user, except: [:index, :create, :update, :destroy, :contact_seller, :show]
 
   def index
     
@@ -61,10 +62,14 @@ class RoomsController < ApplicationController
   end
 
   def show
-    @room.update_attribute(:is_read, true)
-    @room_message = RoomMessage.new room: @room
-    @room_messages = @room.room_messages.includes(:user)
-    broadcast_room_notif
+    if @room.users.map(&:id).include?(current_user.id)
+      @room.update_attribute(:is_read, true)
+      @room_message = RoomMessage.new room: @room
+      @room_messages = @room.room_messages.includes(:user)
+      broadcast_room_notif
+    else
+      redirect_to root_url
+    end
   end
 
   protected
@@ -90,5 +95,13 @@ class RoomsController < ApplicationController
   def permitted_parameters
     params.require(:room).permit(:name, :room_type, :seller_id)
   end
+
+  private
+
+  def authorized_user
+    if current_user.role != :admin
+      redirect_to root_url
+    end
+  end 
 
 end

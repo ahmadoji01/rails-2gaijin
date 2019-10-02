@@ -7,24 +7,6 @@ $(document).ready( function() {
         width: 'resolve'
     });
     $('#condition').select2();
-
-    var config = {
-      target: 'delivery-date',
-      future: true,
-      smartHours: true,
-      years: {
-        min: 2019,
-        max: 2030,
-        step: 1
-      }
-    };
-    var myDatepicker = new MtrDatepicker(config);
-    $("#delivery-date-input").val(myDatepicker.toISOString());
-
-    myDatepicker.onChange('time', function() {
-      var datepickerOutput = myDatepicker.toLocaleString();
-      $("#delivery-date-input").val(myDatepicker.toISOString());
-    });
 });
 
 $('#menu-profile a').on('click', function (e) {
