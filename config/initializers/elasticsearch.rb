@@ -1,0 +1,1 @@
+ENV["ELASTICSEARCH_URL"] = "https://elastic:kH82VQ32@10.146.0.7:9200"
