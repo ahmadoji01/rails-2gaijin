@@ -10,5 +10,24 @@
   "license": "MIT",
   "engines": {
     "node": ">= 0.10"
-  }
+  },
+  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
+  "version": "1.0.0",
+  "main": "brunch-config.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "rails2gaijintest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://source.developers.google.com/p/rails-2gaijin/r/rails-2gaijin"
+  },
+  "keywords": [
+    "Rails",
+    "2Gaijin"
+  ],
+  "author": "KitaLabs, Co. Ltd."
 }
