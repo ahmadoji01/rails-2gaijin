@@ -24,5 +24,5 @@
 /config/credentials.yml.enc
 /config/master.key
 
-# Ignore master key for decrypting credentials and more.
-/config/master.key
+# Ignore ActionCable config
+/config/cable.yml

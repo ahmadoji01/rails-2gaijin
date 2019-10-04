@@ -87,21 +87,22 @@
                         <h2>Results <% if params.has_key?(:category) %>of <%= params[:category] %> <% end %></h2>
                     </div>
                     <div class="card-body">
-                            <div class="row">
-                            	<% if @products.count > 0 %>
-			                        <% @products.each do |product| %>
-                                        <%= render 'common/product_card', product: product %>
-			                        <% end %>
-			                        <%= paginate @products %>
-                                <% else %>
-                                    <h5>No Products Found. Please Refine Your Search Again</h5>
-			                    <% end %>
+                        <% if @products.count > 0 %>
+                            <%= page_entries_info @products, entry_name: 'item' %>     
+                            <div class="row" style="margin-top: 30px;">
+                                <% @products.each do |product| %>
+                                    <%= render 'common/product_card', product: product %>
+		                        <% end %>
+		                        <%= paginate @products %>
                             </div>
-                        </div>
+                        <% else %>
+                            <div class="row" style="margin-left: 0px;">
+                                <h5>No Products Found. Please Refine Your Search Again</h5>
+                            </div>
+		                <% end %>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>

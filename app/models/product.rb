@@ -1,9 +1,9 @@
 class Product
   include Mongoid::Document
+  include Mongoid::Search
   include SimpleEnum::Mongoid
-  searchkick
 
-  paginates_per 8
+  paginates_per 16
 
   field :name, type: String
   field :description, type: String
@@ -20,4 +20,8 @@ class Product
   has_and_belongs_to_many :orders
   belongs_to :user
   has_and_belongs_to_many :delivery
+  has_many :comments
+  has_many :tags
+
+  search_in :name, :price, :created_at, :status_cd, tags: :name, categories: :name
 end
