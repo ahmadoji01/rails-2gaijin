@@ -1,6 +1,6 @@
 # 2Gaijin.com on Rails
 
-2Gaijin.com just migrates the use of the website by utilizing Ruby on Rails 5.2.3 technology for hosting fast development with no downtime change
+2Gaijin.com just migrates the use of the website by utilizing Ruby on Rails 5.2.3 technology to benefit from its fast development with no downtime during the application update
 
 ## Contents
 * Getting Started
