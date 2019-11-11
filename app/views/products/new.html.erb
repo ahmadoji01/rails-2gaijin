@@ -20,7 +20,7 @@
                             <div class="row">
                                 <div class="form-group form-inline">
                                 	<%= form.label :name, style: "width: 190px" %>
-    								<%= form.text_field :name, class: "form-control", style: "width: 300px" %>
+    								<%= form.text_field :name, class: "form-control", placeholder: "Item Name", style: "width: 300px", required: true %>
                                 </div>
                             </div>
                             <div class="row">
@@ -31,26 +31,27 @@
                             </div>
                             <div class="row">
                                 <div class="form-group form-inline">
-                                    <%= form.label :price, style: "width: 190px", min: 0 %>
-    								<%= form.number_field :price, class: "form-control", style: "width: 300px" %>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group form-inline">
-                                	<%= form.label :description, style: "width: 190px" %>
-    								<%= form.text_area :description, class: "form-control", style: "width: 300px" %>
+                                    <%= form.label :price, style: "width: 190px" %>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                ¥
+                                            </div>
+                                        </div>
+    								    <%= form.number_field :price, class: "form-control", min: 0, style: "width: 260px", required: true %>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group form-inline"> <!--custom-file-->
-                                	<%= form.label :image, style: "width: 190px" %> 
-                                	<%= form.file_field :image, class: "form-control" %>
+                                	<%= form.label :product_images, style: "width: 190px" %> 
+                                	<%= form.file_field :product_images, :multiple => true, name: "product_images[image][]", id: "product-image-upload", class: "form-control", data: { "browse-on-zone-click": true }, required: true %>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group form-inline"> <!--custom-file-->
                                     <label style="width: 190px;">Location</label> 
-                                    <input type="text" id="pac-input" class="form-control" style="width: 300px;">
+                                    <input type="text" id="pac-input" class="form-control" placeholder="Input Item's Location Here" style="width: 300px;">
                                 </div>
                             </div>
                             <div class="row">
@@ -61,8 +62,14 @@
                                 <%= form.hidden_field :latitude, id: "address-lat-2" %>
                                 <%= form.hidden_field :longitude, id: "address-long-2" %>
                             </div>
+                            <div class="row">
+                                <div class="form-group form-inline">
+                                    <%= form.label :description, style: "width: 190px" %>
+                                    <%= form.cktext_area :description, id: "product-editor", placeholder: "Add color, conditions, and status of the item", cols: 40, style: "width: 300px", required: true %>
+                                </div>
+                            </div>
 	                        <div class="card-footer text-left">
-	                            <%= form.submit "Save", class: "btn btn-lg btn-primary" %>
+	                            <%= form.submit "List Item", id: "ckeditor-btn", class: "btn btn-lg btn-primary" %>
 	                        </div>
                         <% end %>
                     </div>

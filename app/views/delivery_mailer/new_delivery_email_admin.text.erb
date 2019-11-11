@@ -1,0 +1,32 @@
+Delivery Order Incoming!
+===============================================
+
+Customer's Info:
+----------------
+Name  : <%= @delivery.name %>
+Email : <%= @delivery.email %>
+Phone : <%= @delivery.phone %>
+
+Listed Items to be Delivered:
+-----------------------------
+
+<% if @delivery.products.count > 0 %>
+  <% @delivery.products.each do |product| %>
+    <%= product.name %>
+  <% end %>
+<% end %>
+
+Other Items to be Delivered:
+-----------------------------
+
+<% if @delivery.delivery_items.count > 0 %>
+  <% @delivery.delivery_items.each do |item| %>
+    <%= item.name %> | <%= item.address %>
+  <% end %>
+<% end %>
+
+Destination:
+------------
+<%= @delivery.address.full_address %>
+<%= @delivery.address.apartment %>
+<%= @delivery.address.city + ", " + @delivery.address.state + ", " + @delivery.address.postal_code %>

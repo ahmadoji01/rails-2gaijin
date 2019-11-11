@@ -13,9 +13,14 @@
  *= require_tree .
  *= require_self
  *= require gmaps-auto-complete
+ *= require jcrop
+ *= require social-share-button
  */
 
  @import "bootstrap";
- @import "sweetalert2/dist/sweetalert2.min";
  @import "font-awesome-sprockets";
  @import "font-awesome";
+ @import "fancybox-plus/css/jquery.fancybox-plus";
+ @import "sweetalert2/dist/sweetalert2.min";
+ @import "pretty-checkbox/dist/pretty-checkbox";
+ @import "rippleria/css/jquery.rippleria";

@@ -1,11 +1,16 @@
 class NotificationsController < ApplicationController
   before_action :set_notification, only: [:show, :edit, :update, :destroy]
-  before_action :authorized_user, except: [:index, :create, :update, :destroy]
+  before_action :authorized_user, except: [:index, :create, :set_notif_read, :set_message_read, :update, :destroy]
 
   # GET /notifications
   # GET /notifications.json
   def index
-    @notifications = Notification.where(user_id: current_user.id)
+    @notifications = Notification.where(user_id: current_user.id).order(created_at: :desc)
+    @notifications.each do |notification|
+      if notification.unread?
+        notification.update_attribute :status, :read
+      end
+    end
   end
 
   # GET /notifications/1
@@ -20,6 +25,49 @@ class NotificationsController < ApplicationController
 
   # GET /notifications/1/edit
   def edit
+  end
+
+  def set_notif_read
+    if user_signed_in?
+      if current_user.update_attribute :notif_read, true
+        render json: "success".to_json
+      else
+        render json: "failed".to_json
+      end
+    end
+  end
+
+  def set_message_read
+    if user_signed_in?
+      if current_user.update_attribute :message_read, true
+        render json: "success".to_json
+      else
+        render json: "failed".to_json
+      end
+    end
+  end
+
+  def email_subscription
+    if params.her_key?(:email)
+      user = User.find_by(email: params[:email])
+      if user.receive_email?
+        if current_user.update_attribute :receive_email, false
+          sweetalert_success('You have successfully unsubscribed from email notification', 'Successfully Unsubscribed', button: 'Great!')
+          redirect_to root_url
+        else
+          redirect_to root_url
+        end
+      else
+        if current_user.update_attribute :receive_email, true
+          sweetalert_success('You have successfully subscribed to email notification', 'Successfully Unsubscribed', button: 'Great!')
+          redirect_to root_url
+        else
+          redirect_to root_url
+        end
+      end
+    else
+      redirect_to root_url
+    end
   end
 
   # POST /notifications
@@ -75,8 +123,12 @@ class NotificationsController < ApplicationController
     end
 
     def authorized_user
-      if current_user.role != :admin
-        redirect_to root_url
+      if user_signed_in?
+        if current_user.role != :admin
+          raise ActionController::RoutingError.new('Not Found')
+        end
+      else
+        raise ActionController::RoutingError.new('Not Found')
       end
     end
 end

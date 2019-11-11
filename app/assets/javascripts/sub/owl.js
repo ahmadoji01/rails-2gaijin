@@ -3,9 +3,10 @@
 //homepage
 
 $(document).ready( function() {
-  $("#products-carousel").owlCarousel({
-    items: 6,
-    margin: 10,
+  $("#home-products-carousel").owlCarousel({
+    stagePadding: 0,
+    items: 1,
+    margin: 5,
     autoplay: true,
     autoplayTimeout: 3000,
     loop: true,
@@ -14,19 +15,20 @@ $(document).ready( function() {
         items: 1
       },
       320: {
-        items: 1
+        items: 3
       },
       768: {
-        items: 2
+        items: 5
       },
       1200: {
         items: 6
       }
     }
   });
-  $("#products-carousel-2").owlCarousel({
-    items: 6,
-    margin: 10,
+  $("#products-carousel").owlCarousel({
+    stagePadding: 0,
+    items: 1,
+    margin: 5,
     autoplay: true,
     autoplayTimeout: 3000,
     loop: false,
@@ -35,10 +37,32 @@ $(document).ready( function() {
         items: 1
       },
       320: {
-        items: 1
+        items: 3
       },
       768: {
-        items: 2
+        items: 5
+      },
+      1200: {
+        items: 6
+      }
+    }
+  });
+  $("#products-carousel-2").owlCarousel({
+    stagePadding: 0,
+    items: 1,
+    margin: 5,
+    autoplay: true,
+    autoplayTimeout: 3000,
+    loop: false,
+    responsive: {
+      0: {
+        items: 1
+      },
+      320: {
+        items: 3
+      },
+      768: {
+        items: 5
       },
       1200: {
         items: 6
@@ -59,7 +83,7 @@ $("#promos-2gaijin").owlCarousel({
 
 $("#related-carousel").owlCarousel({
   items: 5,
-  margin: 10,
+  margin: 5,
   autoplay: true,
   autoplayTimeout: 3000,
   // loop: true,

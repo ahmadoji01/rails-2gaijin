@@ -7,7 +7,7 @@ class ProductImageUploader < CarrierWave::Uploader::Base
   # storage :gcloud
   storage :fog
 
-  process :quality => 75
+  process resize_to_limit: [1280, 1280]
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
@@ -31,9 +31,18 @@ class ProductImageUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  version :thumb do
-    process resize_to_fit: [200, 200]
+  version :thumb, from_version: :large do
+    process resize_to_limit: [200, 200]
   end
+
+  version :large do
+   process resize_to_limit: [800, 800]
+  end
+
+  # version :very_large do
+    #process :crop
+    #process resize_to_fit: [1024, 1024]
+  # end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
@@ -45,5 +54,18 @@ class ProductImageUploader < CarrierWave::Uploader::Base
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   # def filename
   #   "something.jpg" if original_filename
+  # end
+
+  # def crop
+  #   if model.crop_x.present?
+  #     manipulate! do |img| 
+  #       x = model.crop_x.to_i
+  #       y = model.crop_y.to_i
+  #       w = model.crop_w.to_i
+  #       h = model.crop_h.to_i
+  #       crop_params = "#{w}x#{h}+#{x}+#{y}"
+  #       img.crop(crop_params)
+  #     end
+  #   end
   # end
 end

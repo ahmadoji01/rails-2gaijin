@@ -1,0 +1,91 @@
+<div class="tab-pane active" id="listed-product" role="tabpanel" aria-labelledby="listed-product">
+    <div class="mb-2">
+        <%= link_to new_product_path do %>
+            <button class="btn btn-primary btn-lg btn-icon icon-left"><i class="fa fa-plus"></i> 出售</button>
+        <% end %>
+    </div>
+    <hr>
+    <div class="col-12 table-responsive">
+        <table class="table">
+            <thead style="color: none;">
+                <tr>
+                    <th>商品详情</th>
+                    <!-- <th scope="col">Product's Name</th> -->
+                    <th class="text-center">状态</th>
+                    <!--<th class="text-center">Quantity</th>-->
+                    <th class="text-center">价格</th>
+                    <th class="text-center">编辑</th>
+                </tr>
+            </thead>
+            <tbody>
+                <br>
+                <% if @products.count > 0 %>
+                    <% @products.each do |product| %>
+                    <tr>
+                        <td>
+                            <a href="#" style="text-decoration: none; color: inherit;">
+                                <div class="media m-2">
+                                    <% if product.product_images? %>
+                                        <%= link_to product_path(product) do %>
+                                            <% if product.product_images[0].image.present? %>
+                                                <%= image_tag product.product_images[0].image.url(:thumb), class: "img-thumbnail align-content-start mr-3", alt: "image", style: "max-width:150px" %>
+                                            <% else %>
+                                                <%= image_tag "products/product-1-50.png", class: "img-thumbnail align-content-start mr-3", alt: "image", style: "max-width:150px" %>
+                                            <% end %>
+                                        <% end %>
+                                    <% else %>
+                                        <%= link_to product_path(product) do %>
+                                            <%= image_tag "products/product-1-50.png", class: "img-thumbnail align-content-start mr-3", alt: "image", style: "max-width:150px" %>
+                                        <% end %>    
+                                    <% end %>
+                                    <div class="media-body vertical-center">
+                                        <%= link_to product_path(product) do %>
+                                            <h5 class="mt-0"><%= product.name %></h5>
+                                        <% end %>
+                                        <!-- <p>Simple Description</p> -->
+                                    </div>
+                                </div>
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <% if product.status == :active %>
+                                <span class="badge badge-success">正在销售</span>
+                            <% end %>
+                            <% if product.status == :sold %>
+                                <span class="badge badge-warning">已售出</span>
+                            <% end %>
+                        </td>
+                        <!-- <td class="text-center">2</td> -->
+                        <td class="text-center"><span class="currency">&#165;</span><%= product.price %></td>
+                        <td>
+                            <center>
+                                <button class="btn btn-outline-primary btn-icon icon-left" data-toggle="modal" data-target="#Modal<%= product.id %>" style="width: 175px; margin-bottom: 2px;"><i class="fa fa-edit"></i> 编辑</button>
+                                <%= form_tag mark_as_sold_products_path, method: :post do %>
+                                    <%= hidden_field_tag :id, product.id %>
+                                    <%= button_tag type: "submit", class: "btn btn-outline-primary", style: "width: 175px; margin-bottom: 2px;" do %> 
+                                        <i class="fas fa-tags"></i> 
+                                        <% if product.status == :active %>
+                                            标记为已售出
+                                        <% else %>
+                                            标记为可出售
+                                        <% end %>
+                                    <% end %> 
+                                <% end %>
+                                <%= link_to product, method: :delete, data: { :"confirm-swal" => '您确定吗？', confirm: '您确定吗？'} do %>
+                                    <button class="btn btn-outline-danger btn-icon icon-left" style="width: 175px; margin-bottom: 2px;"><i class="fa fa-trash"></i> 删除</button>
+                                <% end %>
+                            </center>
+                            <%= render 'products/edit_modal', p: product %>
+                        </td>
+                    </tr>
+                    <% end %>
+                    <%= pagy_bootstrap_nav(@pagy).html_safe %>
+                    <%= pagy_info(@pagy).html_safe %>
+                    <% else %>
+                        There is no item you have listed. Let's start selling. <%= link_to "Click Here", new_product_path %>
+                <% end %>
+            </tbody>
+        </table>
+        <hr>
+    </div>
+</div>

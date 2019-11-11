@@ -1,73 +1,62 @@
+<% title "Search Secondhand Items in Need" %>
+<% description "Search Secondhand Items Page." %>
+<% keywords "Search, Items, Secondhand, Cheap" %>
+
 <div class="main-content" style="width: 100%;">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-3 col-sm-12">
                 <div class="card">
-                    <div class="card-header">
-                        <center><h3>Advanced Search</h3></center>
-                    </div>
                     <div class="card-body">
-                    	<%= form_tag search_page_path, method: :get do %>
+                        <%= form_tag search_page_path, id: "advanced-search-form", method: :get do %>
                             <%= hidden_field_tag :q, params[:q] %>
-                            <!--<div class="form-group">
-                                        <div class=" form-inline">
-                                            <input type="checkbox" class="custom-checkbox" name="enable-price" />
-                                            <label>Minimum Price</label>
-                                            <input type="text" class="form-control" placeholder="Rp. 0" name="">
+                            <%= hidden_field_tag :user, params[:user] %>
+                            <div class="row">
+                                <div class="form-group col-12">
+                                    <label for="status">Status</label><br>
+                                    <div class="pretty p-default p-curve" onclick="document.getElementById('advanced-search-form').submit()">
+                                        <%= radio_button_tag :status, "0", !!(!params.has_key?(:status)) %>
+                                        <div class="state p-primary-o">
+                                            <label>All</label>
                                         </div>
-                                        <input type="range" class="custom-range" min="0" max="10" step="0.5" name="price" />
-                                    </div> -->
+                                    </div>
 
-                            <div class="form-group">
-                                <label>Price</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            ¥
+                                    <div class="pretty p-default p-curve" onclick="document.getElementById('advanced-search-form').submit()">
+                                        <%= radio_button_tag :status, "1", !!(params[:status] == "1") %>
+                                        <div class="state p-primary-o">
+                                            <label>Available</label>
                                         </div>
                                     </div>
-                                    <%= number_field_tag :minprice, params[:minprice], placeholder: "Minimum", class: "form-control currency" %>
-                                </div>
-                                <br/>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            ¥
+
+                                    <div class="pretty p-default p-curve" onclick="document.getElementById('advanced-search-form').submit()">
+                                        <%= radio_button_tag :status, "2", !!(params[:status] == "2") %>
+                                        <div class="state p-success-o">
+                                            <label>Sold</label>
                                         </div>
                                     </div>
-                                    <%= number_field_tag :maxprice, params[:maxprice], placeholder: "Maximum", class: "form-control currency" %>
                                 </div>
                             </div>
-                            <!-- <div class="form-group">
-                                <label>Categories</label>
-                                <select class="form-control" id="select2" multiple="">
-                                    <option>Food</option>
-                                    <option>Kitchen</option>
-                                    <option>Games</option>
-                                    <option>Books</option>
-                                    <option>Home</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Condition</label>
-                                <select class="form-control" id="condition" multiple="">
-                                    <option>New</option>
-                                    <option>Second</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Location</label>
-                                <select class="form-control" id="city">
-                                    <option>Tokyo</option>
-                                    <option>Hokkaido</option>
-                                    <option>Nagawa</option>
-                                    <option>Okinawa</option>
-                                </select>
-                            </div> -->
-                            <%= button_tag type: "submit", class: "btn btn-primary btn-icon icon-left float-right", :name => nil do %>
-                            	<i class="fa fa-search"></i> Find Something
-                            <% end %>
-                        <% end %>
+                            <div class="row">
+                                <div class="form-group col-12">
+                                    <%= hidden_field_tag :activecategory, params[:activecategory], { id: "active-category" } %>
+                                    <label for="category">Category</label><br>
+                                    <ul class="d-none d-lg-block" style="list-style-type: none; padding: 0;">
+                                        <%= collection_check_boxes :category, :name, Category.all, :name, :name, { checked: @currcategoryname } do |b| %>
+                                            <li>
+                                                <div class="pretty p-default" onclick="categorySubmit(1);">
+                                                    <%= b.check_box %>
+                                                    <div class="state p-primary">
+                                                        <%= b.label %>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        <% end %>
+                                    </ul>
+                                    <div class="d-lg-none">
+                                    <%= select_tag :category2, options_from_collection_for_select(Category.all, "name", "name", {:selected => @currcategory2name}), { multiple: true, id: "select2", class: "form-control", style: "width: 100%;", onchange: "categorySubmit(2);" } %>
+                                    </div>
+                                </div>
+                            </div>      
                     </div>
                 </div>
                 <!-- <div class="card">
@@ -84,24 +73,48 @@
             <div class="col-lg-9 col-sm-12">
                 <div class="card">
                     <div class="card-header">
-                        <h2>Results <% if params.has_key?(:category) %>of <%= params[:category] %> <% end %></h2>
+                        <div class="col-6 col-lg-8">
+                            <% if params.has_key?(:user) %>
+                                <% if params[:user] != "" %>
+                                    <span class="d-none d-md-block"><h2>Items by <%= @user.first_name %></h2></span>
+                                    <span class="d-md-none"><h5>Items by <%= @user.first_name %></h5></span>
+                                <% else %>
+                                    <h2>Results</h2>
+                                <% end %>
+                            <% else %>
+                                <h2>Results</h2>
+                            <% end %>
+                        </div>
+                        <div class="col-6 col-lg-4">
+                            <label for="sortby">Sort By</label><br>
+                            <%= select_tag :sortby, options_for_select([["None", 0], ["Price: High to Low", 1], ["Price: Low to High", 2], ["Newest to Oldest", 3], ["Oldest to Newest", 4]], params[:sortby]), { class: "singleselect2", style: "width: 100%;", onchange: "this.form.submit();" } %>
+                        </div>
+                        <% end %>
                     </div>
                     <div class="card-body">
-                            <div class="row">
-                            	<% if @products.count > 0 %>
-			                        <% @products.each do |product| %>
-                                        <%= render 'common/product_card', product: product %>
-			                        <% end %>
-			                        <%= paginate @products %>
-                                <% else %>
-                                    <h5>No Products Found. Please Refine Your Search Again</h5>
-			                    <% end %>
+                        <% if @products.count > 0 %>
+                            <%= sanitize(pagy_info(@pagy)) %>
+                            <div class="row d-none d-md-flex" style="margin-top: 30px;">
+                                <% @products.each do |product| %>
+                                    <%= render 'common/product_card', product: product %>
+                                <% end %>
                             </div>
-                        </div>
+                            <div class="row d-md-none" style="margin-top: 30px;">
+                                <% @products.each do |product| %>
+                                    <%= render 'common/sm_product_card', product: product %>
+                                <% end %>
+                            </div>
+                            <div class="col-12" style="overflow: auto;">
+                                <%= pagy_bootstrap_nav(@pagy).html_safe %>
+                            </div>
+                        <% else %>
+                            <div class="row" style="margin-left: 0px;">
+                                <h5><%= sanitize(pagy_info(@pagy)) %></h5>
+                            </div>
+                        <% end %>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>

@@ -96,35 +96,43 @@ class DeliveriesController < ApplicationController
     @admins = User.where(:role_cd => 94)
     time = Time.parse(params[:delivery][:delivery_date]).strftime("%Y-%m-%d %H:%M")
 
-    @delivery.products.each do |product|
-      @notification = Notification.create name: current_user.first_name + " ordered your " + product.name + " for " + time,
-                                          created_at: DateTime.now,
-                                          user: product.user,
-                                          product: product,
-                                          status: :unread,
-                                          type: :order,
-                                          orderer: current_user
-
-      broadcast_notif(@notification, @notification.user, "Add")
-    end
-
-    @admins.each do |admin|
-      if current_user != admin
-        @notification = Notification.create name: "Delivery order from " + current_user.first_name + " for " + time,
-                                          created_at: DateTime.now,
-                                          user: admin,
-                                          status: :unread,
-                                          type: :delivery,
-                                          orderer: current_user
-
-        broadcast_notif(@notification, @notification.user, "Add")
-      end
-    end
-
     respond_to do |format|
       if @delivery.update(delivery_params)
         @delivery.address.update_attribute(:is_primary, true)
-        DeliveryMailer.with(delivery_id: @delivery.id).new_delivery_email.deliver!
+        if @delivery.products.count > 0
+          @delivery.products.each do |product|
+            @notification = Notification.create name: current_user.first_name + " ordered your " + product.name + " for " + time,
+                                                created_at: DateTime.now,
+                                                user: product.user,
+                                                product: product,
+                                                status: :unread,
+                                                type: :order,
+                                                orderer: current_user
+
+            @notification.user.update_attribute :notif_read, false
+            broadcast_notif(@notification, @notification.user, "Add")
+            DeliveryMailer.new_item_from_delivery_order_email_later(@delivery.id.to_s, product.id.to_s, which_room(@delivery.user.id.to_s, product.user.id.to_s).id.to_s).deliver_later(wait: 1.second)
+          end
+        end
+
+        if @admins.count > 0
+          @admins.each do |admin|
+            if current_user != admin
+              @notification = Notification.create name: "Delivery order from " + current_user.first_name + " for " + time,
+                                                created_at: DateTime.now,
+                                                user: admin,
+                                                status: :unread,
+                                                type: :delivery,
+                                                orderer: current_user
+
+              @notification.user.update_attribute :notif_read, false
+              broadcast_notif(@notification, @notification.user, "Add")
+              DeliveryMailer.new_delivery_email_admin_later(@delivery.id.to_s, admin.id.to_s, which_room(@delivery.user.id.to_s, admin.id.to_s).id.to_s).deliver_later(wait: 1.second)
+            end
+          end
+        end
+        DeliveryMailer.new_delivery_email_later(@delivery.id.to_s).deliver_later(wait: 1.second)
+        #DeliveryMailer.new_delivery_email_admin_later(@delivery.id.to_s).deliver_now!
         sweetalert_success('Your order has been received and we will inform our member', 'Successfully ordered', button: 'Awesome!')
         format.html { redirect_to root_url, notice: 'Delivery was successfully updated.' }
         format.json { render :show, status: :ok, location: root_url } 
@@ -153,14 +161,53 @@ class DeliveriesController < ApplicationController
 
     def broadcast_notif(notification, user, action)
 
+      product_image_url = ""
+
+      if notification.product.present?
+        if notification.product.product_images.present?
+          product_image_url = notification.product.product_images[0].image.url(:thumb)
+        else
+          product_image_url = ActionController::Base.helpers.image_url("products/product-1-50.png")
+        end
+      else
+        product_image_url = ActionController::Base.helpers.image_url("products/product-1-50.png")
+      end
+
       NotificationChannel.broadcast_to user, notification
-      ActionCable.server.broadcast "notification_channel_#{user.id}", unreadnotifs: count_unread_notifs(user), 
+      ActionCable.server.broadcast "notification_channel_#{user.id}", unreadnotifs: count_unread_notifs(user),
+                                                                      notifid: notification.id.to_s, 
                                                                       name: notification.name, 
-                                                                      link: contact_seller_rooms_path(notification.user.id),
+                                                                      link: contact_seller_rooms_path(seller_id: notification.orderer.id, notification_id: notification.id),
+                                                                      image_url: product_image_url,
+                                                                      time: notification.created_at,
                                                                       action: action
     end
 
   private
+
+    def which_room(first_user_id, second_user_id)
+      first_user = User.find(id: first_user_id)
+      second_user = User.find(id: second_user_id)
+
+      room1 = Room.where(user_ids: [first_user.id, second_user.id])
+      room2 = Room.where(user_ids: [second_user.id, first_user.id])
+
+      if room1.present?
+        return room1.first
+      elsif room2.present?
+        return room2.first
+      else
+        newroom = Room.new
+        newroom.room_type = :private
+        newroom.name = first_user.first_name + " - " + second_user.first_name
+        newroom.users << first_user
+        newroom.users << second_user
+        newroom.last_active = DateTime.now
+        newroom.save
+        return newroom
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_delivery
       @delivery = Delivery.find(params[:id])
@@ -168,14 +215,19 @@ class DeliveriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def delivery_params
-      params.require(:delivery).permit(:name, :email, :phone, :delivery_date, :price,
+      params.require(:delivery).permit(:name, :email, :phone, :delivery_date, :price, :payment_method,
                                        address_attributes: [:id, :full_address, :apartment, :city, :state, :postal_code, :user_id, :latitude, :longitude],
                                        delivery_items_attributes: [:id, :name, :address, :size])
     end
 
     def authorized_user
-      if current_user.role != :admin
-        redirect_to root_url
+      if user_signed_in?
+        if current_user.role != :admin
+          raise ActionController::RoutingError.new('Not Found')
+        end
+      else
+        raise ActionController::RoutingError.new('Not Found')
       end
     end
 end
+

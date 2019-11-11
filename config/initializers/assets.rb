@@ -17,11 +17,14 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
  	sub/modules/owlcarousel2/dist/assets/owl.carousel.min.css
  	sub/modules/bootstrap-social/bootstrap-social.css
  	sub/modules/select2/dist/css/select2.min.css
+ 	sub/modules/flag-icon-css/css/flag-icon.scss
+ 	sub/modules/flatpickr/flatpickr.min.css
  	sub/style.css
  	sub/components.css
  	sub/custom.css
  	sub/chat.css
- 	sub/bootstrap-material-datetimepicker.css
+ 	sub/zoomy.css
+ 	sub/galleria.twelve.min.css
  )
 
  Rails.application.config.assets.precompile += %w( 
@@ -30,7 +33,7 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
  	sub/modules/tooltip.js
  	sub/modules/bootstrap/js/bootstrap.min.js
  	sub/modules/nicescroll/jquery.nicescroll.min.js
- 	sub/modules/moment.min.js
+ 	sub/modules/moment-with-locales.min.js
  	sub/modules/owlcarousel2/dist/owl.carousel.min.js
  	sub/modules/cleave-js/dist/cleave.min.js
  	sub/modules/select2/dist/js/select2.min.js
@@ -38,8 +41,11 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
  	sub/custom.js
  	sub/owl.js
  	sub/dashboard.js
- 	sub/bootstrap-material-datetimepicker.js
- 	sub/price-counter.js
  	sub/rails-gmaps.js
  	sub/jquery.placepicker.js
+ 	sub/zoomy.js
+ 	sub/galleria.min.js
+ 	sub/galleria.twelve.min.js
+ 	ckeditor/config.js
+ 	rails_admin/custom/ui.js
  )

@@ -8,8 +8,12 @@ class CategoryController < ApplicationController
   private
   	
   	def authorized_user
-  		if current_user.role != :admin
-    		redirect_to root_url
-  		end
-	end
+  		if user_signed_in?
+        if current_user.role != :admin
+          raise ActionController::RoutingError.new('Not Found')
+        end
+      else
+        raise ActionController::RoutingError.new('Not Found')
+      end
+	  end
 end

@@ -1,4 +1,5 @@
 module ApplicationHelper
+	include Pagy::Frontend
 	def user_rooms
 		if user_signed_in?
 			Room.where(:user_ids => current_user.id).order_by(last_active: :desc)
@@ -14,6 +15,40 @@ module ApplicationHelper
 	def user_unread_notifs
 		if user_signed_in?
 			Notification.where(:status_cd => 0).and(:user_id => current_user.id).length
+		end
+	end
+
+	def user_unread_rooms
+		if user_signed_in?
+			unreadrooms = Room.where(:user_ids => current_user.id)
+    		counter = 0
+
+		    unreadrooms.each do |room|
+		    	last_message = room.room_messages.order(created_at: :desc).first
+		    	if last_message.present?
+					if !last_message.reader_ids.include?(current_user.id)
+			        	counter = counter + 1
+			    	end
+			  	end
+		    end
+		    return counter
+		end
+	end
+
+	def room_is_read(room)
+		if user_signed_in?
+			if !room.room_messages.present?
+				return true
+			else
+				last_message = room.room_messages.order(created_at: :desc).first
+				if last_message.present?
+					if last_message.reader_ids.include?(current_user.id)
+						return true
+					else
+						return false
+					end
+				end
+			end
 		end
 	end
 
@@ -61,8 +96,12 @@ module ApplicationHelper
 
 	def user_avatar_thumb
 		if user_signed_in?
-			if current_user.avatar.thumb.present?
-				return current_user.avatar.thumb.url
+			if current_user.avatar?
+				if current_user.avatar.thumb.present?
+					return current_user.avatar.thumb.url
+				else
+					return "avatar/avatar-1.png"
+				end
 			else
 				return "avatar/avatar-1.png"
 			end
@@ -80,8 +119,12 @@ module ApplicationHelper
 	end
 
 	def another_user_avatar_thumb(another_user)
-		if another_user.avatar.thumb.present?
-			return another_user.avatar.thumb.url
+		if another_user.avatar?
+			if another_user.avatar.thumb.present?
+				return another_user.avatar.thumb.url
+			else
+				return "avatar/avatar-1.png"
+			end
 		else
 			return "avatar/avatar-1.png"
 		end

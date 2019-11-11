@@ -1,0 +1,120 @@
+<div class="modal fade" id="deliveryModal" tabindex="-1" role="dialog" aria-labelledby="deliveryModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deliveryModalTitle">交货</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="delivery-tab" data-toggle="tab" href="#delivery" role="tab" aria-controls="delivery" aria-selected="true">联系信息和目的地</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="checkout-delivery-tab" data-toggle="tab" href="#checkout-delivery" role="tab" aria-controls="checkout-delivery" aria-selected="false">商品列表和结算</a>
+          </li>
+        </ul>
+        <%= form_for delivery, html: { id: "delivery_form" } do |f| %>
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="delivery" role="tabpanel" aria-labelledby="delivery-tab">
+                <div class="mb-3">
+                  <% if current_user.last_name.present? 
+                      @fullname = current_user.first_name + " " + current_user.last_name
+                    else
+                      @fullname = current_user.first_name
+                    end
+                  %>
+                  <label for="name">姓名</label>
+                  <%= f.text_field :name, class: "form-control", value: @fullname, required: true %>
+                </div>
+                <div class="mb-3">
+                  <label for="email">电子邮箱</label>
+                  <%= f.email_field :email, class: "form-control", value: current_user.email, placeholder: "Ex. username@example.com", required: true %>
+                </div>
+                <div class="mb-3">
+                  <label for="phone">联系电话</label>
+                  <%= f.text_field :phone, type: "tel", class: "form-control", value: current_user.phone, placeholder: "Ex. 070-1234-5678", required: true %>
+                </div>
+              <hr class="mb-4">
+              <b>Destination</b>
+              <%= f.fields_for :address do |builder| %>
+                <div class="mb-3">
+                  <label for="full_address">详细地址</label>
+                  <%= builder.text_field :full_address, class: "form-control", placeholder: "Ex. Kita 14-jo, Nishi 4-Chome", required: true %>
+                </div>
+                <div class="mb-3">
+                  <%= builder.label :apartment, "公寓及房间编号(可选)" %>
+                  <%= builder.text_field :apartment, class: "form-control", placeholder: "Ex. Fujii Building, 115" %>
+                </div>
+                <div class="row">
+                  <div class="col-md-5 mb-3">
+                    <%= builder.label :state, "省" %>
+                    <%= builder.select :state, options_for_select(['Hokkaido'], delivery.address.state), {}, { class: "custom-select d-block w-100", required: true } %>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <%= builder.label :city, "城市" %>
+                    <%= builder.select :city, options_for_select([['Sapporo'], ['Eniwa']], delivery.address.city), {}, { class: "custom-select d-block w-100", required: true } %>
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <%= builder.label :postal_code, "邮编" %>
+                    <%= builder.text_field :postal_code, class: "form-control", required: true %>                      
+                  </div>
+                  <%= builder.hidden_field :user_id, value: current_user.id, required: true %>
+                </div>
+              <% end %>
+            </div>
+            <div class="tab-pane fade" id="checkout-delivery" role="tabpanel" aria-labelledby="checkout-delivery-tab">
+              <h6>邮寄列表</h6>
+              <% if delivery.products.count > 0 %>
+                <% delivery.products.each do |product| %>
+                  <div class="card mb-3" style="padding: 10px;">
+                    <a href="<%= product_path(product)%>"><%= product.name %></a>
+                    <span>
+                      <%= link_to "x", remove_from_delivery_delivery_path(id: product.id), method: :post, style: "position: absolute; right: 5px; top: 5px;", class: "btn btn-outline-primary" %> 
+                    </span>
+                  </div>
+                <% end %>
+              <% else %>
+                您的列表中没有商品。您可以通过点击商品将其添加到列表当中。
+              <% end %>
+              <h6 style="margin-top: 10px;">其他需要运输的物品</h6>
+              <%= f.fields_for :delivery_items, DeliveryItem.new do |item| %>
+                <div class="mb-3">
+                  <%= render "deliveries/delivery_item_fields", f: item %>
+                </div>
+                <div class="mb-3">
+                  <%= link_to_add_association f, :delivery_items, render_options: { wrapper: 'bootstrap' }, partial: 'deliveries/delivery_item_fields' do %>
+                    <button class="btn btn-danger" style="width: 110px;">添加到列表</button>
+                  <% end %>
+                </div>
+              <% end %>
+              <hr class="mb-4">
+              <div class="d-block my-3">
+                <h6>付款方式</h6>
+                <div class="custom-control custom-radio">
+                  <%= f.radio_button :payment_method, 'cod', class: "custom-control-input", :checked => true %> 
+                  <%= label :payment_method, '现金付款', class: "custom-control-label" %>
+                </div>
+              </div>
+              <div class="d-block my-3">
+                <h6>运送日期</h6>
+                <%= f.datetime_local_field :delivery_date, class: "datetimepicker", required: true %><br>
+              </div>
+              <div class="d-block my-3">
+                <h6>价格</h6>
+                *价格是根据时间计算的，与距离无关。 
+                <!-- <br><b>(950¥/15分)</b> -->
+              </div>
+              <hr class="mb-4">
+              <%= f.button "结算", type: :submit, class: "btn btn-primary" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>

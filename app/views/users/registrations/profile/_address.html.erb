@@ -1,9 +1,9 @@
 <div class="tab-pane active" id="shipping-address" role="tabpanel" aria-labelledby="shipping-address">
-    <div class="col-12">
-        <div class="mb-2">
-            <button class="btn btn-primary btn-lg btn-icon icon-left" data-toggle="modal" data-target="#Modal<%= @newaddress.id %>"><i class="fa fa-plus"></i> Add New Address</button>
-        </div>
-        <hr>
+    <div class="mb-2">
+        <button class="btn btn-primary btn-lg btn-icon icon-left" data-toggle="modal" data-target="#Modal<%= @newaddress.id %>"><i class="fa fa-plus"></i> Add New Address</button>
+    </div>
+    <hr>
+    <div class="col-12 table-responsive">
         <table class="table">
             <thead style="color: none;">
                 <tr>
@@ -16,6 +16,7 @@
             </thead>
             <tbody>
                 <% @addresses.each do |address| %>
+                    <% if !address.full_address.nil? %>
                     <tr>
                         <td><p><%= address.full_address %> <%= address.apartment %></p></td>
                         <td class="text-center"><%= address.city %>, <%= address.state %> 〒<%= address.postal_code %></td>
@@ -24,8 +25,8 @@
                                 <%= form_tag set_primary_addresses_path, method: :post do %>
                                     <input id="address_id" type="hidden" name="address_id" value="<%= address.id %>">
                                     <%= button_tag type: "submit", class: "btn btn-outline-primary btn-icon icon-left" do %> 
-                                        <i class="fas fa-phone"></i> Set As Primary
-                                    <% end %> 
+                                        <i class="fas fa-home"></i> Set As Primary
+                                    <% end %>
                                 <% end %>
                             <% else %>
                                 <span class="badge badge-success">Primary Address</span>
@@ -40,6 +41,7 @@
                             </center>
                         </td>
                     </tr>
+                    <% end %>
                     <%= render 'addresses/address_modal', a: address %>
                 <% end %>
             </tbody>

@@ -4,6 +4,9 @@
     <title>2Gaijin.com - Sell Your Secondhand Items</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= display_meta_tags site: '2Gaijin.com' %>
+    <% title 'Secondhand Items Platform for Foreigners' %>
+    <%= render 'common/meta' %>
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
 
@@ -11,14 +14,22 @@
     <%= stylesheet_link_tag    'sub/modules/owlcarousel2/dist/assets/owl.carousel.min' %>
     <%= stylesheet_link_tag    'sub/modules/select2/dist/css/select2.min' %>
     <%= stylesheet_link_tag    'sub/modules/bootstrap-social/bootstrap-social' %>
+    <%= stylesheet_link_tag    'sub/modules/flag-icon-css/css/flag-icon' %>
     <%= stylesheet_link_tag    'sub/style' %>
     <%= stylesheet_link_tag    'sub/components' %>
     <%= stylesheet_link_tag    'sub/custom' %>
     <%= stylesheet_link_tag    'sub/chat' %>
-    <%= stylesheet_link_tag    'sub/bootstrap-material-datetimepicker' %>
+    <%= stylesheet_link_tag    'sub/zoomy' %>
+    <%= stylesheet_link_tag    'sub/galleria.twelve.min' %>
+
+    <%= render 'layouts/google_analytics' %>
 
     <%= javascript_include_tag 'application' %>
-
+    <%= render 'layouts/bootstrap_fileinput' %>
+    <%= javascript_include_tag Ckeditor.cdn_url %>
+    <%= javascript_include_tag Ckeditor.js_config_url %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/themes/fas/theme.min.js"></script>
+    <link rel="shortcut icon" type="image/png" href="https://storage.cloud.google.com/rails-2gaijin-storage/2gaijinico.png" >
     <!-- <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script> -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -27,22 +38,25 @@
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
     <script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"></script>
     <script src='//cdn.rawgit.com/printercu/google-maps-utility-library-v3-read-only/master/infobox/src/infobox_packed.js' type='text/javascript'></script>
-    
+    <%= stylesheet_link_tag    'sub/modules/flatpickr/flatpickr.min' %>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
     <%= javascript_include_tag 'sub/rails-gmaps' %>
 
-    <%= javascript_include_tag 'sub/modules/popper' %>
     <%= javascript_include_tag 'sub/modules/tooltip' %>
     <%= javascript_include_tag 'sub/modules/owlcarousel2/dist/owl.carousel.min' %>
     <%= javascript_include_tag 'sub/modules/cleave-js/dist/cleave.min' %>
     <%= javascript_include_tag 'sub/modules/select2/dist/js/select2.min' %>
     <%= javascript_include_tag 'sub/modules/chart.min' %>
     <%= javascript_include_tag 'sub/owl' %>
-    <%= javascript_include_tag 'sub/dashboard' %>
     <%= javascript_include_tag 'sub/custom' %>
-  </head>
+    <%= javascript_include_tag 'sub/zoomy' %>
+    <%= javascript_include_tag 'sub/galleria.min' %>
+    <%= javascript_include_tag 'sub/galleria.twelve.min' %>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+</head>
 
   <body class="layout-2" >
-
     <div class="main-wrapper">
       <div class="navbar-bg"></div>
         <%= render "common/navbar" %>

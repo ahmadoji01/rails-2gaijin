@@ -1,0 +1,37 @@
+<div class='row'>
+  <%= form_for @product do |f| %>
+    <%= f.fields_for :images do |builder| %>
+      <div class='col-xs-8'>
+
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Crop Images</h3>
+          </div>
+          <div class="panel-body">
+              <%= image_tag builder.image.url(:large), id: "cropbox" %>
+              <br>
+              <% %w[x y w h].each do |attribute| %>
+                <%= builder.input "crop_#{attribute}", as: :hidden %>
+              <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class='col-xs-4'>
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Preview</h3>
+          </div>
+          <div class="panel-body">
+            <div style="width:100px; height:100px; overflow:hidden">
+              <%= image_tag builder.image.url(:large), id: "preview" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <div class="form-actions">
+      <%= f.button :submit %>
+    </div>
+  <% end %>
+</div>

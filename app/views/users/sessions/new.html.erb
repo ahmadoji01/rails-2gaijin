@@ -1,3 +1,4 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <div class="container">
     <div class="row">
         <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
@@ -10,7 +11,17 @@
 
           <div class="card-body">
             <%= form_for(resource, as: resource_name, url: session_path(resource_name), class: "needs-validation") do |f| %>
-            <form method="POST" action="#" class="needs-validation" novalidate="">
+              <% if flash[:alert] %>
+                <div class="alert alert-danger">
+                  <%= flash[:alert] %>
+                </div>
+              <% end %>
+              <% if flash[:notice] %>
+                <div class="alert alert-primary">
+                  <%= flash[:notice] %>
+                </div>
+              <% end %>
+
               <div class="form-group">
                 <%= f.label :email %><br />
                 <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", tabindex: "1", required: true, type: "email" %>
@@ -25,7 +36,7 @@
                   
                   <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>  
                     <div class="float-right">
-                      <%= link_to "Forgot your password?", new_password_path(resource_name), class: "text-small" %><br />
+                      <%= link_to "Forgot your password?", new_password_path(resource_name) %><br />
                     </div>
                   <% end %>
                 </div>
@@ -47,7 +58,6 @@
               <div class="form-group">
                 <%= f.submit "Log in", class: "btn btn-primary btn-lg btn-block", tabindex: "4" %>
               </div>
-            </form>
             <% end %>
             <div class="text-center mt-4 mb-3">
               <div class="text-job text-muted">Login With Social</div>
@@ -64,15 +74,17 @@
                 <% end %>                              
               </div>
             </div>
-
+            <div class="text-center mt-4 mb-3">
+              <div class="text-job text-muted">Don't Have an Account?</div>
+            </div>
+            <div class="row sm-gutters">
+              <div class="col-12 form-group">
+                <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+                  <%= link_to "Sign up", new_registration_path(resource_name), class: "btn btn-primary btn-lg btn-block", tabindex: "4" %>
+                <% end %>
+              </div>
+            </div>
           </div>
-        </div>
-        
-        <div class="mt-5 text-muted text-center">
-          Don't have an account? 
-        <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-          <%= link_to "Sign up", new_registration_path(resource_name) %><br />
-        <% end %>
         </div>
         <div class="simple-footer">
           Copyright &copy; 2gaijin 2019

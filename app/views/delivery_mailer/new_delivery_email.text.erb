@@ -17,7 +17,7 @@ Other Items to be Delivered:
 
 <% if @delivery.delivery_items.count > 0 %>
   <% @delivery.delivery_items.each do |item| %>
-    <%= item.name %>
+    <%= item.name %> | <%= item.address %>
   <% end %>
 <% end %>
 

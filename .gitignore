@@ -23,3 +23,12 @@
 # Ignore master key for decrypting credentials and more.
 /config/credentials.yml.enc
 /config/master.key
+
+# Ignore ActionCable config
+/config/cable.yml
+
+# Ignore ActionCable config
+/config/mongoid.yml
+
+# Ignore Redis config
+/config/initializers/redis.rb

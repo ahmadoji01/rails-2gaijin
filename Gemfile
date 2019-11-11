@@ -5,6 +5,7 @@ ruby '2.6.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
+gem 'rails-i18n', '~> 5.1'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
@@ -43,19 +44,29 @@ gem 'fog-core', '2.1.0'
 gem "fog-google"
 gem "google-api-client", "> 0.8.5", "< 0.9"
 gem "mime-types"
+gem 'pagy'
 gem 'kaminari-mongoid'
 gem 'kaminari-actionview'
+gem 'bootstrap4-kaminari-views'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem 'redis', '~> 4.0'
-gem 'searchkick'
+gem 'mongoid_search'
 gem 'mongoid-ancestry'
 gem 'cocoon'
 gem 'sweetify'
-gem 'momentjs-rails'
 gem 'geocoder'
 gem 'gmaps4rails'
 gem 'gmaps-autocomplete-rails'
+gem 'ckeditor', github: 'galetahub/ckeditor'
+gem 'rails_admin_rollincode', '~> 1.0'
+gem 'rails_admin', '~> 2.0'
+gem "rails_admin_mongoid_geospatial_field", :github => "sudosu/rails_admin_mongoid_geospatial_field"
+gem "rails_admin_mongoid_localize_field", "~> 0.1.2"
+gem 'rails-assets-jcrop', source: 'https://rails-assets.org'
+gem 'social-share-button'
+gem 'ahoy_matey'
+gem 'meta-tags'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -64,7 +75,7 @@ end
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
+  gem 'web-console'
   gem 'listen', '>= 3.0.5', '< 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'

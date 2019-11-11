@@ -27,7 +27,7 @@
                   <div class="col-md-6 mb-3">
                     <div class="form-group form-inline">
                       <%= form.label :name %>
-                      <%= form.text_field :name, class: "form-control", required: true %>
+                      <%= form.text_field :name, class: "form-control", style: "width: 300px;", required: true %>
                       <div class="invalid-feedback">
                         Valid first name is required.
                       </div>
@@ -35,8 +35,8 @@
                   </div>
                   <div class="col-md-6 mb-3">
                     <div class="form-group form-inline">
-                      <%= form.label :categories, style: "width: 100px;" %>
-                      <%= form.select :categories, options_from_collection_for_select(Category.all, "id", "name", {:selected => p.category_ids}), {}, { multiple: true, class: "multiselect2" } %>
+                      <%= form.label :categories %>
+                      <%= form.select :categories, options_from_collection_for_select(Category.all, "id", "name", {:selected => p.category_ids}), {}, { multiple: true, class: "multiselect2 form-control", style: "width: 300px;" } %>
                       <div class="invalid-feedback">
                         Valid category is required.
                       </div>
@@ -45,25 +45,18 @@
                   <div class="col-md-6 mb-3">
                     <div class="form-group form-inline">
                       <%= form.label :price %>
-                      <%= form.number_field :price, class: "form-control" %>
+                      <%= form.number_field :price, class: "form-control", style: "width: 300px;" %>
                       <div class="invalid-feedback">
                         Valid category is required.
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-6 mb-3">
+                  <div class="col-md-12 mb-3">
                     <div class="form-group form-inline">
                       <%= form.label :description %>
-                      <%= form.text_area :description, class: "form-control" %>
-                      <div class="invalid-feedback">
-                        Valid category is required.
+                      <div class="col-md-12 mb-3">
+                        <%= form.cktext_area :description, class: "form-control", cols: 40, style: "padding: 0px;" %>
                       </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <div class="form-group form-inline">
-                      <%= form.label :image %> 
-                      <%= form.file_field :image, class: "form-control" %>
                       <div class="invalid-feedback">
                         Valid category is required.
                       </div>

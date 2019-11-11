@@ -18,6 +18,7 @@ require 'carrierwave/mongoid'
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
+ENV['RAILS_ADMIN_THEME'] = 'rollincode'
 
 module Rails2gaijin
   class Application < Rails::Application
@@ -29,5 +30,14 @@ module Rails2gaijin
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
     config.assets.paths << Rails.root.join('node_modules')
+    config.exceptions_app = self.routes
+
+    # Host for Mailer
+    config.action_mailer.default_url_options = { host: '2gaijin.com' }
+
+    config.time_zone = 'Tokyo'
+    I18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
+    I18n.default_locale = :en
+    I18n.available_locales = [:en, "zh-CN"]
   end
 end

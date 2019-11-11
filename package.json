@@ -2,7 +2,11 @@
   "name": "rails-2gaijin",
   "private": true,
   "dependencies": {
+    "ez-plus": "^1.2.1",
+    "fancybox-plus": "^1.3.8",
     "location-picker": "^1.1.1",
+    "pretty-checkbox": "^3.0.3",
+    "rippleria": "^1.0.2",
     "smoothscroll-polyfill": "^0.4.4",
     "sweetalert2": "^8.17.6",
     "underscore": "1.9.1"
@@ -10,5 +14,24 @@
   "license": "MIT",
   "engines": {
     "node": ">= 0.10"
-  }
+  },
+  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
+  "version": "1.0.0",
+  "main": "brunch-config.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "rails2gaijintest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://source.developers.google.com/p/rails-2gaijin/r/rails-2gaijin"
+  },
+  "keywords": [
+    "Rails",
+    "2Gaijin"
+  ],
+  "author": "KitaLabs, Co. Ltd."
 }

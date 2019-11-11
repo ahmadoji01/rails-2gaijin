@@ -17,6 +17,7 @@ class User
 
   ## Rememberable
   field :remember_created_at,     type: Time
+  field :remember_token,          type: String
 
   field :first_name,              type: String
   field :last_name,               type: String
@@ -31,11 +32,23 @@ class User
   field :provider,                type: String
   field :uid,                     type: String
 
-  as_enum :role, :admin => 94, :user => 0
+  as_enum :role, :admin => 94, :user => 0, :transporter => 3
+  as_enum :locale, :en => 1, "zh-CN" => 2, :ja => 3
 
   has_many :orders
   has_many :addresses
+  has_many :products
   has_and_belongs_to_many :rooms
+
+  has_and_belongs_to_many :read_messages, :class_name => "RoomMessage", :inverse_of => :readers
+  field :online,                  type: Boolean
+  field :notif_read,              type: Boolean
+  field :message_read,            type: Boolean
+
+  field :receive_email,           type: Boolean
+
+  has_and_belongs_to_many :followed_products, :class_name => "Product", :inverse_of => :followers
+
 
   ## Trackable
   # field :sign_in_count,      type: Integer, default: 0
@@ -56,15 +69,20 @@ class User
   # field :locked_at,       type: Time
 
   def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+    user = User.find_by(email: auth.info.email)
+    if user
+      user.provider = auth.provider
+      user.uid = auth.uid
+      return user
+    end
+
+    where(auth.slice(:provider, :uid)).first_or_create do |user|
+      #user.skip_confirmation! 
+      user.provider = auth.provider
+      user.uid = auth.uid
       user.email = auth.info.email
-      user.password = Devise.friendly_token[0, 20]
-      user.first_name = auth.info.first_name   # assuming the user model has a name
-      user.last_name = auth.info.last_name   # assuming the user model has a name
-      user.avatar = auth.info.image # assuming the user model has an image
-      # If you are using confirmable and the provider(s) you use validate emails, 
-      # uncomment the line below to skip the confirmation emails.
-      # user.skip_confirmation!
+      user.password = Devise.friendly_token[0,20]
+      user.name = auth.info.name
     end
   end
 

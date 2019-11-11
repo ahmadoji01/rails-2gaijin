@@ -1,6 +1,12 @@
-<div style="z-index: 2147483647; position: absolute; bottom: 10px; right: 10px">
-    <%= link_to new_product_path do %>
-        <button class="kc_fab_main_btn d-lg-none d-md-none" style="width: 30px; height: 30px; font-size: 12px">+</button>
-        <button class="kc_fab_main_btn d-none d-md-block">+</button>
-    <% end %>
+<div id="fabposition">
+    <div id="fabcontent">
+		<div id="extending-fab" class="extending-fab" data-new-product-path="<%= new_product_path %>">
+		    <br>
+		    <i class="fas fa-camera" style="color: white; font-size: 24px;"></i>
+		    <span id="extending-fab-text" class="hidden" style="margin-left: 5px; margin-top: 7px; color: white;">
+		        <h6>Sell Item</h6>
+		    </span>
+		    <br>
+		</div>
+	</div>
 </div>

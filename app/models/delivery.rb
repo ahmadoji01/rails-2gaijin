@@ -15,7 +15,8 @@ class Delivery
   has_many :delivery_items, inverse_of: :delivery
   accepts_nested_attributes_for :delivery_items, reject_if: :all_blank, allow_destroy: true
 
-  as_enum :status, :active => 1, :processed => 2, :complete => 3, :inactive => 0 
+  as_enum :status, :active => 1, :processed => 2, :complete => 3, :payment_received => 4, :inactive => 0
+  as_enum :payment_method, :cod => 1
 
   belongs_to :user
   has_and_belongs_to_many :products, inverse_of: :delivery

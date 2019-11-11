@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  
+  include Pagy::Backend  
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
 
@@ -26,8 +26,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def edit_product
-    @products = Product.where(user_id: current_user.id).order(created_at: :desc).page(params[:page])
+    @products = current_user.products.order(created_at: :desc)
+    @pageinfo = page_info(10, @products.count, params[:page].to_i)
+
+    @pagy, @products = pagy_array(@products, page: params[:page], items: 10)
     render :layout => 'application'
+  end
+
+  def edit_product_form
+    @product = User.find(params[:id])
+    respond_to do |format|
+      format.js { render partial: "product_form", locals: {product: @product}}
+    end
   end
 
   def edit_address
@@ -85,4 +95,21 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+  private
+
+  def page_info(itemsperpage, totalitems, currpage)
+    currpage = params[:page].to_i
+    if currpage == 0
+      currpage = 1
+    end
+
+    startrange = ((currpage - 1) * itemsperpage) + 1
+    endrange = currpage * itemsperpage
+    if endrange > totalitems
+      endrange = totalitems
+    end
+
+    return "Displaying <b>" + totalitems.to_s + "</b> items (<b>" + startrange.to_s + "</b>-<b>" + endrange.to_s + "</b>)"
+  end
 end

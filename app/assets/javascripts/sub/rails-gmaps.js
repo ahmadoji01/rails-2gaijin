@@ -114,4 +114,11 @@ $(document).ready( function() {
     var locInput = added_item.find("#item-loc-input");
     locInput.placepicker();
   });
+
+  $("#pac-input").keypress(function(e) {
+    var code = (e.keyCode ? e.keyCode : e.which);
+    if(code == 13) { //Enter keycode
+        return false;
+    }
+  });
 });
