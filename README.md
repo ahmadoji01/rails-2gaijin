@@ -1,24 +1,39 @@
-# README
+# 2Gaijin.com on Rails
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+2Gaijin.com just migrates the use of the website by utilizing Ruby on Rails 5.2.3 technology for hosting fast development with no downtime change
 
-Things you may want to cover:
+## Installation
+1. Ubuntu
+⋅⋅1. Ubuntu as Your PC's Main Operating System
+⋅⋅2. Ubuntu Installation on Windows
+2. Installing Ruby 2.6.3 and Ruby on Rails 5.2.3
+⋅⋅1. Ruby 2.6.3 Installation 
+⋅⋅2. Ruby on Rails 5.2.3 Installation
+3. Installing and Migrating Data to MongoDB
+⋅⋅1. MongoDB Installation
+⋅⋅2. MongoDB Data Migration
 
-* Ruby version
 
-* System dependencies
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
 
-* Configuration
+```bash
+pip install foobar
+```
 
-* Database creation
+## Usage
 
-* Database initialization
+```python
+import foobar
 
-* How to run the test suite
+foobar.pluralize('word') # returns 'words'
+foobar.pluralize('goose') # returns 'geese'
+foobar.singularize('phenomena') # returns 'phenomenon'
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-* Deployment instructions
+Please make sure to update tests as appropriate.
 
-* ...
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
