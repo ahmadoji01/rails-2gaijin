@@ -23,8 +23,8 @@
     - Gems Bundle and Node Modules Installation
     - Credentials Configuration
     - Configuration for Local Development
-        - MongoDB Connection Configuration
-        - Redis Server Configuration
+        - Credentials Configuration
+- Running Rails Application
 
 ### Ubuntu
 Ubuntu > 18.04 is recommended as we will use Ruby 2.6.3 and Ruby on Rails 5.2.3 that is released after Ubuntu 18.04. If you have your PC installed with Ubuntu 18.04, you can skip to the next section. This section is intended for Ubuntu installation on Windows 10.
@@ -149,4 +149,45 @@ redis-server
 Stay the window for redis open during the development
 
 ### Setting Up Ruby on Rails
-Some of the configuration files are ignored due to the differences the configuration need to be performed on Production and Development Environment. In this case, the database, and the credentials configurations are different and would not be committed 
+#### Gems Bundle and Node Modules Installation
+Since this project uses Ruby Gem and NodeJS dependencies, you need to run the command that will install the Gems bundle and NodeJS modules as well. If you have not configured the NodeJS, you can initialize the NodeJS configuration by running the following command
+```bash
+npm init
+```
+After that, navigate to **rails-2gaijin** path to install all dependencies
+```bash
+cd /path/to/rails-2gaijin
+bundle install
+npm install
+```
+#### Configurations for Local Development
+Some of the configuration files are git ignored due to the differences the configuration need to be performed on Production and Development environment. In this case, the database, and the credentials configurations are different and would not be committed should they be changed
+##### Credentials Configuration
+Credentials are a way for Ruby on Rails to store secret key like API keys and etc. Each PC will have its own credentials key and that is the reason why credentials configuration file should not be the same across different devices. Still on **rails-2gaijin** folder, We can add credentials configuration file by running the following command
+```bash
+EDITOR=nano rails credentials:edit
+```
+Inside the file you will see the following text
+```bash
+# aws:
+#   access_key_id: 123
+#   secret_access_key: 345
+
+# Used as the base secret for all MessageVerifiers in Rails, including the one protecting cookies.
+secret_key_base: ...
+```
+Insert these following lines just below the **secret_key_base** line
+```bash
+google_maps_api_key: AIzaSyBXiNp7PcyRfghiNb0Kb8CkZQMYAo4sb94
+mailer_username: 2gaijin@kitalabs.com
+mailer_password: 4Managing2GaijinEmail2020!
+google_storage_key_id: GOOGKDY6A4UK2PYZZKS6EKNB
+google_storage_secret_key: ZpagqElrSvPteUPwYGZL7CTp07y2bFq9r9pj63Jw
+```
+And the credentials configuration is now set
+### Running Rails Application on Local Development Environment
+Since all the configurations have been performed, we can now run the Rails application by navigating to the project folder. Run the following command and you are all set
+```bash
+cd /path/to/rails-2gaijin
+rails server
+```
