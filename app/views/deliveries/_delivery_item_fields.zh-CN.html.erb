@@ -3,11 +3,20 @@
 		<%= f.text_field :name, class: "form-control", placeholder: "项目名称", required: true %>
 	</div>
 	<div class="mb-3">
-		<%= f.text_field :address, id: "item-loc-input", class: "form-control", placeholder: "位置" %>
+		<div style="position:relative;">
+			<div class="input-group">
+				<%= f.text_field :address, id: "item-loc-input", class: "form-control", placeholder: "地点{请把右边的图标自动定位}" %>
+				<div class="input-group-prepend" id="item-autolocate">
+	                <div class="input-group-text">
+	                    <i class="fas fa-search-location fa-lg"></i>
+	                </div>
+	            </div>
+	        </div>
+		</div>
 	</div>
 	<div style="margin-bottom: 20px;">
 		<%= link_to_remove_association f, style: "color: #fff;" do %>
-			<button class="btn btn-primary" style="width: 110px">删除</button>
+			<button class="btn btn-danger" style="width: 120px">删除</button>
 		<% end %>
 	</div>
 </div>

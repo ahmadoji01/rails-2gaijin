@@ -33,9 +33,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # External Gem Bundle
 gem 'mongoid'
 gem 'bootstrap', '~> 4.3.1'
-gem 'font-awesome-sass', '~> 5.11.2'
 gem 'jquery-rails'
-gem 'jquery-ui-rails'
 gem 'simple_enum', require: 'simple_enum/mongoid'
 gem 'devise'
 gem 'carrierwave-mongoid'
@@ -46,8 +44,6 @@ gem "google-api-client", "> 0.8.5", "< 0.9"
 gem "mime-types"
 gem 'pagy'
 gem 'kaminari-mongoid'
-gem 'kaminari-actionview'
-gem 'bootstrap4-kaminari-views'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem 'redis', '~> 4.0'
@@ -63,10 +59,11 @@ gem 'rails_admin_rollincode', '~> 1.0'
 gem 'rails_admin', '~> 2.0'
 gem "rails_admin_mongoid_geospatial_field", :github => "sudosu/rails_admin_mongoid_geospatial_field"
 gem "rails_admin_mongoid_localize_field", "~> 0.1.2"
-gem 'rails-assets-jcrop', source: 'https://rails-assets.org'
 gem 'social-share-button'
 gem 'ahoy_matey'
 gem 'meta-tags'
+gem "lazyload-rails"
+gem "invisible_captcha"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

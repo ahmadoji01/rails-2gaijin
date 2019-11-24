@@ -22,7 +22,11 @@ class ApplicationController < ActionController::Base
   end
 
   def extract_locale_from_accept_language_header
-    request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first
+    locale = request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first
+    if locale != "en" || locale != "zh-CN"
+      locale = "en"
+    end
+    return locale
   end
 
   def update_user_locale(locale)
@@ -37,7 +41,12 @@ class ApplicationController < ActionController::Base
       if current_user.locale.present?
         I18n.locale = current_user.locale
       else
-        I18n.locale = params[:locale] || I18n.default_locale
+        if params.has_key?(:locale)
+          I18n.locale = params[:locale]
+        else
+          I18n.locale = extract_locale_from_accept_language_header || I18n.default_locale
+          update_user_locale(extract_locale_from_accept_language_header)
+        end
       end
     else
       if params.has_key?(:locale)

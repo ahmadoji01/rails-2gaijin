@@ -2,6 +2,7 @@ class DeliveriesController < ApplicationController
   before_action :set_delivery, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
   before_action :authorized_user, except: [:create, :update, :destroy, :add_to_delivery, :remove_from_delivery, :create, :update, :destroy]
+  invisible_captcha only: [:update]
 
   # GET /deliveries
   # GET /deliveries.json
@@ -30,8 +31,8 @@ class DeliveriesController < ApplicationController
 
     @delivery.products << @product
     if @delivery.update
-      sweetalert_success('Product has successfully been added to the delivery', 'Successfully Added', button: 'Awesome!')
-      redirect_to @product
+      #sweetalert_success('Product has successfully been added to the delivery', 'Successfully Added', button: 'Awesome!', timer: 10000)
+      redirect_to root_url + "#delivery"
     end
   end
 
@@ -41,8 +42,8 @@ class DeliveriesController < ApplicationController
     @delivery = Delivery.where(:status_cd => 1, user_id: current_user.id)[0]
 
     if @delivery.products.delete(@product)
-      sweetalert_success('Product has successfully been removed to the delivery', 'Successfully Removed', button: 'Awesome!')
-      redirect_to @product
+      #sweetalert_success('Product has successfully been removed to the delivery', 'Successfully Removed', button: 'Awesome!', timer: 10000)
+      redirect_to root_url  + "#delivery"
     end
   end
 
@@ -98,6 +99,10 @@ class DeliveriesController < ApplicationController
 
     respond_to do |format|
       if @delivery.update(delivery_params)
+        current_user.update_attribute :phone, params[:delivery][:phone]
+        if params[:delivery][:wechat] != ""
+          current_user.update_attribute :wechat, params[:delivery][:wechat]
+        end
         @delivery.address.update_attribute(:is_primary, true)
         if @delivery.products.count > 0
           @delivery.products.each do |product|
@@ -133,7 +138,7 @@ class DeliveriesController < ApplicationController
         end
         DeliveryMailer.new_delivery_email_later(@delivery.id.to_s).deliver_later(wait: 1.second)
         #DeliveryMailer.new_delivery_email_admin_later(@delivery.id.to_s).deliver_now!
-        sweetalert_success('Your order has been received and we will inform our member', 'Successfully ordered', button: 'Awesome!')
+        sweetalert_success('Your order has been received and we will inform our member', 'Successfully ordered', button: 'Awesome!', timer: 10000)
         format.html { redirect_to root_url, notice: 'Delivery was successfully updated.' }
         format.json { render :show, status: :ok, location: root_url } 
       else
@@ -215,7 +220,7 @@ class DeliveriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def delivery_params
-      params.require(:delivery).permit(:name, :email, :phone, :delivery_date, :price, :payment_method,
+      params.require(:delivery).permit(:name, :email, :phone, :wechat, :delivery_date, :price, :payment_method,
                                        address_attributes: [:id, :full_address, :apartment, :city, :state, :postal_code, :user_id, :latitude, :longitude],
                                        delivery_items_attributes: [:id, :name, :address, :size])
     end

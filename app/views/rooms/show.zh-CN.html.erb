@@ -15,7 +15,7 @@
                                     <%= render partial: 'rooms' %>
                                 </div>
                                 <div class="mesgs col-lg-6 col-md-12 col-sm-12">
-                                    <div class="card" style="padding: 30px;">
+                                    <div class="card" style="padding: 30px; margin-bottom: 0px">
                                         <div class="chat_people">
                                             <%  if @room.room_type == :private
                                                 @room.user_ids.each do |user|
@@ -75,7 +75,7 @@
                                     <div class="type_msg">
                                         <%= form_for @room_message, remote: true do |form| %>
                                             <div class="input_msg_write">
-                                                <%= form.text_field :message, class: "write_msg", placeholder: "Type a message" %>
+                                                <%= form.text_field :message, class: "write_msg form-control", style: "width: 85%", placeholder: "Type a message" %>
                                                 <%= button_tag type: "submit", class: "msg_send_btn" do %>
                                                     <i class="fa fa-paper-plane"></i>
                                                 <% end %>

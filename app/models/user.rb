@@ -24,6 +24,7 @@ class User
   field :slug,                    type: String
   field :date_of_birth,           type: Date
   field :phone,                   type: String
+  field :wechat,                  type: String
   field :created_at,              type: Time
   field :updated_at,              type: Time
 
@@ -69,20 +70,21 @@ class User
   # field :locked_at,       type: Time
 
   def self.from_omniauth(auth)
-    user = User.find_by(email: auth.info.email)
-    if user
-      user.provider = auth.provider
-      user.uid = auth.uid
-      return user
+    user = User.where(email: auth.info.email)
+    if user[0]
+      user[0].provider = auth.provider
+      user[0].uid = auth.uid
+      return user[0]
     end
 
-    where(auth.slice(:provider, :uid)).first_or_create do |user|
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       #user.skip_confirmation! 
       user.provider = auth.provider
       user.uid = auth.uid
       user.email = auth.info.email
       user.password = Devise.friendly_token[0,20]
-      user.name = auth.info.name
+      user.first_name = auth.info.first_name
+      user.last_name = auth.info.last_name
     end
   end
 

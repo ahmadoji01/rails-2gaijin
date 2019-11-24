@@ -1,6 +1,7 @@
 class TicketsController < ApplicationController
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
   before_action :authorized_user, except: [:create, :update, :destroy, :new]
+  invisible_captcha only: [:create]
 
   # GET /tickets
   # GET /tickets.json
@@ -26,10 +27,11 @@ class TicketsController < ApplicationController
   # POST /tickets.json
   def create
     @ticket = Ticket.new(ticket_params)
+    @ticket.created_at = DateTime.now
 
     respond_to do |format|
       if @ticket.save
-        sweetalert_success('Your message has been sent. Our members will be notified soon', 'Successfully sent', button: 'Awesome!')
+        sweetalert_success('Your message has been sent. Our members will be notified soon', 'Successfully sent', button: 'Awesome!', timer: 10000)
         format.html { redirect_to root_path, notice: 'Ticket was successfully created.' }
         format.json { render :show, status: :created, location: root_path }
       else

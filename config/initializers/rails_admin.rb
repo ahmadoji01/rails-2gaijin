@@ -77,6 +77,7 @@ RailsAdmin.config do |config|
   end
 
   config.model 'User' do
+    field :id
     ## Database authenticatable
     field :email
     field :password
@@ -167,8 +168,10 @@ RailsAdmin.config do |config|
   end
 
   config.model 'Ticket' do
+    field :id
     field :name
     field :email
     field :content, :ck_editor
+    field :created_at
   end
 end

@@ -4,6 +4,7 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:show]
   before_action :authorized_user, except: [:show, :new, :mark_as_sold, :create, :update, :destroy, :unfollow]
+  invisible_captcha only: [:create]
 
   # GET /products
   # GET /products.json

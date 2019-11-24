@@ -4,4 +4,7 @@ class InfosController < ApplicationController
 
   def terms
   end
+
+  def delivery_pricing
+  end
 end

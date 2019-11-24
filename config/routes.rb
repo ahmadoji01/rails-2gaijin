@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   
   get 'about_us', :to => 'infos#about_us'
   get 'terms_and_conditions', :to => 'infos#terms'
+  get 'delivery_pricing', :to => 'infos#delivery_pricing'
   get 'contact_us', :to => 'tickets#new'
 
   mount RailsAdmin::Engine => '/dashboard', as: 'rails_admin'

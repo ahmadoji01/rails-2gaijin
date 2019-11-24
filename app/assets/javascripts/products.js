@@ -25,7 +25,7 @@ $(document).ready( function() {
   $("#product-image-upload").fileinput({
     'showUpload':false,
     'maxFileCount': 6,
-    'allowedFileExtensions': ['jpg', 'png']
+    'allowedFileExtensions': ['jpg', 'png', 'jpeg']
   });
 
 });
@@ -44,6 +44,7 @@ $(document).ready( function() {
       imageCrop: false,
       swipe: "enforced"
     });
+    Galleria.loadTheme('https://cdn.jsdelivr.net/npm/galleria@1.6.1/dist/themes/classic/galleria.classic.min.js');
     Galleria.run('.galleria');
   });
 
@@ -65,31 +66,13 @@ $(document).ready( function() {
   });
 });
 
-var AvatarCrop,
+/*var AvatarCrop,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
 $(document).ready(function() {
   //return new AvatarCrop();
   $('.product-image-forms').each(function(i, obj){
     new AvatarCrop($(this));
-  });
-
-  $("#zoom_03").ezPlus({
-    gallery: 'gal1', 
-    cursor: 'pointer', 
-    galleryActiveClass: 'active',
-    imageCrossfade: true, 
-    loadingIcon: 'http://www.elevateweb.co.uk/spinner.gif',
-    
-    scrollZoom: true,
-    showLens: true
-  });
-
-  //pass the images to Fancybox
-  $('#zoom_03').bind('click', function (e) {
-      var ez = $('#zoom_03').data('ezPlus');
-      $.fancyboxPlus(ez.getGalleryList());
-      return false;
   });
 });
 
@@ -125,4 +108,4 @@ AvatarCrop = (function() {
 
   return AvatarCrop;
 
-})();
+})();*/

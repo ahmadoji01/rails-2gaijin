@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
   before_action :authorized_user, except: [:create, :update, :destroy]
+  invisible_captcha only: [:create]
 
   # GET /comments
   # GET /comments.json

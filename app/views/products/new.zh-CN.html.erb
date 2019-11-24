@@ -6,6 +6,7 @@
                     <div class="card-header"><h4>发布闲置</h4></div>
                     <div class="card-body">
                     	<%= form_with(model: @product, local: true, class: "needs-validation") do |form| %>
+                            <%= invisible_captcha %>
 						  	<% if @product.errors.any? %>
 							    <div id="error_explanation">
 							      	<h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>

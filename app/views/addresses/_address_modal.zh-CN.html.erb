@@ -12,6 +12,7 @@
           <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
               <div class="row">
                 <%= form_with(model: a, local: true, class: "needs-validation") do |form| %>
+                  <%= invisible_captcha %>
                   <% if a.errors.any? %>
                     <div id="error_explanation">
                         <h2><%= pluralize(a.errors.count, "error") %> prohibited this address from being saved:</h2>

@@ -11,41 +11,19 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
- Rails.application.config.assets.precompile += %w( 
- 	sub/modules/fontawesome/css/all.min.css 
- 	sub/modules/owlcarousel2/dist/assets/owl.theme.default.min.css
- 	sub/modules/owlcarousel2/dist/assets/owl.carousel.min.css
- 	sub/modules/bootstrap-social/bootstrap-social.css
- 	sub/modules/select2/dist/css/select2.min.css
- 	sub/modules/flag-icon-css/css/flag-icon.scss
- 	sub/modules/flatpickr/flatpickr.min.css
+ Rails.application.config.assets.precompile += %w(
  	sub/style.css
- 	sub/components.css
+ 	sub/components.min.css
  	sub/custom.css
- 	sub/chat.css
- 	sub/zoomy.css
- 	sub/galleria.twelve.min.css
+ 	sub/chat.min.css
  )
 
- Rails.application.config.assets.precompile += %w( 
- 	sub/rails-ujs-sweetalert2.js
- 	sub/modules/popper.js 
- 	sub/modules/tooltip.js
- 	sub/modules/bootstrap/js/bootstrap.min.js
- 	sub/modules/nicescroll/jquery.nicescroll.min.js
+ Rails.application.config.assets.precompile += %w(
  	sub/modules/moment-with-locales.min.js
- 	sub/modules/owlcarousel2/dist/owl.carousel.min.js
- 	sub/modules/cleave-js/dist/cleave.min.js
- 	sub/modules/select2/dist/js/select2.min.js
- 	sub/modules/chart.min.js
+ 	sub/jquery.lazyload.js
  	sub/custom.js
  	sub/owl.js
- 	sub/dashboard.js
  	sub/rails-gmaps.js
- 	sub/jquery.placepicker.js
- 	sub/zoomy.js
- 	sub/galleria.min.js
- 	sub/galleria.twelve.min.js
  	ckeditor/config.js
  	rails_admin/custom/ui.js
  )

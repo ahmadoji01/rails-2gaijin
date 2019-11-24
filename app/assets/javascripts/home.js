@@ -21,4 +21,6 @@ $(document).ready(function() {
         enableTime: true,
         minTime: "09:00"
     });
+
+    $("img").lazyload();
 });

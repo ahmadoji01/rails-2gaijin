@@ -31,9 +31,5 @@ if (typeof(CKEDITOR) != 'undefined') {
 
   $(document).ready( function() {
   	var editor = CKEDITOR.instances["product-editor"];
-
-  	editor.on( 'required', function( evt ) {
-      	alert( 'Description is required.' );
-  	});
   });
 }

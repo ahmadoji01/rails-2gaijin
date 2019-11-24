@@ -18,6 +18,7 @@
                                     end
                                 end %>
                                 <%= form_for @ticket, class: "needs-validation" do |form| %>
+                                    <%= invisible_captcha %>
                                     <div class="form-group floating-addon">
                                         <label>姓名</label>
                                         <div class="input-group">

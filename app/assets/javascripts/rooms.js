@@ -17,4 +17,16 @@ $(document).ready( function() {
 		var formattedDate = moment($element.html()).calendar();
 		$element.html(formattedDate);
 	});
+
+	$("#textarea-message").keypress(function (e) {
+	    if(e.which == 13 && !e.shiftKey) {
+            e.preventDefault(); 
+	    	jQuery.ajax({ 
+	    		url: this.form.onsubmit(), 
+	    		data: this.form.serialize(), 
+	    		success: {}, 
+	    		dataType: json 
+	    	}); 
+        }
+	});
 });

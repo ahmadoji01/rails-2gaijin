@@ -87,6 +87,7 @@ class RoomsController < ApplicationController
   end
 
   def show
+    current_user.update_attribute :message_read, true
     if @room.users.map(&:id).include?(current_user.id)
       @room.update_attribute(:is_read, true)
       

@@ -38,37 +38,35 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-12">
-                                    <%= hidden_field_tag :activecategory, params[:activecategory], { id: "active-category" } %>
+                                    <% if !mobile_device? %>
+                                        <%= hidden_field_tag :activecategory, 1, { id: "active-category" } %>
+                                    <% else %>
+                                        <%= hidden_field_tag :activecategory, 2, { id: "active-category" } %>
+                                    <% end %>
                                     <label for="category">商品分类</label><br>
-                                    <ul class="d-none d-lg-block" style="list-style-type: none; padding: 0;">
-                                        <%= collection_check_boxes :category, :name, Category.all, :name, :name, { checked: @currcategoryname } do |b| %>
-                                            <li>
-                                                <div class="pretty p-default" onclick="categorySubmit(1);">
-                                                    <%= b.check_box %>
-                                                    <div class="state p-primary">
-                                                        <%= b.label %>
+                                    <% if !mobile_device? %>
+                                        <ul class="d-none d-lg-block" style="list-style-type: none; padding: 0;">
+                                            <%= collection_check_boxes :category, :name, Category.all, :name, :name, { checked: @currcategoryname } do |b| %>
+                                                <li>
+                                                    <div class="pretty p-default" onclick="categorySubmit(1);">
+                                                        <%= b.check_box %>
+                                                        <div class="state p-primary">
+                                                            <%= b.label %>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </li>
-                                        <% end %>
-                                    </ul>
-                                    <div class="d-lg-none">
-                                    <%= select_tag :category2, options_from_collection_for_select(Category.all, "name", "name", {:selected => @currcategory2name}), { multiple: true, id: "select2", class: "form-control", style: "width: 100%;", onchange: "categorySubmit(2);" } %>
-                                    </div>
+                                                </li>
+                                            <% end %>
+                                        </ul>
+                                    <% end %>
+                                    <% if mobile_device? %>
+                                        <div class="d-lg-none">
+                                        <%= select_tag :category2, options_from_collection_for_select(Category.all, "name", "name", {:selected => @currcategory2name}), { multiple: true, id: "select2", class: "form-control", style: "width: 100%;", onchange: "categorySubmit(2);" } %>
+                                        </div>
+                                    <% end %>
                                 </div>
                             </div>
                     </div>
                 </div>
-                <!-- <div class="card">
-                    <div class="card-header">
-                        <center><h3>Map View</h3></center>
-                    </div>
-                    <div class="card-body">
-                        <iframe width="100%" height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=university%20of%20san%20francisco&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
-                        <style>.mapouter{position:relative;text-align:right;height:500px;width:100%;}.gmap_canvas {overflow:hidden;background:none!important;height:500px;width:100%;}
-                        </style>
-                    </div>
-                </div> -->
             </div>
             <div class="col-lg-9 col-sm-12">
                 <div class="card">
@@ -94,16 +92,20 @@
                     <div class="card-body">
                         <% if @products.count > 0 %>
                             <%= sanitize(pagy_info(@pagy)) %>
-                            <div class="row d-none d-md-flex" style="margin-top: 30px;">
-                                <% @products.each do |product| %>
-                                    <%= render 'common/product_card', product: product %>
-                                <% end %>
-                            </div>
-                            <div class="row d-md-none" style="margin-top: 30px;">
-                                <% @products.each do |product| %>
-                                    <%= render 'common/sm_product_card', product: product %>
-                                <% end %>
-                            </div>
+                            <% if !mobile_device? %>
+                                <div class="row d-none d-md-flex" style="margin-top: 30px;">
+                                    <% @products.each do |product| %>
+                                        <%= render 'common/product_card', product: product %>
+                                    <% end %>
+                                </div>
+                            <% end %>
+                            <% if mobile_device? %>
+                                <div class="row d-md-none" style="margin-top: 30px;">
+                                    <% @products.each do |product| %>
+                                        <%= render 'common/sm_product_card', product: product %>
+                                    <% end %>
+                                </div>
+                            <% end %>
                             <div class="col-12" style="overflow: auto;">
                                 <%= pagy_bootstrap_nav(@pagy).html_safe %>
                             </div>

@@ -13,14 +13,8 @@
 //= require jquery3
 //= require rails-ujs
 //= require popper
-//= require bootstrap
 //= require cocoon
 //= require ahoy
-//= require fancybox-plus/dist/jquery.fancybox-plus
-//= require underscore/underscore
-//= require sweetalert2/dist/sweetalert2.all.min
-//= require ez-plus/src/jquery.ez-plus
-//= require jcrop
 //= require social-share-button
 //= require social-share-button/wechat
 //= require rippleria/js/jquery.rippleria.min

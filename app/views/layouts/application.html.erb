@@ -8,52 +8,43 @@
     <% title 'Secondhand Items Platform for Foreigners' %>
     <%= render 'common/meta' %>
 
-    <%= stylesheet_link_tag    'application', media: 'all' %>
-
-    <%= stylesheet_link_tag    'sub/modules/owlcarousel2/dist/assets/owl.theme.default.min' %>
-    <%= stylesheet_link_tag    'sub/modules/owlcarousel2/dist/assets/owl.carousel.min' %>
-    <%= stylesheet_link_tag    'sub/modules/select2/dist/css/select2.min' %>
-    <%= stylesheet_link_tag    'sub/modules/bootstrap-social/bootstrap-social' %>
-    <%= stylesheet_link_tag    'sub/modules/flag-icon-css/css/flag-icon' %>
-    <%= stylesheet_link_tag    'sub/style' %>
-    <%= stylesheet_link_tag    'sub/components' %>
-    <%= stylesheet_link_tag    'sub/custom' %>
-    <%= stylesheet_link_tag    'sub/chat' %>
-    <%= stylesheet_link_tag    'sub/zoomy' %>
-    <%= stylesheet_link_tag    'sub/galleria.twelve.min' %>
-
-    <%= render 'layouts/google_analytics' %>
-
-    <%= javascript_include_tag 'application' %>
-    <%= render 'layouts/bootstrap_fileinput' %>
-    <%= javascript_include_tag Ckeditor.cdn_url %>
-    <%= javascript_include_tag Ckeditor.js_config_url %>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/themes/fas/theme.min.js"></script>
     <link rel="shortcut icon" type="image/png" href="https://storage.cloud.google.com/rails-2gaijin-storage/2gaijinico.png" >
-    <!-- <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script> -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/css/flag-icon.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/galleria/1.5.7/themes/classic/galleria.classic.min.css">
+
+    <%= stylesheet_link_tag    'sub/style' %>
+    <%= stylesheet_link_tag    'sub/components.min' %>
+    <%= stylesheet_link_tag    'sub/custom' %>
+    <%= stylesheet_link_tag    'sub/chat.min' %>
+
+    <%= javascript_include_tag 'application', async: true %>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/galleria/1.5.7/galleria.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <%= render 'layouts/bootstrap_fileinput' %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/themes/fas/theme.min.js"></script>
+
+    <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
+    <%= javascript_include_tag Ckeditor.js_config_url %>
+    
     <script src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.google_maps_api_key %>&libraries=places&callback=initMap"></script>
-    <%= javascript_include_tag 'sub/jquery.placepicker' %>
-    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-    <script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"></script>
-    <script src='//cdn.rawgit.com/printercu/google-maps-utility-library-v3-read-only/master/infobox/src/infobox_packed.js' type='text/javascript'></script>
-    <%= stylesheet_link_tag    'sub/modules/flatpickr/flatpickr.min' %>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/flatpickr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
     <%= javascript_include_tag 'sub/rails-gmaps' %>
-
-    <%= javascript_include_tag 'sub/modules/tooltip' %>
-    <%= javascript_include_tag 'sub/modules/owlcarousel2/dist/owl.carousel.min' %>
-    <%= javascript_include_tag 'sub/modules/cleave-js/dist/cleave.min' %>
-    <%= javascript_include_tag 'sub/modules/select2/dist/js/select2.min' %>
-    <%= javascript_include_tag 'sub/modules/chart.min' %>
+    <%= javascript_include_tag 'sub/jquery.lazyload' %>
     <%= javascript_include_tag 'sub/owl' %>
     <%= javascript_include_tag 'sub/custom' %>
-    <%= javascript_include_tag 'sub/zoomy' %>
-    <%= javascript_include_tag 'sub/galleria.min' %>
-    <%= javascript_include_tag 'sub/galleria.twelve.min' %>
-    <meta name="apple-mobile-web-app-capable" content="yes">
 </head>
 
   <body class="layout-2" >
@@ -75,6 +66,5 @@
     
 
   </body>
-  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
 
 </html>

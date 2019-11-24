@@ -5,6 +5,7 @@ class Delivery
   field :name, type: String
   field :email, type: String
   field :phone, type: String
+  field :wechat, type: String
 
   field :delivery_date, type: DateTime
   field :price, type: Integer
