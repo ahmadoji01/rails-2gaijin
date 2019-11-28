@@ -28,20 +28,7 @@ $(document).ready( function() {
 	      },
 
 	      messageBar: function(data) {
-	      	return `
-	      	<a href="${data["roompath"]}" id="room-bar-${data["roomid"]}" class="dropdown-item" data-room-order="">
-	            <div class="dropdown-item-avatar">
-	            	<img src="${data["avatar"]}" class="rounded-circle" width="30" alt="image">
-	            </div>
-	            <div class="dropdown-item-desc">
-	                <b class="msg_name">${data["roomname"]}</b>
-	                    <div class="text-success text-small font-600-bold" style="float: right;">
-	                        <i class="fas fa-circle"></i>
-	                    </div>
-	                <div class="msg_time time">${moment(data["time"]).calendar()}</div>
-	            </div>
-	        </a>
-		    `;
+	      	return '<a href="'+ data["roompath"] +'" id="room-bar-'+ data["roomid"] +'" class="dropdown-item" data-room-order=""><div class="dropdown-item-avatar"><img src="' + data["avatar"] + '" class="rounded-circle" width="30" alt="image"></div><div class="dropdown-item-desc"><b class="msg_name">' + data["roomname"] + '</b><div class="text-success text-small font-600-bold" style="float: right;"><i class="fas fa-circle"></i></div><div class="msg_time time">' + moment(data["time"]).calendar() + '</div></div></a>';
 	      }
 	    }
   		);

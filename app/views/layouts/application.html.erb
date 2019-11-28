@@ -24,7 +24,7 @@
     <%= stylesheet_link_tag    'sub/custom' %>
     <%= stylesheet_link_tag    'sub/chat.min' %>
 
-    <%= javascript_include_tag 'application', async: true %>
+    <%= javascript_include_tag 'application', async: Rails.env.production? %>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/galleria/1.5.7/galleria.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -59,12 +59,11 @@
 
     <%= yield %>
 
-    <%=  render "common/footer" %>
+    <% if controller_name != "search" %>
+        <%=  render "common/footer" %>
+        <%=  render "common/fab_add_product" %>
+    <% end %>
     <%=  render 'sweetify/alert' %>
-    <%=  render "common/fab_add_product" %>
-
-    
-
   </body>
 
 </html>

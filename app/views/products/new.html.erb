@@ -51,14 +51,23 @@
                             </div>
                             <div class="row">
                                 <div class="form-group form-inline"> <!--custom-file-->
-                                    <label style="width: 190px;">Location</label> 
-                                    <input type="text" id="pac-input" class="form-control" placeholder="Input Item's Location Here" style="width: 300px;">
+                                    <label style="width: 190px;">Location</label>
+                                    <div style="position:relative;">
+                                        <div class="input-group">
+                                            <input type="text" id="pac-input" class="form-control" placeholder="Click the Right Icon to Autolocate" style="width: 270px;">
+                                            <div class="input-group-prepend" id="pac-autolocate">
+                                                <div class="input-group-text">
+                                                    <i class="fas fa-search-location fa-lg"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group form-inline">
                                     <label style="width: 190px;">Map</label>
-                                    <div id="product-map" style="width: 300px; height: 200px;"></div>
+                                    <div id="product-map" style="width: 310px; height: 200px;"></div>
                                 </div>
                                 <%= form.hidden_field :latitude, id: "address-lat-2" %>
                                 <%= form.hidden_field :longitude, id: "address-long-2" %>

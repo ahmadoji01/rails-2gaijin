@@ -8,6 +8,14 @@ class ApplicationController < ActionController::Base
     stored_location_for(resource) || root_path
   end
 
+  def mobile_device?
+    if session[:mobile_param]
+      session[:mobile_param] == "1"
+    else
+      request.user_agent =~ /Mobile|webOS/
+    end
+  end
+
   private
   def layout_by_resource
     if devise_controller?

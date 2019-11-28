@@ -26,13 +26,20 @@ handler.buildMap({ provider: {}, internal: {id: 'basic_map'}}, function(){
 function initMap() {
   var map = new google.maps.Map(document.getElementById('product-map'), {
     center: {lat: 43.0779575, lng: 141.337819},
-    zoom: 13
+    zoom: 13,
+    panControl:true,
+    zoomControl:true,
+    mapTypeControl:false,
+    scaleControl:true,
+    streetViewControl:false,
+    overviewMapControl:false,
+    rotateControl:true
   });
 
   var input = document.getElementById('pac-input');
   var geocoder = new google.maps.Geocoder();
   
-  document.getElementById('pac-input').onfocus = function() {
+  $("#pac-autolocate")[0].onclick = function() {
     // Try HTML5 geolocation.
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {

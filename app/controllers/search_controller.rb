@@ -133,10 +133,34 @@ class SearchController < ApplicationController
       currpage = 1
     end
 
-    @pagy, @products = pagy_array(@products, page: params[:page], items: itemsperpage)
+    if !mobile_device?
+      @pagy, @products = pagy_array(@products, page: params[:page], items: itemsperpage)
+    else
+      if @products.count > 0
+        @pagy, @products = pagy_array(@products, link_extra: 'data-remote="true"', items: 8)
+      else
+        @pagy, @products = pagy_array(@products, page: params[:page], items: itemsperpage)
+      end
+    end
   end
 
   private
+
+  # Return Pagy object and items
+  def pagy_countless_array(array, vars={})
+    pagy = Pagy::Countless.new(pagy_countless_get_vars(array, vars))
+    return pagy, pagy_countless_get_items(array, pagy)
+  end
+
+  def pagy_countless_get_items(array, pagy)
+    # This should work with ActiveRecord, Sequel, Mongoid...
+    items      = array[pagy.offset, pagy.items + 1].to_a
+    items_size = items.size
+    items.pop if items_size == pagy.items + 1
+    pagy.finalize(items_size)                  # finalize may adjust pagy.items, so must be used after checking the size
+    items
+  end
+
 
   def sort_type(sortby)
     if sortby.to_i == 1

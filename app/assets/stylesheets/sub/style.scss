@@ -2734,7 +2734,39 @@ body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu li.active ul.dropdown-men
   -ms-transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
 }
-
+#filterfabposition{
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  width: 200px;
+  margin-left: -100px;
+  z-index: 99;
+}
+#filterfabcontent{
+  width: 200px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.filter-fab{
+  width: 150px;
+  height: 45px;
+  max-height: 45px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #FFFFFF;
+  color: black;
+  border-radius: 50px;
+  box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  transition: all .2s ease-out;
+}
 #fabposition{
   position: fixed;
   bottom: 0;

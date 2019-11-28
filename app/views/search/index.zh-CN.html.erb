@@ -2,15 +2,26 @@
 <% description "Search Secondhand Items Page." %>
 <% keywords "Search, Items, Secondhand, Cheap" %>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-infinitescroll/3.0.6/infinite-scroll.pkgd.min.js"></script>
+
 <div class="main-content" style="width: 100%;">
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-3 col-sm-12">
-                <div class="card">
+                <%= form_tag search_page_path, id: "advanced-search-form", method: :get do %>
+                <%= hidden_field_tag :q, params[:q] %>
+                <%= hidden_field_tag :user, params[:user] %>
+                <% if !mobile_device? %>
+                    <%= hidden_field_tag :activecategory, 1, { id: "active-category" } %>
+                <% else %>
+                    <%= hidden_field_tag :activecategory, 2, { id: "active-category" } %>
+                    <%= render "search/fab_filter_button" %>
+                    <%= render "search/filter_modal" %>
+                <% end %>
+                <% if !mobile_device? %>
+                    <div class="card">
                     <div class="card-body">
-                        <%= form_tag search_page_path, id: "advanced-search-form", method: :get do %>
-                            <%= hidden_field_tag :q, params[:q] %>
-                            <%= hidden_field_tag :user, params[:user] %>
                             <div class="row">
                                 <div class="form-group col-12">
                                     <label for="status">状态</label><br>
@@ -38,11 +49,7 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-12">
-                                    <% if !mobile_device? %>
-                                        <%= hidden_field_tag :activecategory, 1, { id: "active-category" } %>
-                                    <% else %>
-                                        <%= hidden_field_tag :activecategory, 2, { id: "active-category" } %>
-                                    <% end %>
+                                    
                                     <label for="category">商品分类</label><br>
                                     <% if !mobile_device? %>
                                         <ul class="d-none d-lg-block" style="list-style-type: none; padding: 0;">
@@ -58,13 +65,9 @@
                                             <% end %>
                                         </ul>
                                     <% end %>
-                                    <% if mobile_device? %>
-                                        <div class="d-lg-none">
-                                        <%= select_tag :category2, options_from_collection_for_select(Category.all, "name", "name", {:selected => @currcategory2name}), { multiple: true, id: "select2", class: "form-control", style: "width: 100%;", onchange: "categorySubmit(2);" } %>
-                                        </div>
-                                    <% end %>
                                 </div>
-                            </div>
+                            </div> 
+                        <% end %>     
                     </div>
                 </div>
             </div>
@@ -83,32 +86,34 @@
                                 <h2>结果</h2>
                             <% end %>
                         </div>
-                        <div class="col-6 col-lg-4">
-                            <label for="sortby">分类依据</label><br>
-                            <%= select_tag :sortby, options_for_select([["——", 0], ["价格从高到低排序", 1], ["价格从低到高排序", 2], ["最新发布", 3], ["最早发布", 4]], params[:sortby]), { class: "singleselect2", style: "width: 100%;", onchange: "this.form.submit();" } %>
-                        </div>
+                            <% if !mobile_device? %>
+                                <div class="col-6 col-lg-4">
+                                    <label for="sortby">分类依据</label><br>
+                                    <%= select_tag :sortby, options_for_select([["——", 0], ["价格从高到低排序", 1], ["价格从低到高排序", 2], ["最新发布", 3], ["最早发布", 4]], params[:sortby]), { class: "singleselect2", style: "width: 100%;", onchange: "this.form.submit();" } %>
+                                </div>
+                            <% end %>
                         <% end %>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" id="search-container">
                         <% if @products.count > 0 %>
-                            <%= sanitize(pagy_info(@pagy)) %>
                             <% if !mobile_device? %>
+                                <%= sanitize(pagy_info(@pagy)) %>
                                 <div class="row d-none d-md-flex" style="margin-top: 30px;">
                                     <% @products.each do |product| %>
                                         <%= render 'common/product_card', product: product %>
                                     <% end %>
                                 </div>
-                            <% end %>
-                            <% if mobile_device? %>
-                                <div class="row d-md-none" style="margin-top: 30px;">
-                                    <% @products.each do |product| %>
-                                        <%= render 'common/sm_product_card', product: product %>
-                                    <% end %>
+                                <div class="col-12" style="overflow: auto;">
+                                    <%= pagy_bootstrap_nav(@pagy).html_safe %>
                                 </div>
                             <% end %>
-                            <div class="col-12" style="overflow: auto;">
-                                <%= pagy_bootstrap_nav(@pagy).html_safe %>
-                            </div>
+                            <% if mobile_device? %>
+                                <%= sanitize(pagy_info(@pagy)) %>
+                                <div class="row d-md-none" id="product-container" style="margin-top: 30px;">
+                                    <%= render 'search/sm_product_card' %>
+                                </div>
+                                <span style="display: none"><%== pagy_nav @pagy %></span>
+                            <% end %>
                         <% else %>
                             <div class="row" style="margin-left: 0px;">
                                 <h5><%= sanitize(pagy_info(@pagy)) %></h5>

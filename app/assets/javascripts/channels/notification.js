@@ -32,20 +32,7 @@ $(document).ready( function() {
         },
 
         notifBar: function(data) {
-          return `
-          <a href="${data["link"]}" id="notif-bar-${data["notifid"]}" class="dropdown-item" data-room-order="">
-              <div class="dropdown-item-avatar">
-                <img src="${data["image_url"]}" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover" alt="image">
-              </div>
-              <div class="dropdown-item-desc">
-                  <b class="msg_name">${data["name"]}</b>
-                    <div class="text-success text-small font-600-bold" style="float: right;">
-                        <i class="fas fa-circle"></i>
-                    </div>
-                  <div class="msg_time time">${moment(data["time"]).calendar()}</div>
-              </div>
-          </a>
-        `;
+          return '<a href="'+ data["link"] +'" id="notif-bar-'+ data["notifid"] + '" class="dropdown-item" data-room-order=""><div class="dropdown-item-avatar"><img src="' + data["image_url"] + '" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover" alt="image"></div><div class="dropdown-item-desc"><b class="msg_name">' + data["name"] + '</b><div class="text-success text-small font-600-bold" style="float: right;"><i class="fas fa-circle"></i></div><div class="msg_time time">' + moment(data["time"]).calendar() + '</div></div></a>';;
         }
       }
     );
