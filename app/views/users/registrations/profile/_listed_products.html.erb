@@ -21,7 +21,7 @@
                 <br>
                 <% if @products.count > 0 %>
                     <% @products.each do |product| %>
-                    <tr>
+                    <tr id="product-tab-<%= product.id %>">
                         <td>
                             <a href="#" style="text-decoration: none; color: inherit;">
                                 <div class="media m-2">
@@ -49,31 +49,26 @@
                         </td>
                         <td class="text-center">
                             <% if product.status == :active %>
-                                <span class="badge badge-success">Available</span>
+                                <span id="product-status-badge-<%= product.id %>" class="badge badge-success">Available</span>
                             <% end %>
                             <% if product.status == :sold %>
-                                <span class="badge badge-warning">Sold</span>
+                                <span id="product-status-badge-<%= product.id %>" class="badge badge-warning">Sold</span>
                             <% end %>
                         </td>
                         <!-- <td class="text-center">2</td> -->
                         <td class="text-center"><span class="currency">&#165;</span><%= product.price %></td>
                         <td>
                             <center>
-                                <button class="btn btn-outline-primary btn-icon icon-left" data-toggle="modal" data-target="#Modal<%= product.id %>" style="width: 175px; margin-bottom: 2px;"><i class="fa fa-edit"></i> Edit</button>
-                                <%= form_tag mark_as_sold_products_path, method: :post do %>
-                                    <%= hidden_field_tag :id, product.id %>
-                                    <%= button_tag type: "submit", class: "btn btn-outline-primary", style: "width: 175px; margin-bottom: 2px;" do %> 
-                                        <i class="fas fa-tags"></i> 
-                                        <% if product.status == :active %>
-                                            Mark as Sold
-                                        <% else %>
-                                            Mark as Available
-                                        <% end %>
-                                    <% end %> 
-                                <% end %>
-                                <%= link_to product, method: :delete, data: { :"confirm-swal" => 'Are you sure?', confirm: 'Are you sure?'} do %>
-                                    <button class="btn btn-outline-danger btn-icon icon-left" style="width: 175px; margin-bottom: 2px;"><i class="fa fa-trash"></i> Delete</button>
-                                <% end %>
+                                <button class="btn btn-outline-primary btn-icon icon-left" data-toggle="modal" data-target="#Modal<%= product.id %>" style="width: 175px; margin-bottom: 2px;"><i class="fa fa-edit"></i> Edit</button><br>
+                                <button class="btn btn-outline-primary" onclick="markSold('<%= product.id %>')" style="width: 175px; margin-bottom: 2px;">
+                                    <i class="fas fa-tags"></i> 
+                                    <% if product.status == :active %>
+                                        <span id="product-status-btn-<%= product.id %>">Mark as Sold</span>
+                                    <% else %>
+                                        <span id="product-status-btn-<%= product.id %>">Mark as Available</span>
+                                    <% end %>
+                                </button><br>    
+                                <button class="btn btn-outline-danger btn-icon icon-left" onclick="deleteProduct('<%= product.id %>')" style="width: 175px; margin-bottom: 2px;"><i class="fa fa-trash"></i> Delete</button>
                             </center>
                             <%= render 'products/edit_modal', p: product %>
                         </td>

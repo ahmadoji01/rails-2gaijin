@@ -31,8 +31,7 @@ class TicketsController < ApplicationController
 
     respond_to do |format|
       if @ticket.save
-        sweetalert_success('Your message has been sent. Our members will be notified soon', 'Successfully sent', button: 'Awesome!', timer: 10000)
-        format.html { redirect_to root_path, notice: 'Ticket was successfully created.' }
+        format.html { redirect_to root_path + "#ticketSuccess", notice: 'Ticket was successfully created.' }
         format.json { render :show, status: :created, location: root_path }
       else
         format.html { render :new }

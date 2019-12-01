@@ -31,7 +31,6 @@ class DeliveriesController < ApplicationController
 
     @delivery.products << @product
     if @delivery.update
-      #sweetalert_success('Product has successfully been added to the delivery', 'Successfully Added', button: 'Awesome!', timer: 10000)
       redirect_to root_url + "#delivery"
     end
   end
@@ -42,7 +41,6 @@ class DeliveriesController < ApplicationController
     @delivery = Delivery.where(:status_cd => 1, user_id: current_user.id)[0]
 
     if @delivery.products.delete(@product)
-      #sweetalert_success('Product has successfully been removed to the delivery', 'Successfully Removed', button: 'Awesome!', timer: 10000)
       redirect_to root_url  + "#delivery"
     end
   end
@@ -80,7 +78,6 @@ class DeliveriesController < ApplicationController
 
     respond_to do |format|
       if @delivery.save
-        sweetalert_success('Your order has been received and we will inform our member', 'Successfully ordered', button: 'Awesome!')
         format.html { redirect_to root_url, notice: 'Delivery was successfully created.' }
         format.json { render :show, status: :created, location: @delivery }
       else
@@ -137,9 +134,7 @@ class DeliveriesController < ApplicationController
           end
         end
         DeliveryMailer.new_delivery_email_later(@delivery.id.to_s).deliver_later(wait: 1.second)
-        #DeliveryMailer.new_delivery_email_admin_later(@delivery.id.to_s).deliver_now!
-        sweetalert_success('Your order has been received and we will inform our member', 'Successfully ordered', button: 'Awesome!', timer: 10000)
-        format.html { redirect_to root_url, notice: 'Delivery was successfully updated.' }
+        format.html { redirect_to root_url + "#deliverySuccess", notice: 'Delivery was successfully updated.' }
         format.json { render :show, status: :ok, location: root_url } 
       else
         format.html { render :edit }

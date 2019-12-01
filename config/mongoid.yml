@@ -42,7 +42,8 @@ development:
         #     - use: web
 
         # The name of the user for authentication.
-        #user: 'user'
+       
+        #user: 'rails2gaijinuser'
 
         # The password of the user for authentication.
         #password: 'password'

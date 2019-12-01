@@ -45,7 +45,7 @@
                             </div>
                             <div class="row">
                                 <div class="form-group form-inline"> <!--custom-file-->
-                                	<%= form.label :product_images, style: "width: 190px" %> 
+                                	<%= form.label :product_images, "Item Images", style: "width: 190px" %> 
                                 	<%= form.file_field :product_images, :multiple => true, name: "product_images[image][]", id: "product-image-upload", class: "form-control", data: { "browse-on-zone-click": true }, required: true %>
                                 </div>
                             </div>
@@ -74,7 +74,7 @@
                             </div>
                             <div class="row">
                                 <div class="form-group form-inline">
-                                    <%= form.label :description, style: "width: 190px" %>
+                                    <%= form.label :description, "Item Condition", style: "width: 190px" %>
                                     <%= form.cktext_area :description, id: "product-editor", placeholder: "Add color, conditions, and status of the item", cols: 40, style: "width: 300px", required: true %>
                                 </div>
                             </div>

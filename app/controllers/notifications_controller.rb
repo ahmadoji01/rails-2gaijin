@@ -52,14 +52,12 @@ class NotificationsController < ApplicationController
       user = User.find_by(email: params[:email])
       if user.receive_email?
         if current_user.update_attribute :receive_email, false
-          sweetalert_success('You have successfully unsubscribed from email notification', 'Successfully Unsubscribed', button: 'Great!')
           redirect_to root_url
         else
           redirect_to root_url
         end
       else
         if current_user.update_attribute :receive_email, true
-          sweetalert_success('You have successfully subscribed to email notification', 'Successfully Unsubscribed', button: 'Great!')
           redirect_to root_url
         else
           redirect_to root_url

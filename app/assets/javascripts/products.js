@@ -65,3 +65,49 @@ $(document).ready( function() {
     readURL(this);
   });
 });
+
+function markSold(productID) {
+  $.ajax({
+    type: 'POST',
+    url: '/products/mark_as_sold',
+    data: { id: productID },
+    success: function(data){
+      if($("#product-status-badge-" + productID).html() == "Available") {
+        $("#product-status-badge-" + productID).removeClass("badge-success");
+        $("#product-status-badge-" + productID).addClass("badge-warning");
+        $("#product-status-badge-" + productID).html("Sold");
+        $("#product-status-btn-" + productID).html("Mark as Available");
+      } else if($("#product-status-badge-" + productID).html() == "Sold") {
+        $("#product-status-badge-" + productID).removeClass("badge-warning");
+        $("#product-status-badge-" + productID).addClass("badge-success");
+        $("#product-status-badge-" + productID).html("Available");
+        $("#product-status-btn-" + productID).html("Mark as Sold");
+      }
+    }
+  });
+}
+
+function deleteProduct(productID) {
+  swal({
+    title: "Are you sure?",
+    text: "Once deleted, you will not be able to see this item again!",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  }).then( function(willDelete) {
+    if (willDelete) {
+      $.ajax({
+        type: 'DELETE',
+        url: '/products/' + productID + ".json",
+        success: function(data){
+          swal("Your item has been deleted!", {
+            icon: "success",
+          });
+          $('#product-tab-' + productID).fadeOut();
+        }
+      }); 
+    } else {
+      swal("Your item is safe!");
+    }
+  });
+}

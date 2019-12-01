@@ -8,6 +8,10 @@ $(document).ready(function() {
         	} else {
         		window.location = $("#signed-in-token").html();
         	}
+        } else if(target=="deliverySuccess"){
+            swal("Order Successfully Received!", "We will notify our member immediately!", "success");
+        } else if(target=="ticketSuccess"){
+            swal("Ticket Successfully Received!", "We will notify our member immediately!", "success");
         }
     }
 

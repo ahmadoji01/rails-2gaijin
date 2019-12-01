@@ -55,7 +55,6 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
     
     if @product.followers.delete(current_user)
-      sweetalert_success('You have successfully unfollowed this product', 'Successfully Unfollowed', button: 'Awesome!')
       redirect_to @product
     end
   end
@@ -74,10 +73,12 @@ class ProductsController < ApplicationController
     respond_to do |format|
       if @product.update
         format.html { redirect_to @product, notice: 'Product was successfully updated.' }
-        format.json { render :show, status: :ok, location: @product }
+        format.json { render json: "success".to_json }
+        format.js
       else
         format.html { render :edit }
         format.json { render json: @product.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -158,7 +159,8 @@ class ProductsController < ApplicationController
     @product.destroy
     respond_to do |format|
       format.html { redirect_to user_product_path, notice: 'Product was successfully destroyed.' }
-      format.json { head :no_content }
+      format.json { render json: "success".to_json }
+      format.js
     end
   end
 
