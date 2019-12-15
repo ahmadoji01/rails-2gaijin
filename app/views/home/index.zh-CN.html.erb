@@ -2,10 +2,14 @@
 <% description "Secondhand Items Main Page." %>
 <% keywords "Main, Items, Secondhand, Cheap" %>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<%= javascript_include_tag 'sub/owl' %>
+
 <div id="carouselExampleIndicators" class="carousel slide mb-n5" data-ride="carousel" style="position: relative; margin-top: 70px;">
     <div class="carousel-inner">
         <a href="#" data-toggle="modal" data-target="#deliveryModal" class="carousel-item active">
-            <%= image_tag "banner/delivery1.png", class: "w-100", alt: "Delivery Promo" %>
+            <%= image_tag "banner/delivery1-zh.png", class: "w-100", alt: "Delivery Promo" %>
         </a>
         <a href="<%= new_product_path %>" class="carousel-item" onclick="<%= new_product_path %>">
             <%= image_tag "cover2.jpg", class: "w-100", alt: "Item Promo" %>
@@ -45,7 +49,7 @@
 </div>
 <div class="main-content mt-n5" style="width: 100%; padding-top: 70px;">
     <div class="container-fluid">
-        <% if !mobile_device? %>
+        <% if !browser.device.mobile? %>
             <div class="row d-none d-md-block">
                 <div class="col-lg-12 col-md-12 col-sm-12" style="padding-left: 50px; padding-right: 50px;">
                     <h2><center>电子用品</center></h2>
@@ -62,7 +66,7 @@
                 </div>
             </div>
         <% end %>
-        <% if mobile_device? %>
+        <% if browser.device.mobile? %>
             <div class="row d-md-none pl-3 pr-3">
                 <div class="card shadow pt-3 col-lg-12 col-md-12 col-sm-12">
                     <h5 style="margin-top: 10px; text-align: left;">电子用品</h2>
@@ -80,7 +84,7 @@
                 </div>
             </div>
         <% end %>
-        <% if !mobile_device? %>
+        <% if !browser.device.mobile? %>
             <div class="row d-none d-md-block">
                 <div class="col-lg-12 col-md-12 col-sm-12" style="padding-left: 50px; padding-right: 50px;">
                     <h2><center>家具</center></h2>
@@ -97,7 +101,7 @@
                 </div>
             </div>
         <% end %>
-        <% if mobile_device? %>
+        <% if browser.device.mobile? %>
             <div class="row d-md-none pl-3 pr-3">
                 <div class="card shadow pt-3 col-lg-12 col-md-12 col-sm-12">
                     <h5 style="margin-top: 10px; text-align: left;">家具</h2>
@@ -115,7 +119,7 @@
                 </div>
             </div>
         <% end %>
-        <% if !mobile_device? %>
+        <% if !browser.device.mobile? %>
             <div class="row d-none d-md-block">
                 <div class="col-lg-12 col-md-12 col-sm-12" style="padding-left: 50px; padding-right: 50px;">
                     <h2><center>厨房</center></h2>
@@ -132,7 +136,7 @@
                 </div>
             </div>
         <% end %>
-        <% if mobile_device? %>
+        <% if browser.device.mobile? %>
             <div class="row d-md-none pl-3 pr-3">
                 <div class="card shadow pt-3 col-lg-12 col-md-12 col-sm-12">
                     <h5 style="margin-top: 10px; text-align: left;">厨房</h2>
@@ -155,5 +159,28 @@
         <% else %>
             <span id="signed-in-token" class="d-none"><%= new_user_session_path %></span>
         <% end %>
+    </div>
+</div>
+<div class="row" style="position: relative; margin-top: 10px; margin-right: 0px; margin-left:0px;">
+    <span style="position: absolute; right: 28px; bottom: 14px; z-index: 10;">
+        <%= link_to search_page_path(:sortby => 3, :maxprice => 0, :status => 1), style: "color: white" do %>
+            查看更多 <i class="fas fa-chevron-right"></i>
+        <% end %>
+    </span>
+    <div class="card" style="margin-bottom: -10px; box-shadow: 0 0 0 rgba(0, 0, 0, 0);">
+        <div class="card-body" style="background-color: #F17022; padding-top: 10px;">
+            <div class="card-title text-center" style="margin-bottom: 0px;">
+                <%= link_to search_page_path(:sortby => 3, :maxprice => 0, :status => 1), style: "color: white" do %>
+                    <h4 style="color: white; margin: 0px;">免费商品</h4>
+                <% end %>
+            </div>
+            <div class="owl-carousel owl-theme" id="free-products-carousel">
+                <% if @freeproducts.count > 0 %>
+                    <% @freeproducts.each do |rproduct| %>
+                        <%= render 'common/rproduct_price_card', rproduct: rproduct %>
+                    <% end %>
+                <% end %>
+            </div>
+        </div>
     </div>
 </div>

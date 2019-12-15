@@ -3,6 +3,7 @@ class DeliveriesController < ApplicationController
   before_action :authenticate_user!
   before_action :authorized_user, except: [:create, :update, :destroy, :add_to_delivery, :remove_from_delivery, :create, :update, :destroy]
   invisible_captcha only: [:update]
+  before_action :send_cancel_email, only: [:destroy]
 
   # GET /deliveries
   # GET /deliveries.json
@@ -18,6 +19,36 @@ class DeliveriesController < ApplicationController
   # GET /deliveries/new
   def new
     @delivery = Delivery.new
+  end
+
+  def order_delivery
+    if user_signed_in?
+      delivery = Delivery.where(:user_id => current_user.id, :status_cd => 1)
+      address = Address.where(:user_id => current_user.id, :is_primary => true)
+
+      if address.present?
+        address = address.first
+      else
+        address = Address.new
+        address.user = current_user
+      end
+      
+      if delivery.present?
+        delivery = delivery.first
+        delivery.address = address
+        @delivery = delivery
+      else
+        delivery = Delivery.new
+
+        delivery.address = address
+        delivery.user = current_user
+        delivery.status = :active
+        
+        if delivery.save
+          @delivery = delivery
+        end
+      end
+    end
   end
 
   # GET /deliveries/1/edit
@@ -134,8 +165,8 @@ class DeliveriesController < ApplicationController
           end
         end
         DeliveryMailer.new_delivery_email_later(@delivery.id.to_s).deliver_later(wait: 1.second)
-        format.html { redirect_to root_url + "#deliverySuccess", notice: 'Delivery was successfully updated.' }
-        format.json { render :show, status: :ok, location: root_url } 
+        format.html { redirect_to user_delivery_url + "#deliverySuccess", notice: 'Delivery was successfully updated.' }
+        format.json { render :show, status: :ok, location: user_delivery_url } 
       else
         format.html { render :edit }
         format.json { render json: @delivery.errors, status: :unprocessable_entity }
@@ -148,12 +179,22 @@ class DeliveriesController < ApplicationController
   def destroy
     @delivery.destroy
     respond_to do |format|
-      format.html { redirect_to deliveries_url, notice: 'Delivery was successfully destroyed.' }
+      format.html { redirect_to user_delivery_url + "#deliveryRemoved", notice: 'Delivery was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   protected
+    def send_cancel_email
+      @admins = User.where(:role_cd => 94)
+      if @admins.count > 0
+        @admins.each do |admin|
+          if current_user != admin
+            DeliveryMailer.cancel_delivery_admin_later(current_user.id.to_s, admin.id.to_s, which_room(current_user.id.to_s, admin.id.to_s).id.to_s).deliver_later(wait: 1.second)
+          end
+        end
+      end
+    end
 
     def count_unread_notifs(user)
       Notification.where(:status_cd => 0).and(:user_id => user.id).length

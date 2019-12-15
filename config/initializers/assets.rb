@@ -13,9 +13,6 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # folder are already added.
  Rails.application.config.assets.precompile += %w(
  	sub/style.css
- 	sub/components.min.css
- 	sub/custom.css
- 	sub/chat.min.css
  )
 
  Rails.application.config.assets.precompile += %w(

@@ -40,5 +40,6 @@ $(document).ready(function(){
         	active = 0;
         }
     });
+    if($(".dropdown-toggle").length)
+        $(".dropdown-toggle").dropdown();
 });
-$(".dropdown-toggle").dropdown();

@@ -3,7 +3,7 @@
     <ul class="navbar-nav" style="margin-left: -5px; margin-right: -4px;">
         <li class="d-lg-block d-md-block d-none">
             <%= link_to root_url do %>
-               <%= image_tag "2gaijinheader-cn.png", height: "60px", width: "auto" %>
+               <%= image_tag "2gaijinheader-cn.png", height: "50px", width: "auto" %>
             <% end %>
         </li>
         <li class="d-md-none">
@@ -270,8 +270,11 @@
                     <a href="<%= new_product_path %>" class="dropdown-item has-icon">
                         <i class="far fa-calendar-plus"></i> 发布闲置
                     </a>
+                    <a href="<%= user_delivery_url %>" class="dropdown-item has-icon">
+                        <i class="fas fa-dolly"></i> 运送订单
+                    </a>
                     <a href="<%= user_address_url %>" class="dropdown-item has-icon">
-                        <i class="fas fa-dolly"></i> 收货人地址
+                        <i class="fas fa-map-marked"></i> 收货人地址
                     </a>
                     <% if current_user.role == :admin %>
                         <a href="<%= rails_admin.dashboard_path %>" class="dropdown-item has-icon">
@@ -333,11 +336,11 @@
                         <a href="<%= user_product_url %>" class="dropdown-item has-icon">
                             <i class="far fa-list-alt"></i> 商品列表
                         </a>
-                        <a href="<%= new_product_path %>" class="dropdown-item has-icon">
-                            <i class="far fa-calendar-plus"></i> 发布闲置
+                        <a href="<%= user_delivery_url %>" class="dropdown-item has-icon">
+                            <i class="fas fa-dolly"></i> 运送订单
                         </a>
                         <a href="<%= user_address_url %>" class="dropdown-item has-icon">
-                            <i class="fas fa-dolly"></i> 收货人地址
+                            <i class="fas fa-map-marked"></i> 收货人地址
                         </a>
                         <% if current_user.role == :admin %>
                             <a href="<%= rails_admin.dashboard_path %>" class="dropdown-item has-icon">

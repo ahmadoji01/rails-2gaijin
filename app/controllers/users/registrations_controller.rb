@@ -26,6 +26,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def edit_password
   end
 
+  def edit_delivery
+    @deliveries = Delivery.where(user_id: current_user.id)
+    render :layout => 'application'
+  end
+
   def edit_product
     @products = current_user.products.order(created_at: :desc)
     @pageinfo = page_info(10, @products.count, params[:page].to_i)

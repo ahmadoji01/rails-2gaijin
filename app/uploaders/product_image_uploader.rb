@@ -7,7 +7,7 @@ class ProductImageUploader < CarrierWave::Uploader::Base
   # storage :gcloud
   storage :fog
 
-  process resize_to_limit: [1280, 1280]
+  process resize_to_limit: [800, 800]
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
@@ -31,13 +31,13 @@ class ProductImageUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  version :thumb, from_version: :large do
+  version :thumb do
     process resize_to_limit: [200, 200]
   end
 
-  version :large do
-   process resize_to_limit: [800, 800]
-  end
+  # version :large do
+  # process resize_to_limit: [800, 800]
+  # end
 
   # version :very_large do
     #process :crop

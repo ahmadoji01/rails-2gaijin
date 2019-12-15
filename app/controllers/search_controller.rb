@@ -4,6 +4,12 @@ class SearchController < ApplicationController
   def index
     query = ""
 
+    if !params.has_key?(:maxprice)
+      @maxprice = 1000000
+    else
+      @maxprice = params[:maxprice]
+    end
+
     if params.has_key?(:q)
       if params[:q] != ""
         query = params[:q]

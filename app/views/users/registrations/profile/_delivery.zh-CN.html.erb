@@ -1,0 +1,50 @@
+<div class="tab-pane active" id="delivery-order" role="tabpanel" aria-labelledby="delivery-order">
+    <div class="mb-2">
+        <button class="btn btn-primary btn-lg btn-icon icon-left" data-toggle="modal" data-target="#deliveryModal"><i class="fa fa-plus"></i> Order New Delivery</button>
+    </div>
+    <hr>
+    <div class="col-12 table-responsive">
+        <table class="table">
+            <thead style="color: none;">
+                <tr>
+                    <!-- <th scope="col">Product's Name</th> -->
+                    <th class="text-center" width="300px">目的地</th>
+                    <th class="text-center">运送日期</th>
+                    <th class="text-center">状态</th>
+                    <th class="text-center">编辑</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @deliveries.each do |delivery| %>
+                    <% if !delivery.name.nil? %>
+                        <tr>
+                            <td><p><%= delivery.address.full_address %> <%= delivery.address.apartment %></p></td>
+                            <td class="text-center msg_time"><%= delivery.delivery_date %></td>
+                            <td class="text-center">
+                                <% if delivery.processed? %>
+                                    <span class="badge badge-warning">Processed</span>
+                                <% else %>
+                                    <span class="badge badge-success">Completed</span>
+                                <% end %>
+                            </td>
+                            <td>
+                                <center>
+                                    <% if delivery.processed? %>
+                                        <button class="btn btn-outline-primary btn-icon icon-left" data-toggle="modal" data-target="#deliveryModal<%= delivery.id %>"><i class="fa fa-edit"></i> 编辑</button>
+                                        <%= link_to delivery, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                                            <button class="btn btn-outline-danger btn-icon icon-left"><i class="fa fa-trash"></i> 删除</button>
+                                        <% end %>
+                                    <% end %>
+                                </center>
+                            </td>
+                        </tr>
+                        <% if delivery.processed? %>
+                            <%= render 'common/edit_delivery_modal', delivery: delivery %>
+                        <% end %>
+                    <% end %>
+                <% end %>
+            </tbody>
+        </table>
+        <hr>
+    </div>                                
+</div>

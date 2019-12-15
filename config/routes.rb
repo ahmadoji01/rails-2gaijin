@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'terms_and_conditions', :to => 'infos#terms'
   get 'delivery_pricing', :to => 'infos#delivery_pricing'
   get 'contact_us', :to => 'tickets#new'
+  get '/en/register' => redirect('/')
 
   mount RailsAdmin::Engine => '/dashboard', as: 'rails_admin'
   mount Ckeditor::Engine => '/ckeditor'
@@ -63,6 +64,7 @@ Rails.application.routes.draw do
   	get 'profile', :to => 'users/registrations#edit', :as => :user_root
     get 'listed_product', :to => 'users/registrations#edit_product', :as => :user_product
     get 'shipping_address', :to => 'users/registrations#edit_address', :as => :user_address
+    get 'delivery_order', :to => 'users/registrations#edit_delivery', :as => :user_delivery
   end
 
   match "/404", :to => "errors#not_found", :via => :all

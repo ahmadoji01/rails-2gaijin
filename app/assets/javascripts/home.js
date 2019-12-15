@@ -12,14 +12,14 @@ $(document).ready(function() {
             swal("Order Successfully Received!", "We will notify our member immediately!", "success");
         } else if(target=="ticketSuccess"){
             swal("Ticket Successfully Received!", "We will notify our member immediately!", "success");
+        } else if(target=="deliveryRemoved"){
+            swal("Order Successfully Removed!", "We will notify our member immediately!", "success");
         }
     }
 
     function showModal(){
         $('#deliveryModal').modal('show');
     }
-
-    $('.carousel').carousel('pause');
 
     $(".datetimepicker").flatpickr({
         enableTime: true,

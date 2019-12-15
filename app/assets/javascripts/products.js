@@ -22,21 +22,17 @@ $(document).ready( function() {
 		$element.html(formattedDate);
 	});
 
-  $("#product-image-upload").fileinput({
-    'showUpload':false,
-    'maxFileCount': 6,
-    'allowedFileExtensions': ['jpg', 'png', 'jpeg']
-  });
+  if($("#product-image-upload").length) {
+    $("#product-image-upload").fileinput({
+      'showUpload':false,
+      'maxFileCount': 6,
+      'allowedFileExtensions': ['jpg', 'png', 'jpeg']
+    });
+  }
 
-});
-
-$(document).ready( function() { 
   $("#add_to_delivery_btn").click( function(e) {
     ahoy.track("Added Item to Delivery", e.target.dataset);
   });
-});
-
-$(document).ready( function() {
 
   $('.galleria').each(function(index, element) {
     Galleria.configure({

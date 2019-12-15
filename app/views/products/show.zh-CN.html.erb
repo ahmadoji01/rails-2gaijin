@@ -2,6 +2,12 @@
 <% description @product.name + " Secondhand Item Page." %>
 <% keywords @product.name + ", Items, Secondhand, Cheap" %>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/galleria/1.5.7/themes/classic/galleria.classic.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/galleria/1.5.7/galleria.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<%= javascript_include_tag 'sub/owl' %>
+
 <div class="main-content" style="width: 100%;">
     <div class="container-fluid">
         <div class="row">
@@ -125,6 +131,8 @@
                                             <i class="fas fa-comments"></i> 与卖家交谈
                                         <% end %> 
                                     <% elsif current_user == @product.user %>
+                                        <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
+                                        <%= javascript_include_tag Ckeditor.js_config_url %>
                                         <% if @product.status == :active %>
                                             <%= link_to mark_as_sold_products_path(id: @product.id), method: :post, class: "btn btn-lg btn-block btn-outline-primary" do %>
                                                 <i class="fas fa-tags"></i> 标记为已售出

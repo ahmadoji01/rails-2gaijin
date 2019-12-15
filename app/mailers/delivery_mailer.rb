@@ -34,4 +34,12 @@ class DeliveryMailer < ApplicationMailer
     @room = Room.find(id: roomid)
     mail(to: @admin.email, subject: "Delivery order incoming!")
   end
+
+  def cancel_delivery_admin_later(userid, adminid, roomid)
+    @user = User.find(id: userid)
+    @admin = User.find(id: adminid)
+    @room = Room.find(id: roomid)
+    subject = @user.first_name + " just cancelled the delivery"
+    mail(to: @admin.email, subject: subject)
+  end
 end

@@ -5,7 +5,7 @@ Rails.application.configure do
   config.cache_classes = true
 
   # Set SSL Usage
-  # config.use_ssl = true
+  config.use_ssl = true
 
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
@@ -49,7 +49,7 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  config.force_ssl = false
+  config.force_ssl = true
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
@@ -59,13 +59,14 @@ Rails.application.configure do
   config.log_tags = [ :request_id ]
 
   # Use a different cache store in production.
-  # config.cache_store = :mem_cache_store
+  cache_servers = %w(redis://:fShgxVd831US@10.146.0.8:6379/1)
+  config.cache_store = :redis_cache_store, { url: cache_servers }
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "rails-2gaijin_#{Rails.env}"
 
-  config.action_mailer.perform_caching = false
+  config.action_mailer.perform_caching = true
 
   config.action_mailer.delivery_method = :smtp
   host = '2gaijin.com' #replace with your own url

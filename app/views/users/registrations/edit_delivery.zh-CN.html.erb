@@ -6,7 +6,7 @@
                     <div class="card-header">
                         <ul class="nav nav-tabs card-header-tabs">
                             <li class="nav-item">
-                                <a class="nav-link active" href="<%= user_root_url %>"><h4>编辑个人信息</h4></a>
+                                <a class="nav-link" href="<%= user_root_url %>"><h4>编辑个人信息</h4></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="<%= user_product_url %>"><h4>我发布的</h4></a>
@@ -15,13 +15,13 @@
                                 <a class="nav-link" href="<%= user_address_url %>"><h4>买家地址</h4></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="<%= user_delivery_url %>"><h4>运送订单</h4></a>
+                                <a class="nav-link active" href="<%= user_delivery_url %>"><h4>运送订单</h4></a>
                             </li>
                         </ul>
                     </div>
                     <div class="card-body">
                         <div class="tab-content">
-                            <%= render 'users/registrations/profile/main' %>
+                            <%= render 'users/registrations/profile/delivery' %>
                         </div>
                     </div>
                 </div>

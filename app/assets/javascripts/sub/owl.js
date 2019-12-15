@@ -3,6 +3,28 @@
 //homepage
 
 $(document).ready( function() {
+  $("#free-products-carousel").owlCarousel({
+    stagePadding: 0,
+    items: 1,
+    margin: 5,
+    autoplay: true,
+    autoplayTimeout: 3000,
+    loop: true,
+    responsive: {
+      0: {
+        items: 1
+      },
+      320: {
+        items: 3
+      },
+      768: {
+        items: 5
+      },
+      1200: {
+        items: 6
+      }
+    }
+  });
   $("#home-products-carousel").owlCarousel({
     stagePadding: 0,
     items: 1,

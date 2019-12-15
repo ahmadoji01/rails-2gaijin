@@ -24,6 +24,7 @@
     - Credentials Configuration
     - Configuration for Local Development
         - Credentials Configuration
+        - MongoID and Redis for Rails Configuration
 - Running Rails Application
 
 ### Ubuntu
@@ -163,7 +164,7 @@ npm install
 #### Configurations for Local Development
 Some of the configuration files are git ignored due to the differences the configuration need to be performed on Production and Development environment. In this case, the database, and the credentials configurations are different and would not be committed should they be changed
 ##### Credentials Configuration
-Credentials are a way for Ruby on Rails to store secret key like API keys and etc. Each PC will have its own credentials key and that is the reason why credentials configuration file should not be the same across different devices. Still on **rails-2gaijin** folder, We can add credentials configuration file by running the following command
+Credentials are a way for Ruby on Rails to store secret key like API keys and etc. Each PC will have its own credentials key and that is the reason why credentials configuration file should not be the same across different devices. Still on **rails-2gaijin** folder, we can add credentials configuration file by running the following command
 ```bash
 EDITOR=nano rails credentials:edit
 ```
@@ -185,6 +186,55 @@ google_storage_key_id: GOOGKDY6A4UK2PYZZKS6EKNB
 google_storage_secret_key: ZpagqElrSvPteUPwYGZL7CTp07y2bFq9r9pj63Jw
 ```
 And the credentials configuration is now set
+##### MongoID and Redis for Rails Configuration
+Ruby on Rails needs to read the configuration file in order to connect with MongoDB server and Redis server. For local environment, **config/mongoid.yml** and **config/cable.yml** configuration files are needed to manage the connection to MongoDB and Redis respectively. Still on **rails-2gaijin** folder, you can configure MongoDB connection using the following command
+```bash
+nano config/mongoid.yml
+```
+and copy paste the following content
+```bash
+production:
+  clients:
+    default:
+      database: rails2gaijin_production
+      hosts:
+        - localhost:27017
+      options:
+
+development:
+  clients:
+    default:
+      database: rails2gaijin_development
+      hosts:
+        - localhost:27017
+      options:    
+  options:
+    
+test:
+  clients:
+    default:
+      database: rails2gaijin_test
+      hosts:
+        - localhost:27017
+      options:
+        read:
+          mode: :primary
+        max_pool_size: 1
+
+```
+For Redis configuration, the following command can be executed
+```bash
+nano config/cable.yml
+```
+and copy paste the following content
+```bash
+redis: &redis
+adapter: redis
+url: redis://localhost:6379/1
+production: *redis
+development: *redis
+test: *redis
+```
 ### Running Rails Application on Local Development Environment
 Since all the configurations have been performed, we can now run the Rails application by navigating to the project folder. Run the following command and you are all set
 ```bash

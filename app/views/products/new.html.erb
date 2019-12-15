@@ -1,3 +1,8 @@
+<script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
+<%= javascript_include_tag Ckeditor.js_config_url %>
+<%= render 'layouts/bootstrap_fileinput' %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/themes/fas/theme.min.js"></script>
+
 <div class="main-content" style="width: 100%;">
     <div class="container">
         <div class="row">
@@ -54,7 +59,7 @@
                                     <label style="width: 190px;">Location</label>
                                     <div style="position:relative;">
                                         <div class="input-group">
-                                            <input type="text" id="pac-input" class="form-control" placeholder="Click the Right Icon to Autolocate" style="width: 270px;">
+                                            <input type="text" id="pac-input" class="form-control" placeholder="Click the Right Icon to Autolocate" style="width: 270px;" required>
                                             <div class="input-group-prepend" id="pac-autolocate">
                                                 <div class="input-group-text">
                                                     <i class="fas fa-search-location fa-lg"></i>

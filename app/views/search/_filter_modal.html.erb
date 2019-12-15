@@ -8,6 +8,19 @@
         </button>
       </div>
       <div class="modal-body">
+        <span id="mobile-token"></span>
+        <label for="maxprice"><b>Maximum price</b></label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text" style="color:#f6931f; font-weight:bold;">
+                    ¥
+                </div>
+            </div>
+            <%= text_field_tag :maxprice, params[:maxprice], id: "maxprice", readonly: true, style: "border:0; color:#f6931f; font-weight:bold;" %>
+        </div>
+        <div id="slider-range-min"></div>
+
+        <br>
         <label for="status"><b>Status</b></label><br>
         <div class="pretty p-default p-curve">
             <%= radio_button_tag :status, "0", !!(!params.has_key?(:status)) %>
@@ -15,7 +28,6 @@
                 <label>All</label>
             </div>
         </div>
-
         <div class="pretty p-default p-curve">
             <%= radio_button_tag :status, "1", !!(params[:status] == "1") %>
             <div class="state p-primary-o">

@@ -22,12 +22,32 @@ function categorySubmit(param) {
 }
 
 $(document).ready(function() {
-    $('#product-container').infiniteScroll({
-        path: "nav.pagination a[rel=next]",
-        append: ".sm-search-card",
-        hideNav: '.pagination',
-        history: false,
-        prefill: true,
-        status: '.page-load-status'
-    })
+    if($('#product-container').length) {
+        $('#product-container').infiniteScroll({
+            path: "nav.pagination a[rel=next]",
+            append: ".sm-search-card",
+            hideNav: '.pagination',
+            history: false,
+            prefill: true,
+            status: '.page-load-status'
+        });
+    }
+
+    if($("#slider-range-min").length) {
+        $( "#slider-range-min" ).slider({
+          range: "min",
+          value: $("#maxprice").val(),
+          min: 0,
+          max: 1000000,
+          slide: function(event, ui) {
+            $("#maxprice").val(ui.value);
+          },
+          stop: function(event, ui) {
+            if(!($("#mobile-token").length))
+                $('#advanced-search-form').submit();
+          }
+          
+        });
+        $("#maxprice").val($("#slider-range-min").slider("value"));
+    }
 });
