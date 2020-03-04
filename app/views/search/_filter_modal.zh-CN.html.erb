@@ -1,0 +1,61 @@
+<div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="filterModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deliveryModalTitle">筛选</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <span id="mobile-token"></span>
+        <label for="maxprice"><b>最高价格</b></label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text" style="color:#f6931f; font-weight:bold;">
+                    ¥
+                </div>
+            </div>
+            <%= text_field_tag :maxprice, params[:maxprice], id: "maxprice", readonly: true, style: "border:0; color:#f6931f; font-weight:bold;" %>
+        </div>
+        <div id="slider-range-min"></div>
+
+        <br>
+        <label for="status"><b>状态</b></label><br>
+        <div class="pretty p-default p-curve">
+            <%= radio_button_tag :status, "0", !!(!params.has_key?(:status)) %>
+            <div class="state p-primary-o">
+                <label>所有</label>
+            </div>
+        </div>
+
+        <div class="pretty p-default p-curve">
+            <%= radio_button_tag :status, "1", !!(params[:status] == "1") %>
+            <div class="state p-primary-o">
+                <label>正在销售</label>
+            </div>
+        </div>
+
+        <div class="pretty p-default p-curve">
+            <%= radio_button_tag :status, "2", !!(params[:status] == "2") %>
+            <div class="state p-success-o">
+                <label>已售出</label>
+            </div>
+        </div>
+
+        <br><br>
+        <label for="category2"><b>商品分类</b></label><br>
+        <div class="d-lg-none">
+          <%= select_tag :category2, options_from_collection_for_select(Category.all, "name", "name", {:selected => @currcategory2name}), { multiple: true, id: "select2", class: "form-control", style: "width: 100%;" } %>
+        </div>
+
+        <br>
+        <label for="sortby"><b>分类依据</b></label><br>
+        <%= select_tag :sortby, options_for_select([["——", 0], ["价格从高到低排序", 1], ["价格从低到高排序", 2], ["最新发布", 3], ["最早发布", 4]], params[:sortby]), { class: "singleselect2", style: "width: 100%;" } %>
+      </div>
+      <div class="modal-footer">
+        <%= button_tag "筛选搜索", type: :submit, class: "btn btn-primary", onclick: "document.getElementById('advanced-search-form').submit()" %>
+      </div>
+    </div>
+  </div>
+</div>

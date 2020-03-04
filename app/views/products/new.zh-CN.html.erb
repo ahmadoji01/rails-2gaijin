@@ -1,0 +1,95 @@
+<script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
+<%= javascript_include_tag Ckeditor.js_config_url %>
+<%= render 'layouts/bootstrap_fileinput' %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/themes/fas/theme.min.js"></script>
+
+<div class="main-content" style="width: 100%;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header"><h4>发布闲置</h4></div>
+                    <div class="card-body">
+                    	<%= form_with(model: @product, local: true, class: "needs-validation") do |form| %>
+                            <%= invisible_captcha %>
+						  	<% if @product.errors.any? %>
+							    <div id="error_explanation">
+							      	<h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+							      	<ul>
+							      	<% @product.errors.full_messages.each do |message| %>
+							        	<li><%= message %></li>
+							      	<% end %>
+							      	</ul>
+							    </div>
+						  	<% end %>
+
+                            <div class="row">
+                                <div class="form-group form-inline">
+                                	<%= form.label :name, "商品名称", style: "width: 190px" %>
+    								<%= form.text_field :name, class: "form-control", placeholder: "商品名称", style: "width: 300px", required: true %>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-inline">
+                                    <label style="width: 190px;">商品分类</label>
+                                    <%= select_tag :categories, options_from_collection_for_select(@categories, "id", "name"), { multiple: true, id: "select2", class: "form-control", style: "width: 300px;" } %>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-inline">
+                                    <%= form.label :price, "价格", style: "width: 190px" %>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                ¥
+                                            </div>
+                                        </div>
+    								    <%= form.number_field :price, placeholder: 0, class: "form-control", min: 0, style: "width: 260px", required: true %>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-inline"> <!--custom-file-->
+                                	<%= form.label :product_images, "图片", style: "width: 190px" %> 
+                                	<%= form.file_field :product_images, :multiple => true, name: "product_images[image][]", id: "product-image-upload", class: "form-control", data: {:language => "zh", "browse-on-zone-click": true }, required: true %>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-inline"> <!--custom-file-->
+                                    <label style="width: 190px;">位置</label>
+                                    <div style="position:relative;">
+                                        <div class="input-group">
+                                            <input type="text" id="pac-input" class="form-control" placeholder="地点{请把右边的图标自动定位}" style="width: 270px;" required>
+                                            <div class="input-group-prepend" id="pac-autolocate">
+                                                <div class="input-group-text">
+                                                    <i class="fas fa-search-location fa-lg"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-inline">
+                                    <label style="width: 190px;">地图</label>
+                                    <div id="product-map" style="width: 310px; height: 200px;"></div>
+                                </div>
+                                <%= form.hidden_field :latitude, id: "address-lat-2" %>
+                                <%= form.hidden_field :longitude, id: "address-long-2" %>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-inline">
+                                    <%= form.label :description, "商品状况", style: "width: 190px" %>
+                                    <%= form.cktext_area :description, id: "product-editor", placeholder: "Add color, conditions, and status of the item", cols: 40, style: "width: 300px", required: true %>
+                                </div>
+                            </div>
+	                        <div class="card-footer text-left">
+	                            <%= form.submit "项目列表", id: "ckeditor-btn", class: "btn btn-lg btn-primary" %>
+	                        </div>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

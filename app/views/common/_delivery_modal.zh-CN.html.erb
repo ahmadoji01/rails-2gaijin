@@ -1,0 +1,127 @@
+<div class="modal fade" id="deliveryModal" tabindex="-1" role="dialog" aria-labelledby="deliveryModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deliveryModalTitle">Delivery</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="delivery-tab" data-toggle="tab" href="#delivery" role="tab" aria-controls="delivery" aria-selected="true">联系方式与出发地方</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="checkout-delivery-tab" data-toggle="tab" href="#checkout-delivery" role="tab" aria-controls="checkout-delivery" aria-selected="false">终点目的地与结算</a>
+          </li>
+        </ul>
+        <%= form_for delivery, html: { id: "delivery_form" } do |f| %>
+          <%= invisible_captcha %>
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="delivery" role="tabpanel" aria-labelledby="delivery-tab">
+                <div class="mb-3">
+                  <% if current_user.last_name.present? 
+                      @fullname = current_user.first_name + " " + current_user.last_name
+                    else
+                      @fullname = current_user.first_name
+                    end
+                  %>
+                  <%= f.label :name, "名字" %>
+                  <%= f.text_field :name, class: "form-control", value: @fullname, required: true %>
+                </div>
+                <div class="mb-3">
+                  <%= f.label :email, "电子邮箱" %>
+                  <%= f.email_field :email, class: "form-control", value: current_user.email, placeholder: "Ex. username@example.com", required: true %>
+                </div>
+                <div class="mb-3">
+                  <%= f.label :phone, "电话号码" %>
+                  <%= f.text_field :phone, type: "tel", class: "form-control", value: current_user.phone, placeholder: "" %>
+                </div>
+                <div class="mb-3">
+                  <%= f.label :wechat, "微信号" %>
+                  <%= f.text_field :wechat, class: "form-control", value: current_user.wechat, placeholder: "" %>
+                </div>
+              <hr class="mb-4">
+              <h5>想搬的东西和地点</h5>
+              <h6>从网站的商品</h6>
+              <% if delivery.products.count > 0 %>
+                <% delivery.products.each do |product| %>
+                  <div class="card mb-3" style="padding: 10px;">
+                    <a href="<%= product_path(product)%>"><%= product.name %></a>
+                    <span>
+                      <%= link_to "删除", remove_from_delivery_delivery_path(id: product.id), method: :post, style: "position: absolute; right: 5px; top: 5px;", class: "btn btn-outline-danger" %> 
+                    </span>
+                  </div>
+                <% end %>
+              <% else %>
+                没有加入网站的的商品。您可以通过点击产品页面上的{添加到运送}添加一个
+              <% end %>
+              <h6 style="margin-top: 10px;">东西</h6>
+              <%= f.fields_for :delivery_items, DeliveryItem.new do |item| %>
+                <div class="mb-3">
+                  <%= render "deliveries/delivery_item_fields", f: item %>
+                </div>
+                <div class="mb-3" style="height: 100%">
+                  <%= link_to_add_association f, :delivery_items, render_options: { wrapper: 'bootstrap' }, partial: 'deliveries/delivery_item_fields' do %>
+                    <button class="btn btn-primary" style="width: 120px">加地址</button>
+                  <% end %>
+                  *(万一有几个地方)
+                </div>
+              <% end %>
+            </div>
+            <div class="tab-pane fade" id="checkout-delivery" role="tabpanel" aria-labelledby="checkout-delivery-tab">
+              <b>目的地</b>
+              <%= f.fields_for :address do |builder| %>
+                <div class="mb-3">
+                  <%= builder.label :full_address, "地址" %>
+                  <%= builder.text_field :full_address, class: "form-control", placeholder: "Ex. Kita 2-jo, Nishi 1-Chome", required: true %>
+                </div>
+                <div class="mb-3">
+                  <%= builder.label :apartment, "公寓名" %>
+                  <%= builder.text_field :apartment, class: "form-control", placeholder: "Ex. Cross Building, 115" %>
+                </div>
+                <div class="row">
+                  <div class="col-md-4 mb-3">
+                    <%= builder.label :state, "州" %>
+                    <%= builder.select :state, options_for_select(['Hokkaido'], delivery.address.state), {}, { class: "custom-select d-block w-100", required: true } %>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <%= builder.label :city, "城市" %>
+                    <%= builder.select :city, options_for_select(['Sapporo'], delivery.address.city), {}, { class: "custom-select d-block w-100", required: true } %>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <%= builder.label :postal_code, "邮政编码" %>
+                    <%= builder.text_field :postal_code, class: "form-control" %>                      
+                  </div>
+                  <%= builder.hidden_field :user_id, value: current_user.id, required: true %>
+                </div>
+              <% end %>
+              <hr class="mb-4">
+              <div class="d-block my-3">
+                <h6>支付方式</h6>
+                <div class="custom-control custom-radio">
+                  <%= f.radio_button :payment_method, 'cod', class: "custom-control-input", :checked => true %> 
+                  <%= label :payment_method, '现金付款', class: "custom-control-label" %>
+                </div>
+              </div>
+              <div class="d-block my-3">
+                <h6>运送日期</h6>
+                <%= f.datetime_local_field :shipping_date, class: "datetimepicker", style: "z-index: 1000;", required: true %><br>
+              </div>
+              <div class="d-block my-3">
+                <h6>价格</h6>
+                基本费+950日元/15分(基本费是地方区别)
+                <br><b>*<a href="<%= delivery_pricing_url %>" target="_blank">详细的价格和规则请在这里按</a></b>
+              </div>
+              <hr class="mb-4">
+              <%= f.button "结算", type: :submit, class: "btn btn-primary" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>

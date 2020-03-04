@@ -1,0 +1,146 @@
+<% title "Search Secondhand Items in Need" %>
+<% description "Search Secondhand Items Page." %>
+<% keywords "Search, Items, Secondhand, Cheap" %>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-infinitescroll/3.0.6/infinite-scroll.pkgd.min.js"></script>
+
+<div class="main-content" style="width: 100%;">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-sm-12">
+                <%= form_tag search_page_path, id: "advanced-search-form", method: :get do %>
+                <%= hidden_field_tag :q, params[:q] %>
+                <%= hidden_field_tag :user, params[:user] %>
+                <% if !browser.device.mobile? %>
+                    <%= hidden_field_tag :activecategory, 1, { id: "active-category" } %>
+                <% else %>
+                    <%= hidden_field_tag :activecategory, 2, { id: "active-category" } %>
+                    <%= render "search/fab_filter_button" %>
+                    <%= render "search/filter_modal" %>
+                <% end %>
+                <% if !browser.device.mobile? %>
+                    <div class="card">
+                    <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-12">
+                                    <label for="maxprice">最高价格</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text" style="color:#f6931f; font-weight:bold;">
+                                                ¥
+                                            </div>
+                                        </div>
+                                        <%= text_field_tag :maxprice, @maxprice, id: "maxprice", readonly: true, style: "border:0; color:#f6931f; font-weight:bold;" %>
+                                    </div>
+                                    <div id="slider-range-min"></div>
+                                </div>
+                                <div class="form-group col-12">
+                                    <label for="status">状态</label><br>
+                                    <div class="pretty p-default p-curve" onclick="document.getElementById('advanced-search-form').submit()">
+                                        <%= radio_button_tag :status, "0", !!(!params.has_key?(:status)) %>
+                                        <div class="state p-primary-o">
+                                            <label>所有</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="pretty p-default p-curve" onclick="document.getElementById('advanced-search-form').submit()">
+                                        <%= radio_button_tag :status, "1", !!(params[:status] == "1") %>
+                                        <div class="state p-primary-o">
+                                            <label>正在销售</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="pretty p-default p-curve" onclick="document.getElementById('advanced-search-form').submit()">
+                                        <%= radio_button_tag :status, "2", !!(params[:status] == "2") %>
+                                        <div class="state p-success-o">
+                                            <label>已售出</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-12">
+                                    
+                                    <label for="category">商品分类</label><br>
+                                    <% if !browser.device.mobile? %>
+                                        <ul class="d-none d-lg-block" style="list-style-type: none; padding: 0;">
+                                            <%= collection_check_boxes :category, :name, Category.all, :name, :name, { checked: @currcategoryname } do |b| %>
+                                                <li>
+                                                    <div class="pretty p-default" onclick="categorySubmit(1);">
+                                                        <%= b.check_box %>
+                                                        <div class="state p-primary">
+                                                            <%= b.label %>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            <% end %>
+                                        </ul>
+                                    <% end %>
+                                </div>
+                            </div> 
+                        <% end %>     
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="col-6 col-lg-8">
+                            <% if params.has_key?(:user) %>
+                                <% if params[:user] != "" %>
+                                    <span class="d-none d-md-block"><h2><%= @user.first_name %> 出售列表</h2></span>
+                                    <span class="d-md-none"><h5><%= @user.first_name %> 出售列表</h5></span>
+                                <% else %>
+                                    <h2>结果</h2>
+                                <% end %>
+                            <% elsif params.has_key?(:maxprice) %>
+                                <% if params[:maxprice].to_i == 0 %>
+                                    <span class="d-none d-md-block"><h2>免费商品</h2></span>
+                                    <span class="d-md-none"><h5>免费商品</h5></span>
+                                <% else %>
+                                    <h2>结果</h2>
+                                <% end %>
+                            <% else %>
+                                <h2>结果</h2>
+                            <% end %>
+                        </div>
+                            <% if !browser.device.mobile? %>
+                                <div class="col-6 col-lg-4">
+                                    <label for="sortby">分类依据</label><br>
+                                    <%= select_tag :sortby, options_for_select([["——", 0], ["价格从高到低排序", 1], ["价格从低到高排序", 2], ["最新发布", 3], ["最早发布", 4]], params[:sortby]), { class: "singleselect2", style: "width: 100%;", onchange: "this.form.submit();" } %>
+                                </div>
+                            <% end %>
+                        <% end %>
+                    </div>
+                    <div class="card-body" id="search-container">
+                        <% if @products.count > 0 %>
+                            <% if !browser.device.mobile? %>
+                                <%= sanitize(pagy_info(@pagy)) %>
+                                <div class="row d-none d-md-flex" style="margin-top: 30px;">
+                                    <% @products.each do |product| %>
+                                        <%= render 'common/product_card', product: product %>
+                                    <% end %>
+                                </div>
+                                <div class="col-12" style="overflow: auto;">
+                                    <%= pagy_bootstrap_nav(@pagy).html_safe %>
+                                </div>
+                            <% end %>
+                            <% if browser.device.mobile? %>
+                                <%= sanitize(pagy_info(@pagy)) %>
+                                <div class="row d-md-none" id="product-container" style="margin-top: 30px;">
+                                    <%= render 'search/sm_product_card' %>
+                                </div>
+                                <span style="display: none"><%== pagy_nav @pagy %></span>
+                            <% end %>
+                        <% else %>
+                            <div class="row" style="margin-left: 0px;">
+                                <h5><%= sanitize(pagy_info(@pagy)) %></h5>
+                            </div>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

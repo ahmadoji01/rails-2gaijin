@@ -1,0 +1,53 @@
+function removeSearchParams(key, sourceURL) {
+    var rtn = sourceURL.split("?")[0],
+        param,
+        params_arr = [],
+        queryString = (sourceURL.indexOf("?") !== -1) ? sourceURL.split("?")[1] : "";
+    if (queryString !== "") {
+        params_arr = queryString.split("&");
+        for (var i = params_arr.length - 1; i >= 0; i -= 1) {
+            param = params_arr[i].split("=")[0];
+            if (param === key) {
+                params_arr.splice(i, 1);
+            }
+        }
+        rtn = rtn + "?" + params_arr.join("&");
+    }
+    return rtn;
+}
+
+function categorySubmit(param) {
+  $('#active-category').val(param);
+  $('#advanced-search-form').submit();
+}
+
+$(document).ready(function() {
+    if($('#product-container').length) {
+        $('#product-container').infiniteScroll({
+            path: "nav.pagination a[rel=next]",
+            append: ".sm-search-card",
+            hideNav: '.pagination',
+            history: false,
+            prefill: true,
+            status: '.page-load-status'
+        });
+    }
+
+    if($("#slider-range-min").length) {
+        $( "#slider-range-min" ).slider({
+          range: "min",
+          value: $("#maxprice").val(),
+          min: 0,
+          max: 1000000,
+          slide: function(event, ui) {
+            $("#maxprice").val(ui.value);
+          },
+          stop: function(event, ui) {
+            if(!($("#mobile-token").length))
+                $('#advanced-search-form').submit();
+          }
+          
+        });
+        $("#maxprice").val($("#slider-range-min").slider("value"));
+    }
+});

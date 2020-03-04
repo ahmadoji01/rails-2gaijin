@@ -1,0 +1,59 @@
+<!-- Footer -->
+<footer style="margin-top: 10px;">
+	<div class="footer-bottom">
+    	<div class="container">
+    		<div class="row">
+       			<div class="col-md-5 d-none d-sm-block d-md-block justify-content-center footer-copyright">
+                	<p>&copy; 2Gaijin.com 2019 by <a href="https://kitalabs.com" target="_blank">KitaLabs, Co. Ltd.</a></p>
+                </div>
+       			<div class="col-md-7 footer-menu">
+                	<nav class="navbar-footer navbar-dark navbar-expand-md">
+					    <div class="navbar-collapse" id="navbarNav">
+					        <ul class="navbar-footer-nav ml-auto">
+					            <li class="nav-item">
+					                <a class="nav-link scroll-link" href="<%= about_us_path %>">About Us</a>
+					            </li>
+					            <li class="nav-item">
+					                <a class="nav-link scroll-link" href="<%= contact_us_path %>">Contact Us</a>
+					            </li>
+					            <li class="nav-item">
+					                <a class="nav-link scroll-link" href="<%= terms_and_conditions_path %>">Terms and Policies</a>
+					            </li>
+					        </ul>
+					    </div>
+					</nav>
+                </div>
+       		</div>
+    	</div>
+    </div>
+	<div class="footer-top">
+        <div class="container">
+        	<div class="row">
+        		<div class="col-md-4 col-lg-4 footer-about wow fadeInUp">
+        			<center><%= image_tag "2gaijinicon.png", style: "width: 50px; height: auto;" %></center>
+                    <p>
+        				2Gaijin is our product that helps you sell your items and deliver items right in front of your door
+        			</p>
+        			<p><a href="http://kitalabs.com">Our Company</a></p>
+                </div>
+        		<div class="col-md-4 col-lg-4 offset-lg-1 footer-contact wow fadeInDown">
+        			<h3>Contact</h3>
+                	<p><i class="fas fa-map-marker-alt"></i> Sapporo-shi, Hokkaido, Japan</p>
+                	<p><i class="fas fa-phone"></i> Phone: (+81)80-8293-4266</p>
+                	<p><i class="fas fa-envelope"></i> Email: <a href="mailto:2gaijin@kitalabs.com">2gaijin@kitalabs.com</a></p>
+                </div>
+                <div class="col-md-4 col-lg-3 footer-social wow fadeInUp">
+                    <h4 style="color: #ffffff">Language</h4>
+                    <form>
+                        <%= select_tag :locale, options_for_select([["English", :en], ["简体中文", "zh-CN"]], :en), { class: "singleselect2", style: "width: 100%;", onchange: "this.form.submit();" } %>
+                    </form>
+                	<h4 style="color: #ffffff; margin-top: 15px;">Follow us</h4>
+                	<p>
+                		<a href="https://www.facebook.com/2gaijin/" target="_blank"><i class="fab fa-facebook"></i></a>
+						<a href="mailto:2gaijin@kitalabs.com"><i class="fab fa-google-plus-g"></i></a>
+                	</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
