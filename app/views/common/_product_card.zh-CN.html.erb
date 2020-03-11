@@ -1,4 +1,4 @@
-<div class="col-lg-3 col-md-3 col-sm-3 mx-auto" onclick="location.href='<%= product_path(product) %>';" style="width: 250px; height:100%; padding-left: 5px; padding-right: 5px;">
+<a href="<%= product_path(product) %>" class="col-lg-3 col-md-3 col-sm-3 mx-auto" style="text-decoration: none; width: 250px; height:100%; padding-left: 5px; padding-right: 5px;">
     <div class="card" style="box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);">
         <% if product.status == :sold %>
             <div class="ribbon ribbon-top-left"><span>Sold Out</span></div>
@@ -24,4 +24,4 @@
             </var>
         </div>
     </div>
-</div>
+</a>

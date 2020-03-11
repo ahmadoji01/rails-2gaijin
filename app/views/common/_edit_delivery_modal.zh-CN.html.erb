@@ -49,9 +49,6 @@
                 <% delivery.products.each do |product| %>
                   <div class="card mb-3" style="padding: 10px;">
                     <a href="<%= product_path(product)%>"><%= product.name %></a>
-                    <span>
-                      <%= link_to "删除", remove_from_delivery_delivery_path(id: product.id), method: :post, style: "position: absolute; right: 5px; top: 5px;", class: "btn btn-outline-danger" %> 
-                    </span>
                   </div>
                 <% end %>
               <% else %>
@@ -60,10 +57,10 @@
               <h6 style="margin-top: 10px;">东西</h6>
               <%= f.fields_for :delivery_items do |item| %>
                 <div class="mb-3">
-                  <%= render "deliveries/delivery_item_fields", f: item %>
+                  <%= render "orders/delivery_item_fields", f: item %>
                 </div>
                 <div class="mb-3" style="height: 100%">
-                  <%= link_to_add_association f, :delivery_items, render_options: { wrapper: 'bootstrap' }, partial: 'deliveries/delivery_item_fields' do %>
+                  <%= link_to_add_association f, :delivery_items, render_options: { wrapper: 'bootstrap' }, partial: 'orders/delivery_item_fields' do %>
                     <button class="btn btn-primary" style="width: 120px">加地址</button>
                   <% end %>
                   *(万一有几个地方)
@@ -108,7 +105,7 @@
               </div>
               <div class="d-block my-3">
                 <h6>运送日期</h6>
-                <%= f.datetime_local_field :delivery_date, class: "datetimepicker", style: "z-index: 1000;", required: true %><br>
+                <%= f.datetime_local_field :shipping_date, class: "datetimepicker", style: "z-index: 1000;", required: true %><br>
               </div>
               <div class="d-block my-3">
                 <h6>价格</h6>

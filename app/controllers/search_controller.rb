@@ -105,14 +105,6 @@ class SearchController < ApplicationController
       @currcategory = @currcategory2
     end
 
-    if !params.has_key?(:page)
-      if params.has_key?(:user)
-        ahoy.track "Searched User's Product", user_id: params[:user].to_s, category: @currcategory.map(&:name), sortby: sort_type(params[:sortby])
-      else
-        ahoy.track "Searched Product", query: params[:q].to_s, category: @currcategory.map(&:name), sortby: sort_type(params[:sortby])
-      end
-    end
-    
     if @currcategory.count == 0 || @currcategory2.count == 0 
       if params.has_key?(:user)
         @products = Product.full_text_search(query, allow_empty_search: true)

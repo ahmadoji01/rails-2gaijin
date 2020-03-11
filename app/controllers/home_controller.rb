@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
 
 	def index
-		@delivery = Delivery.new
+		@delivery = Order.new
 		@recentproducts = Product.status(1).order(created_at: :desc).limit(18)
 		@freeproducts = Product.status(1).where(price: 0).order(created_at: :desc).limit(18)
 
@@ -9,4 +9,8 @@ class HomeController < ApplicationController
 		@kitchens = Product.limit(8).order(created_at: :desc).status(1).full_text_search("Kitchens")
 		@furnitures = Product.limit(8).order(created_at: :desc).status(1).full_text_search("Furnitures")
 	end
+
+	#def loaderio
+	#	render :layout => false
+	#end
 end

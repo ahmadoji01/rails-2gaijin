@@ -50,7 +50,7 @@
                   <div class="card mb-3" style="padding: 10px;">
                     <a href="<%= product_path(product)%>"><%= product.name %></a>
                     <span>
-                      <%= link_to "Remove", remove_from_delivery_delivery_path(id: product.id), method: :post, style: "position: absolute; right: 5px; top: 5px;", class: "btn btn-outline-danger" %> 
+                      <%= link_to "Remove", remove_from_delivery_url(id: product.id), method: :post, style: "position: absolute; right: 5px; top: 5px;", class: "btn btn-outline-danger" %> 
                     </span>
                   </div>
                 <% end %>
@@ -92,7 +92,7 @@
                   </div>
                   <div class="col-md-4 mb-3">
                     <%= builder.label :postal_code %>
-                    <%= builder.text_field :postal_code, class: "form-control", required: true %>                      
+                    <%= builder.text_field :postal_code, class: "form-control" %>                      
                   </div>
                   <%= builder.hidden_field :user_id, value: current_user.id, required: true %>
                 </div>
@@ -107,7 +107,7 @@
               </div>
               <div class="d-block my-3">
                 <h6>Delivery Date</h6>
-                <%= f.datetime_local_field :delivery_date, class: "datetimepicker", style: "z-index: 1000;", required: true %><br>
+                <%= f.datetime_local_field :shipping_date, class: "datetimepicker", style: "z-index: 1000;", required: true %><br>
               </div>
               <div class="d-block my-3">
                 <h6>Price</h6>

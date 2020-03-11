@@ -32,11 +32,13 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 # External Gem Bundle
 gem 'mongoid'
+gem "mongo_session_store"
 gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-rails'
 gem 'simple_enum', require: 'simple_enum/mongoid'
 gem 'devise'
 gem 'carrierwave-mongoid'
+gem 'carrierwave-vips'
 gem "mini_magick"
 gem 'fog-core', '2.1.0'
 gem "fog-google"
@@ -59,14 +61,19 @@ gem 'rails_admin', '~> 2.0'
 gem "rails_admin_mongoid_geospatial_field", :github => "sudosu/rails_admin_mongoid_geospatial_field"
 gem "rails_admin_mongoid_localize_field", "~> 0.1.2"
 gem 'social-share-button'
-gem 'ahoy_matey'
 gem 'meta-tags'
 gem "lazyload-rails"
 gem "invisible_captcha"
 gem 'jquery-ui-rails'
 gem 'hiredis'
+gem 'redis-rails'
 gem 'rack-attack'
 gem "browser"
+gem 'google-analytics-rails', '1.1.1'
+gem 'country_select', '~> 4.0'
+gem 'turnout'
+gem 'stripe'
+gem 'stripe_event'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

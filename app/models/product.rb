@@ -25,10 +25,11 @@ class Product
   has_many :product_images
   accepts_nested_attributes_for :product_images
 
+  has_many :order_products, inverse_of: :order
+
   has_and_belongs_to_many :categories
   has_and_belongs_to_many :orders
   belongs_to :user
-  has_and_belongs_to_many :delivery
   has_many :comments
   has_many :tags
 

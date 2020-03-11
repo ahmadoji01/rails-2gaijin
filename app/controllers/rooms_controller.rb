@@ -39,7 +39,6 @@ class RoomsController < ApplicationController
 
     if params.has_key?(:product_id)
       @product = Product.find(id: params[:product_id])
-      ahoy.track "Clicked Chat with Seller from Product Page", id: @product.id.to_s
     end
     
     @seller_user = User.find(id: params[:seller_id])

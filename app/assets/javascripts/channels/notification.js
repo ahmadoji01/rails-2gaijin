@@ -21,13 +21,13 @@ $(document).ready( function() {
             $element.prepend(notifBarHTML);
             $("#total-notif-number").addClass("beep");
             $("#total-md-notif-number").addClass("beep");
-            $('#total-notif-number').text(data.unreadnotifs);
-            $('#total-md-notif-number').text(data.unreadnotifs);
+            //$('#total-notif-number').text(data.unreadnotifs);
+            //$('#total-md-notif-number').text(data.unreadnotifs);
           } 
           else if(data.action == "Delete") {
             $(barID).remove();
-            $('#total-notif-number').text(data.unreadnotifs);
-            $('#total-md-notif-number').text(data.unreadnotifs);
+            //$('#total-notif-number').text(data.unreadnotifs);
+            //$('#total-md-notif-number').text(data.unreadnotifs);
           }
         },
 

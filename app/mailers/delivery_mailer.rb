@@ -1,11 +1,11 @@
 class DeliveryMailer < ApplicationMailer
   def new_delivery_email
-  	@delivery = Delivery.find(id: params[:delivery_id])
-  	mail(to: @delivery.user.email, subject: "Here is the summary of your delivery order!")
+  	@delivery = Order.find(id: params[:order_id])
+  	mail(to: @delivery.buyer.email, subject: "Here is the summary of your delivery order!")
   end
 
   def new_delivery_email_admin
-  	@delivery = Delivery.find(id: params[:delivery_id])
+  	@delivery = Order.find(id: params[:order_id])
   	@admins = User.admins
   	if @admins.count > 0
   		@admins.each do |admin|
@@ -14,22 +14,22 @@ class DeliveryMailer < ApplicationMailer
   	end
   end
 
-  def new_delivery_email_later(deliveryid)
-    @delivery = Delivery.find(id: deliveryid)
-    mail(to: @delivery.user.email, subject: "Here is the summary of your delivery order!")
+  def new_delivery_email_later(orderid)
+    @delivery = Order.find(id: orderid)
+    mail(to: @delivery.buyer.email, subject: "Here is the summary of your delivery order!")
   end
 
-  def new_item_from_delivery_order_email_later(deliveryid, productid, roomid)
-    @delivery = Delivery.find(id: deliveryid)
+  def new_item_from_delivery_order_email_later(orderid, productid, roomid)
+    @delivery = Order.find(id: orderid)
     @product = Product.find(id: productid)
     @user = @product.user
     @room = Room.find(id: roomid)
-    subject = @delivery.user.first_name + " just ordered your " + @product.name
+    subject = @delivery.buyer.first_name + " just ordered your " + @product.name
     mail(to: @product.user.email, subject: subject)
   end
 
-  def new_delivery_email_admin_later(deliveryid, adminid, roomid)
-    @delivery = Delivery.find(id: deliveryid)
+  def new_delivery_email_admin_later(orderid, adminid, roomid)
+    @delivery = Order.find(id: orderid)
     @admin = User.find(id: adminid)
     @room = Room.find(id: roomid)
     mail(to: @admin.email, subject: "Delivery order incoming!")

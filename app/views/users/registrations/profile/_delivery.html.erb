@@ -1,6 +1,6 @@
 <div class="tab-pane active" id="delivery-order" role="tabpanel" aria-labelledby="delivery-order">
     <div class="mb-2">
-        <button class="btn btn-primary btn-lg btn-icon icon-left" data-toggle="modal" data-target="#deliveryModal"><i class="fa fa-plus"></i> Order New Delivery</button>
+        <a href="<%= order_delivery_url %>" class="btn btn-primary btn-lg btn-icon icon-left"><i class="fa fa-plus"></i> Order New Delivery</a>
     </div>
     <hr>
     <div class="col-12 table-responsive">
@@ -18,27 +18,40 @@
                 <% @deliveries.each do |delivery| %>
                     <% if !delivery.name.nil? %>
                         <tr>
-                            <td><p><%= delivery.address.full_address %> <%= delivery.address.apartment %></p></td>
-                            <td class="text-center msg_time"><%= delivery.delivery_date %></td>
+                            <td><p><% if !delivery.address.nil? %><%= delivery.address.full_address %> <%= delivery.address.apartment %><% end %></p></td>
+                            <td class="text-center msg_time"><%= delivery.shipping_date %></td>
                             <td class="text-center">
                                 <% if delivery.processed? %>
                                     <span class="badge badge-warning">Processed</span>
-                                <% else %>
-                                    <span class="badge badge-success">Completed</span>
+                                <% elsif delivery.waiting_confirmation? %>
+                                    <span class="badge badge-warning">Waiting Confirmation</span>
+                                <% elsif delivery.waiting_payment? %>
+                                    <span class="badge badge-warning">Waiting Payment</span>
+                                <% elsif delivery.complete? %>
+                                    <span class="badge badge-success">Completed</span>    
                                 <% end %>
                             </td>
                             <td>
                                 <center>
-                                    <% if delivery.processed? %>
-                                        <button class="btn btn-outline-primary btn-icon icon-left" data-toggle="modal" data-target="#deliveryModal<%= delivery.id %>"><i class="fa fa-edit"></i> Edit</button>
+                                    <% if delivery.waiting_payment? %>
+                                        <% if delivery.payment_method_cd == 3 %>
+                                            <%= link_to checkout_create_path(id: delivery.id, price: delivery.price), method: :post, remote: true do %>
+                                                <button class="btn btn-outline-primary btn-icon icon-left"><i class="fas fa-money-bill-wave"></i> Pay Now</button>
+                                            <% end %>
+                                        <% elsif delivery.payment_method_cd == 2 %>
+                                            <%= link_to checkout_create_source_path(id: delivery.id, price: delivery.price), method: :post do %>
+                                                <button class="btn btn-outline-primary btn-icon icon-left"><i class="fas fa-money-bill-wave"></i> Pay Now</button>
+                                            <% end %>
+                                        <% end %>
+                                    <% elsif delivery.waiting_confirmation? %>
                                         <%= link_to delivery, method: :delete, data: { confirm: 'Are you sure?' } do %>
-                                            <button class="btn btn-outline-danger btn-icon icon-left"><i class="fa fa-trash"></i> Delete</button>
+                                            <button class="btn btn-outline-danger btn-icon icon-left"><i class="fa fa-trash"></i> Cancel</button>
                                         <% end %>
                                     <% end %>
                                 </center>
                             </td>
                         </tr>
-                        <% if delivery.processed? %>
+                        <% if delivery.waiting_confirmation? %>
                             <%= render 'common/edit_delivery_modal', delivery: delivery %>
                         <% end %>
                     <% end %>

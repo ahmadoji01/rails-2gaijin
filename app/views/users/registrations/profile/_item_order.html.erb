@@ -1,0 +1,71 @@
+<div class="tab-pane active" id="delivery-order" role="tabpanel" aria-labelledby="delivery-order">
+    <div class="mb-2">
+        <a href="<%= order_delivery_url %>" class="btn btn-primary btn-lg btn-icon icon-left"><i class="fa fa-plus"></i> Order New Delivery</a>
+    </div>
+    <hr>
+    <div class="col-12 table-responsive">
+        <table class="table">
+            <thead style="color: none;">
+                <tr>
+                    <th>Preview Items</th>
+                    <th class="text-center" width="300px">Orderer</th>
+                    <th class="text-center">Expected Date</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @orderproducts.each do |orderproduct| %>
+                    <tr>
+                        <td>
+                            <a href="#" style="text-decoration: none; color: inherit;">
+                                <div class="media m-2">
+                                    <% if orderproduct.product.product_images? %>
+                                        <%= link_to product_path(orderproduct.product) do %>
+                                            <% if orderproduct.product.product_images[0].image.present? %>
+                                                <%= image_tag orderproduct.product.product_images[0].image.url(:thumb), class: "img-thumbnail align-content-start mr-3", alt: "image", style: "max-width:150px" %>
+                                            <% else %>
+                                                <%= image_tag "products/product-1-50.png", class: "img-thumbnail align-content-start mr-3", alt: "image", style: "max-width:150px" %>
+                                            <% end %>
+                                        <% end %>
+                                    <% else %>
+                                        <%= link_to product_path(orderproduct.product) do %>
+                                            <%= image_tag "products/product-1-50.png", class: "img-thumbnail align-content-start mr-3", alt: "image", style: "max-width:150px" %>
+                                        <% end %>    
+                                    <% end %>
+                                    <div class="media-body vertical-center">
+                                        <%= link_to product_path(orderproduct.product) do %>
+                                            <h5 class="mt-0"><%= orderproduct.product.name %></h5>
+                                        <% end %>
+                                        <!-- <p>Simple Description</p> -->
+                                    </div>
+                                </div>
+                            </a>
+                        </td>
+                        <td><p><%= orderproduct.user.first_name %></p></td>
+                        <td class="text-center msg_time"><%= orderproduct.order.shipping_date %></td>
+                        <td class="text-center">
+                            <% if orderproduct.open? %>
+                                <span class="badge badge-warning">Open</span>
+                            <% elsif orderproduct.confirmed? %>
+                                <span class="badge badge-success">Confirmed</span>
+                            <% elsif orderproduct.rejected? %>
+                                <span class="badge badge-error">Rejected</span>
+                            <% end %>
+                        </td>
+                        <td>
+                            <center>
+                                <% if orderproduct.open? %>
+                                    <%= link_to confirm_order_path(id: orderproduct.id), method: :post, data: { confirm: 'Are you sure?' } do %>
+                                        <button class="btn btn-outline-primary btn-icon icon-left"><i class="fa fa-check-circle"></i> Confirm</button>
+                                    <% end %>
+                                <% end %>
+                            </center>
+                        </td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+        <hr>
+    </div>                                
+</div>

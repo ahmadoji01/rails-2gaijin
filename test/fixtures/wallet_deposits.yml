@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  total: 
+  deposit_date: 2020-02-21 19:52:20
+  status: 
+
+two:
+  total: 
+  deposit_date: 2020-02-21 19:52:20
+  status: 

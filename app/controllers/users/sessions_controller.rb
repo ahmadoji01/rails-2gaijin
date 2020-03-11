@@ -11,7 +11,8 @@ class Users::SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
   # def create
-  #   super
+  #  super
+  #  cookies.permanent[:remember_token] = user.remember_token
   # end
 
   # DELETE /resource/sign_out

@@ -47,4 +47,19 @@ class NewsletterMailer < ApplicationMailer
     subject = @commenter.first_name + " just left a comment on " + @product.name
     mail(to: @user.email, subject: subject)
   end
+
+  def new_job_application(userid, jobappid)
+    @user = User.find_by(id: userid)
+    @jobapp = JobsApplication.find_by(id: jobappid)
+    subject = @jobapp.name + ", here is the summary for your job application"
+    mail(to: @user.email, subject: subject)
+  end
+
+  def new_job_application_company(userid, jobappid)
+    @user = User.find_by(id: userid)
+    @jobapp = JobsApplication.find_by(id: jobappid)
+    @companyemail = "uzzyregister@gmail.com"
+    subject = @jobapp.name + " just applied for a " + @jobapp.jobtype + " job"
+    mail(to: @companyemail, subject: subject)
+  end
 end

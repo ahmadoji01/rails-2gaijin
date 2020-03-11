@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>2Gaijin.com - Sell Your Secondhand Items</title>
+    <%= analytics_init if GoogleAnalytics.valid_tracker? %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= display_meta_tags site: '2Gaijin.com' %>
@@ -19,14 +20,14 @@
 
     <%= stylesheet_link_tag    'sub/style' %>
 
+    <script type="text/javascript" src="https://js.stripe.com/v3/"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <%= javascript_include_tag 'application', async: Rails.env.production?, :cache => 'cached/all' %>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
     
     <%= javascript_include_tag 'sub/rails-gmaps' %>    
-    <script src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.google_maps_api_key %>&libraries=places&callback=initMap"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/flatpickr.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.google_maps_api_key %>&libraries=places&callback=initMap"></script>    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
@@ -40,9 +41,6 @@
       <div class="navbar-bg"></div>
         <%= render "common/navbar" %>
         <%= render "common/checkout_modal" %>
-        <% if user_signed_in? %>
-            <%= render "common/delivery_modal", delivery: new_delivery %>
-        <% end %>
     </div>
 
     <%= yield %>
@@ -50,6 +48,10 @@
     <% if controller_name != "search" %>
         <%=  render "common/footer" %>
         <%=  render "common/fab_add_product" %>
+    <% end %>
+    
+    <% if user_signed_in? %>
+        <span id="locale-token" class="d-none"><%= I18n.locale %></span>
     <% end %>
   </body>
 

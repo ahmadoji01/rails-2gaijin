@@ -7,7 +7,7 @@
             <div class="col-12">
                 <div class="card card-primary">
                     <div class="row m-0">
-                        <div class="col-12 col-md-12 col-lg-6 p-0">
+                        <div class="col-12 col-md-12 col-lg-12 p-0">
                             <div class="card-header text-center">
                                 <h4>联系我们</h4>
                             </div>
@@ -22,29 +22,31 @@
                                 end %>
                                 <%= form_for @ticket, class: "needs-validation" do |form| %>
                                     <%= invisible_captcha %>
-                                    <div class="form-group floating-addon">
-                                        <label>姓名</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">
-                                                    <i class="far fa-user"></i>
+                                    <div class="col-12 col-md-12 col-lg-6">
+                                        <div class="form-group floating-addon">
+                                            <label>姓名</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="far fa-user"></i>
+                                                    </div>
                                                 </div>
+                                                <%= form.text_field :name, value: @fullname, class: "form-control", placeholder: "姓名", autofocus: true, required: true %>
+                                                <!-- <input id="name" type="text" class="form-control" name="name" autofocus placeholder="Name"> -->
                                             </div>
-                                            <%= form.text_field :name, value: @fullname, class: "form-control", placeholder: "姓名", autofocus: true, required: true %>
-                                            <!-- <input id="name" type="text" class="form-control" name="name" autofocus placeholder="Name"> -->
                                         </div>
-                                    </div>
 
-                                    <div class="form-group floating-addon">
-                                        <label>电子邮箱</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">
-                                                    <i class="fas fa-envelope"></i>
+                                        <div class="form-group floating-addon">
+                                            <label>电子邮箱</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="fas fa-envelope"></i>
+                                                    </div>
                                                 </div>
+                                                <%= form.text_field :email, value: @email, class: "form-control", type: "email", placeholder: "电子邮箱", required: true %>
+                                                <!-- <input id="email" type="email" class="form-control" name="email" placeholder="Email"> -->
                                             </div>
-                                            <%= form.text_field :email, value: @email, class: "form-control", type: "email", placeholder: "电子邮箱", required: true %>
-                                            <!-- <input id="email" type="email" class="form-control" name="email" placeholder="Email"> -->
                                         </div>
                                     </div>
 
@@ -58,21 +60,6 @@
                                         <%= form.button "发送消息", type: :submit, class: "btn btn-round btn-lg btn-primary" %>
                                     </div>
                                 <% end %>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-12 col-lg-6 p-0">
-                            <div class="card-body">
-                                <dl class="row">
-                                    <p class="lead">您有什么困惑吗？请通过以下方法，联系我们的网站管理员。</p>
-                                    <dt class="col-sm-3"><strong>联系电话</strong></dt>
-                                    <dd class="col-sm-9"><em class="mr-2 float-right">(+81)80-3082-8692</em><br></dd>
-                                    <dt class="col-sm-3"><strong>电子邮箱</strong></dt>
-                                    <dd class="col-sm-9"><em class="mr-2 float-right">2gaijin@kitalabs.com</em><br></dd>
-                                    <dt class="col-sm-3"><strong>Wechat ID</strong></dt>
-                                    <dd class="col-sm-9"><em class="mr-2 float-right">senorpuppy</em><br></dd>
-                                    <dt class="col-sm-3"><strong>LINE ID</strong></dt>
-                                    <dd class="col-sm-9"><em class="mr-2 float-right">jjsonofj</em><br></dd>
-                                </dl>
                             </div>
                         </div>
                     </div>

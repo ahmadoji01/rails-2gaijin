@@ -1,0 +1,108 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/flatpickr.min.js"></script>
+<div class="main-content" style="width: 100%;">
+    <div class="container-fluid">
+        <%= form_for @jobs_application do |f| %>
+            <%= invisible_captcha %>
+            <div class="row">
+                <div class="col-md-12 col-lg-8">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>Contact Information</h5>
+                                    <div class="mb-3">
+                                        <% if current_user.last_name.present? 
+                                            @fullname = current_user.first_name + " " + current_user.last_name
+                                        else
+                                            @fullname = current_user.first_name
+                                        end
+                                        %>
+                                        <%= f.label :name %>
+                                        <%= f.text_field :name, class: "form-control", value: @fullname, required: true %>
+                                    </div>
+                                    <div class="mb-3">
+                                        <%= f.label :email %>
+                                        <%= f.email_field :email, class: "form-control", value: current_user.email, placeholder: "Ex. username@example.com", required: true %>
+                                    </div>
+                                    <div class="mb-3">
+                                        <%= f.label :phone %>
+                                        <%= f.text_field :phone, type: "tel", class: "form-control", value: current_user.phone, placeholder: "" %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-lg-6">
+                        	<div class="card">
+		                        <div class="card-body">
+		                            <h5>Address</h5>
+		                              <%= f.fields_for :address do |builder| %>
+		                                <div class="mb-3">
+		                                  <%= builder.label :full_address %>
+		                                  <%= builder.text_field :full_address, class: "form-control", value: @address.full_address, placeholder: "Ex. Kita 14-jo, Nishi 4-Chome", required: true %>
+		                                </div>
+		                                <div class="mb-3">
+		                                  <%= builder.label :apartment, "Apartment and Room Number (Optional)" %>
+		                                  <%= builder.text_field :apartment, class: "form-control", value: @address.apartment, placeholder: "Ex. Fujii Building, 115" %>
+		                                </div>
+		                                <div class="row">
+		                                  <div class="col-md-4 mb-3">
+		                                    <%= builder.label :state %>
+		                                    <%= builder.select :state, options_for_select(['Hokkaido'], @address.state), {}, { class: "custom-select d-block w-100", required: true } %>
+		                                  </div>
+		                                  <div class="col-md-4 mb-3">
+		                                    <%= builder.label :city %>
+		                                    <%= builder.select :city, options_for_select(['Sapporo'], @address.city), {}, { class: "custom-select d-block w-100", required: true } %>
+		                                  </div>
+                                          <div class="col-md-4 mb-3">
+                                            <%= builder.label :postal_code %>
+                                            <%= builder.text_field :postal_code, value: @address.postal_code, class: "form-control" %>                      
+                                          </div>
+		                                  <%= builder.hidden_field :user_id, value: current_user.id %>
+		                                </div>
+		                              <% end %>
+		                        </div>
+		                    </div>
+                        </div>
+                    </div>  
+                </div>
+                <div class="col-md-12 col-lg-4">
+                	<div class="card">
+                        <div class="card-body">
+                            <h5>Job Application</h5>
+                            <div class="mb-3">
+                                <%= f.label :jobtype, "Job Type" %>
+                                <%= f.select :jobtype, options_for_select(['Smartphone App Developer', 'Convenience Store Staff', 'Hotel Bed Making'], @jobtype ), {}, { class: "form-control", required: true } %>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <%= f.label :nationality %>
+                                        <%= f.country_select :nationality, { priority_countries: ["CN", "JP", "PH", "ID", "IN", "TH", "VN"], selected: "JP" }, { class: 'form-control', data: { attribute: "value" } } %>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <%= f.label :age, "Age" %><br>
+                                        <%= f.number_field :age, class: "form-control", style: "z-index: 1000;", required: true %>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <%= f.label :expiry, "Residence Card Expiry Date" %><br>
+                                <%= f.datetime_local_field :expiry, class: "form-control datepicker", style: "z-index: 1000;", required: true %>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-group">
+                                  <div class="custom-control custom-checkbox">
+                                    <%= f.check_box :terms, type: "checkbox", class: "custom-control-input", tabindex: "3", required: true %>
+                                    <%= f.label :terms, "By clicking this, I agree to <a href='/job_app_terms_conditions' target='_blank'>Terms and Conditions</a> written on the following page".html_safe, class: "custom-control-label" %>
+                                  </div>
+                                </div>
+                            </div>
+		                    <hr class="mb-4">
+				            <%= f.button "Submit", type: :submit, class: "btn btn-primary col-12" %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>

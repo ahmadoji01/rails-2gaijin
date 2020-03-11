@@ -1,0 +1,116 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/flatpickr.min.js"></script>
+<div class="modal fade" id="Modal<%= a.id %>" tabindex="-1" role="dialog" aria-labelledby="<%= a.id %>ModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="<%= a.id %>ModalLabel">Job Applications</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+              <div class="row">
+                <%= form_with(model: a, local: true, class: "needs-validation") do |form| %>
+                  <%= invisible_captcha %>
+                  <% if a.errors.any? %>
+                    <div id="error_explanation">
+                        <h2><%= pluralize(a.errors.count, "error") %> prohibited this address from being saved:</h2>
+
+                        <ul>
+                        <% a.errors.full_messages.each do |message| %>
+                          <li><%= message %></li>
+                        <% end %>
+                        </ul>
+                    </div>
+                  <% end %>
+                  <div class="col-md-12 mb-3">
+                    <h5>Contact Information</h5>
+                    <div class="form-group form-inline">
+                      <%= form.label :name %>
+                      <%= form.text_field :name, class: "form-control", style: 'width: 100%', required: true %>
+                      <div class="invalid-feedback">
+                        Valid name is required.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 mb-3">
+                    <div class="form-group form-inline">
+                      <%= form.label :email %>
+                      <%= form.text_field :email, class: "form-control", style: 'width: 100%', required: true %>
+                      <div class="invalid-feedback">
+                        Valid email is required.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 mb-3">
+                    <div class="form-group form-inline">
+                      <%= form.label :phone %>
+                      <%= form.text_field :phone, class: "form-control", style: 'width: 100%', required: true %>
+                      <div class="invalid-feedback">
+                        Valid email is required.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 mb-3">
+                    <h5>Address</h5>
+                    <%= form.fields_for :address do |builder| %>
+                      <div class="mb-3">
+                        <%= builder.label :full_address %>
+                        <%= builder.text_field :full_address, class: "form-control", placeholder: "Ex. Kita 14-jo, Nishi 4-Chome", required: true %>
+                      </div>
+                      <div class="mb-3">
+                        <%= builder.label :apartment, "Apartment and Room Number (Optional)" %>
+                        <%= builder.text_field :apartment, class: "form-control", placeholder: "Ex. Fujii Building, 115" %>
+                      </div>
+                      <div class="mb-3">
+                          <%= builder.label :postal_code %>
+                          <%= builder.text_field :postal_code, class: "form-control" %>                      
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 mb-3">
+                          <%= builder.label :state %>
+                          <%= builder.select :state, options_for_select(['Hokkaido'], selected: a.address.state), {}, { class: "custom-select d-block w-100", required: true } %>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                          <%= builder.label :city %>
+                          <%= builder.select :city, options_for_select(['Sapporo'], selected: a.address.city), {}, { class: "custom-select d-block w-100", required: true } %>
+                        </div>
+                        <%= builder.hidden_field :user_id, value: current_user.id %>
+                      </div>
+                    <% end %>
+                  </div>
+                  <div class="col-md-12 mb-3">
+                    <h5>Job Application</h5>
+                    <div class="mb-3">
+                        <%= form.label :jobtype, "Job Type" %>
+                        <%= form.select :jobtype, options_for_select(['Smartphone App Developer', 'Convenience Store Staff', 'Hotel Bed Making'], selected: a.jobtype), {}, { class: "form-control", required: true } %>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <%= form.label :nationality %>
+                                <%= form.country_select :nationality, { priority_countries: ["CN", "JP", "PH", "ID", "IN", "TH", "VN"], selected: a.nationality }, { class: 'form-control', data: { attribute: "value" } } %>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <%= form.label :age, "Age" %><br>
+                                <%= form.number_field :age, class: "form-control", style: "z-index: 1000;", required: true %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <%= form.label :expiry, "Residence Card Expiry Date" %><br>
+                        <%= form.datetime_local_field :expiry, class: "form-control datepicker", style: "z-index: 1000;", required: true %>
+                    </div>
+                    <hr class="mb-4">
+                    <%= form.button "Submit", type: :submit, class: "btn btn-primary col-12" %>
+                </div>
+          </div>   
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+</div>

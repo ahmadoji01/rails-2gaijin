@@ -17,8 +17,8 @@ $(document).ready( function() {
 				$("#msg-md-notif-num").addClass("beep");
 		        $(barID).remove();
 		        $element.prepend(messageBarHTML);
-		        $('#msg-notif-num').text(data.unreadrooms);
-		        $('#msg-md-notif-num-text').text(data.unreadrooms);
+		        //$('#msg-notif-num').text(data.unreadrooms);
+		        //$('#msg-md-notif-num-text').text(data.unreadrooms);
 		        
 		        $('[data-channel-subscribe="room"]').each(function(index, element) {
 		        	var counter = parseInt($('#msg-notif-num').text());

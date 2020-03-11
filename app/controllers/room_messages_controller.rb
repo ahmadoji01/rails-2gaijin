@@ -36,13 +36,13 @@ class RoomMessagesController < ApplicationController
 
   def send_email(receiver, sender, room, message)
     if room.room_messages.count == 1
-      NewsletterMailer.new_message_later(receiver.id.to_s, sender.id.to_s, room.id.to_s, message).deliver_later(wait: 1.seconds) if receiver.receive_email?
+      NewsletterMailer.new_message_later(receiver.id.to_s, sender.id.to_s, room.id.to_s, message).deliver_later(wait: 1.seconds)
     elsif room.room_messages.count >= 2
       last_message_time = room.room_messages.order(created_at: :desc).first.created_at
       second_last_message_time = room.room_messages.order(created_at: :desc).second.created_at
       delta_time = ((last_message_time - second_last_message_time) * 24 * 60 * 60).to_i # in seconds
       if delta_time >= (3 * 60) # 3 minutes converted into seconds
-        NewsletterMailer.new_message_later(receiver.id.to_s, sender.id.to_s, room.id.to_s, message).deliver_later(wait: 1.seconds) if receiver.receive_email?
+        NewsletterMailer.new_message_later(receiver.id.to_s, sender.id.to_s, room.id.to_s, message).deliver_later(wait: 1.seconds)
       end
     end
   end

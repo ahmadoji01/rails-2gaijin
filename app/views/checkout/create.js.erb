@@ -1,0 +1,21 @@
+const stripe = Stripe('<%= Rails.configuration.stripe[:publishable_key] %>');
+var paymentMethod = parseInt("<%= @order.payment_method_cd %>")
+var amount = parseInt("<%= @price %>") 
+
+console.log(paymentMethod);
+
+if(paymentMethod == 3) {
+	stripe.redirectToCheckout({
+		sessionId: '<%= @session.id %>'
+	}).then(function (result) {
+		console.log(result.error.message);
+	});
+} else if(paymentMethod == 2) {
+	stripe.createSource({
+	  type: 'wechat',
+	  amount: amount,
+	  currency: 'jpy',
+	}).then(function(result) {
+		//console.log(result.error.message);
+	});
+}

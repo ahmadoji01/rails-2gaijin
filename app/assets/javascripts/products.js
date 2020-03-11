@@ -4,7 +4,7 @@
 
 $(document).ready( function() { 
 
-  if($('#moment-chinese-locale-token').length){
+  if($('#locale-token').html() == "zh-CN"){
     moment.locale("zh-cn");
   } else {
     moment.locale("en");
@@ -24,16 +24,14 @@ $(document).ready( function() {
 
   if($("#product-image-upload").length) {
     $("#product-image-upload").fileinput({
-      'showUpload':false,
-      'maxFileCount': 6,
-      'allowedFileExtensions': ['jpg', 'png', 'jpeg']
+      theme: "fas",
+      showUpload: false,
+      maxFileCount: 4,
+      overwriteInitial: false,
+      allowedFileExtensions: ['jpg', 'png', 'jpeg']
     });
   }
-
-  $("#add_to_delivery_btn").click( function(e) {
-    ahoy.track("Added Item to Delivery", e.target.dataset);
-  });
-
+  
   $('.galleria').each(function(index, element) {
     Galleria.configure({
       transition: 'fade',
@@ -65,6 +63,7 @@ $(document).ready( function() {
 function markSold(productID) {
   $.ajax({
     type: 'POST',
+    beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
     url: '/products/mark_as_sold',
     data: { id: productID },
     success: function(data){
@@ -94,6 +93,7 @@ function deleteProduct(productID) {
     if (willDelete) {
       $.ajax({
         type: 'DELETE',
+        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
         url: '/products/' + productID + ".json",
         success: function(data){
           swal("Your item has been deleted!", {

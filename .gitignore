@@ -32,5 +32,10 @@
 
 # Ignore Redis config
 /config/initializers/redis.rb
+/config/initializers/session_store.rb
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key
+
 # Ignore master key for decrypting credentials and more.
 /config/master.key

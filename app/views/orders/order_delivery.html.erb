@@ -1,0 +1,171 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/flatpickr.min.js"></script>
+<div class="main-content" style="width: 100%;">
+    <div class="container-fluid">
+        <%= form_for @delivery, :method => :put do |f| %>
+            <%= invisible_captcha %>
+            <div class="row">
+                <div class="col-md-12 col-lg-8">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>Contact Information</h5>
+                                    <div class="mb-3">
+                                        <% if current_user.last_name.present? 
+                                            @fullname = current_user.first_name + " " + current_user.last_name
+                                        else
+                                            @fullname = current_user.first_name
+                                        end
+                                        %>
+                                        <%= f.label :name %>
+                                        <%= f.text_field :name, class: "form-control", value: @fullname, required: true %>
+                                    </div>
+                                    <div class="mb-3">
+                                        <%= f.label :email %>
+                                        <%= f.email_field :email, class: "form-control", value: current_user.email, placeholder: "Ex. username@example.com", required: true %>
+                                    </div>
+                                    <div class="mb-3">
+                                        <%= f.label :phone %>
+                                        <%= f.text_field :phone, type: "tel", class: "form-control", value: current_user.phone, placeholder: "" %>
+                                    </div>
+                                    <div class="mb-3">
+                                        <%= f.label :wechat, "WeChat ID (If any)" %>
+                                        <%= f.text_field :wechat, class: "form-control", value: current_user.wechat, placeholder: "" %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>Items to be Delivered</h5>
+                                    <h6>Items from this Website</h6>
+                                    <% if @delivery.products.count > 0 %>
+                                        <% @delivery.products.each do |product| %>
+                                            <div id="del-product-<%= product.id.to_s %>" class="card mb-3" style="padding: 10px;">
+                                                <a href="<%= product_path(product)%>"><%= product.name %></a>
+                                                <span onclick="removeItemDelivery('<%= product.id.to_s %>')" class="remove_delivery_btn btn btn-outline-danger" data-id="<%= product.id.to_s %>" style="position: absolute; right: 2px; top: 2px;">
+                                                    Remove 
+                                                </span>
+                                            </div>
+                                        <% end %>
+                                    <% else %>
+                                        No items from this website added. You can add one by clicking Add to Delivery on product page
+                                    <% end %>
+                                    <h6 style="margin-top: 10px;">Other Items</h6>
+                                    <%= f.fields_for :delivery_items, @delivery_items do |item| %>
+                                        <div class="mb-3">
+                                          <%= render "orders/delivery_item_fields", f: item %>
+                                        </div>
+                                        <div class="mb-3" style="height: 100%">
+                                          <%= link_to_add_association f, :delivery_items, render_options: { wrapper: 'bootstrap' }, partial: 'orders/delivery_item_fields' do %>
+                                            <button class="btn btn-primary" style="width: 120px">Add Location</button>
+                                          <% end %>
+                                          *In case of multiple places
+                                        </div>
+                                    <% end %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+                <div class="col-md-12 col-lg-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Check Out</h5>
+                            <h6>Destination</h6>
+                              <%= f.fields_for :address do |builder| %>
+                                <div class="mb-3">
+                                  <%= builder.label :full_address %>
+                                  <%= builder.text_field :full_address, class: "form-control", placeholder: "Ex. Kita 14-jo, Nishi 4-Chome", required: true %>
+                                </div>
+                                <div class="mb-3">
+                                  <%= builder.label :apartment, "Apartment and Room Number (Optional)" %>
+                                  <%= builder.text_field :apartment, class: "form-control", placeholder: "Ex. Fujii Building, 115" %>
+                                </div>
+                                <div class="mb-3">
+                                    <%= builder.label :postal_code %>
+                                    <%= builder.text_field :postal_code, class: "form-control" %>                      
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-6 mb-3">
+                                    <%= builder.label :state %>
+                                    <%= builder.select :state, options_for_select(['Hokkaido'], @delivery.address.state), {}, { class: "custom-select d-block w-100", required: true } %>
+                                  </div>
+                                  <div class="col-md-6 mb-3">
+                                    <%= builder.label :city %>
+                                    <%= builder.select :city, options_for_select(['Sapporo'], @delivery.address.city), {}, { class: "custom-select d-block w-100", required: true } %>
+                                  </div>
+                                  <%= builder.hidden_field :user_id, value: current_user.id %>
+                                </div>
+                              <% end %>
+                              <hr class="mb-4">
+                              <h6>Payment Method</h6>
+                              <div class="pretty p-default p-curve">
+                                <%= f.radio_button :payment_method, 'cod', class: "custom-control-input" %>
+                                <div class="state p-primary-o">
+                                    <label>Cash on Delivery</label>
+                                </div> 
+                              </div>
+                              <div class="pretty p-default p-curve">
+                                <%= f.radio_button :payment_method, 'wechat', class: "custom-control-input" %>
+                                <div class="state p-primary-o">
+                                    <label>WeChat Pay</label>
+                                </div>  
+                              </div>
+                              <div class="pretty p-default p-curve">
+                                <%= f.radio_button :payment_method, 'card', class: "custom-control-input" %> 
+                                <div class="state p-primary-o">
+                                    <label>Credit Card or Google Pay</label>
+                                </div>
+                              </div>
+                              <div class="d-block my-3">
+                                <h6>Delivery Date</h6>
+                                <%= f.datetime_local_field :shipping_date, class: "form-control datetimepicker", style: "z-index: 1000;", required: true %><br>
+                              </div>
+                              <div class="d-block my-3">
+                                <h6>Price</h6>
+                                <div class="row">
+                                  <div class="col-md-4 mb-3">
+                                    <b>Items Price</b>
+                                  </div>
+                                  <div class="col-md-8 mb-3">
+                                    ¥<%= @items_price %>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-4 mb-3">
+                                    <b>Service Charge</b>
+                                  </div>
+                                  <div class="col-md-8 mb-3">
+                                    ¥<%= @service_charge.to_i %>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-4 mb-3">
+                                    <b>Delivery Price</b>
+                                  </div>
+                                  <div class="col-md-8 mb-3">
+                                    Basic fee + 950 yen/15 minutes (basic fee differs according to places)
+                                    <br><b>*<a href="<%= delivery_pricing_url %>" target="_blank">Click here for pricing details and terms</a></b>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-4 mb-3">
+                                    <h4>Total Price</h4>
+                                  </div>
+                                  <div class="col-md-8 mb-3">
+                                    <h4>¥<%= @total_price.to_i %></h4>
+                                  </div>
+                                  <%= f.hidden_field :price, value: @total_price, required: true %>
+                                </div>
+                              </div>
+                              <hr class="mb-4">
+                              <%= f.button "Review Order", type: :submit, class: "btn btn-primary col-12" %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>

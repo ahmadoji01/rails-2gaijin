@@ -1,0 +1,198 @@
+<div class="main-content" style="width: 100%;">
+    <div class="container-fluid">
+        <%= form_for @delivery, method: :put do |f| %>
+            <%= invisible_captcha %>
+            <div class="row">
+                <div class="col-lg-2">
+                </div>
+                <div class="col-md-12 col-lg-4">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>Contact Information</h5>
+                                    <div class="mb-3">
+                                        <% if current_user.last_name.present? 
+                                            @fullname = current_user.first_name + " " + current_user.last_name
+                                        else
+                                            @fullname = current_user.first_name
+                                        end
+                                        %>
+                                        <%= f.label :name %>
+                                        <div class="card mb-3" style="padding: 10px; background-color: #f5f5f5">
+                                            <%= @delivery.name %>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <%= f.label :email %>
+                                        <div class="card mb-3" style="padding: 10px; background-color: #f5f5f5">
+                                            <%= @delivery.email %>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <%= f.label :phone %>
+                                        <div class="card mb-3" style="padding: 10px; background-color: #f5f5f5">
+                                            <%= @delivery.phone %>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <%= f.label :wechat, "WeChat ID (If any)" %>
+                                        <div class="card mb-3" style="padding: 10px; background-color: #f5f5f5">
+                                            <%= @delivery.wechat %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>Items to be Delivered</h5>
+                                    <h6>Items from this Website</h6>
+                                    <% if @delivery.products.count > 0 %>
+                                        <% @delivery.products.each do |product| %>
+                                            <div id="del-product-<%= product.id.to_s %>" class="card mb-3" style="padding: 10px; background-color: #f5f5f5">
+                                                <a href="<%= product_path(product)%>"><%= product.name %></a>
+                                            </div>
+                                        <% end %>
+                                    <% else %>
+                                        No items from this website added
+                                    <% end %>
+                                    <h6 style="margin-top: 10px;">Other Items</h6>
+                                    <% if @delivery.delivery_items.count > 0 %>
+                                      <% @delivery.delivery_items.each do |item| %>
+                                          <div class="card mb-3" style="padding: 10px; background-color: #f5f5f5">
+                                              <%= item.name %>
+                                          </div>
+                                      <% end %>
+                                    <% else %>
+                                        No other items added
+                                    <% end %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+                <div class="col-md-12 col-lg-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Check Out</h5>
+                            <h6>Destination</h6>
+                              <%= f.fields_for :address do |builder| %>
+                                <div class="mb-3">
+                                  <%= builder.label :full_address %>
+                                  <div class="card mb-3" style="padding: 10px; background-color: #f5f5f5">
+                                      <%= @delivery.address.full_address %>
+                                  </div>
+                                </div>
+                                <div class="mb-3">
+                                  <%= builder.label :apartment, "Apartment and Room Number (Optional)" %>
+                                  <div class="card mb-3" style="padding: 10px; background-color: #f5f5f5">
+                                      <%= @delivery.address.apartment %>
+                                  </div>
+                                </div>
+                                <div class="mb-3">
+                                    <%= builder.label :postal_code %>
+                                    <div class="card mb-3" style="padding: 10px; background-color: #f5f5f5">
+                                      <%= @delivery.address.postal_code %>
+                                    </div>                      
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-6 mb-3">
+                                    <%= builder.label :state %>
+                                    <div class="card mb-3" style="padding: 10px; background-color: #f5f5f5">
+                                      <%= @delivery.address.state %>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6 mb-3">
+                                    <%= builder.label :city %>
+                                    <div class="card mb-3" style="padding: 10px; background-color: #f5f5f5">
+                                      <%= @delivery.address.city %>
+                                    </div>
+                                  </div>
+                                  <%= builder.hidden_field :user_id, value: current_user.id %>
+                                </div>
+                              <% end %>
+                              <hr class="mb-4">
+                              <div class="d-block my-3">
+                                <h6>Payment Method</h6>
+                                <% if @delivery.cod? %>
+                                  <div class="pretty p-default p-curve">
+                                    <%= f.radio_button :payment_method, 'cod', class: "custom-control-input" %>
+                                    <div class="state p-primary-o">
+                                        <label>Cash on Delivery</label>
+                                    </div> 
+                                  </div>
+                                <% elsif @delivery.wechat? %>
+                                  <div class="pretty p-default p-curve">
+                                    <%= f.radio_button :payment_method, 'wechat', class: "custom-control-input" %>
+                                    <div class="state p-primary-o">
+                                        <label>WeChat Pay</label>
+                                    </div>  
+                                  </div>
+                                <% elsif @delivery.card? %>
+                                  <div class="pretty p-default p-curve">
+                                    <%= f.radio_button :payment_method, 'card', class: "custom-control-input" %> 
+                                    <div class="state p-primary-o">
+                                        <label>Credit Card or Google Pay</label>
+                                    </div>
+                                  </div>
+                                <% end %>
+                              </div>
+                              <div class="d-block my-3">
+                                <h6>Delivery Date</h6>
+                                <div class="card mb-3" style="padding: 10px; background-color: #f5f5f5">
+                                    <%= @delivery.shipping_date.strftime("%Y-%m-%d %H:%M") %>
+                                </div>
+                              </div>
+                              <div class="d-block my-3">
+                                <div class="row">
+                                  <div class="col-md-4 mb-3">
+                                    <b>Items Price</b>
+                                  </div>
+                                  <div class="col-md-8 mb-3">
+                                    ¥<%= @items_price %>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-4 mb-3">
+                                    <b>Service Charge</b>
+                                  </div>
+                                  <div class="col-md-8 mb-3">
+                                    ¥<%= @service_charge.to_i %>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-4 mb-3">
+                                    <b>Delivery Price</b>
+                                  </div>
+                                  <div class="col-md-8 mb-3">
+                                    Basic fee + 950 yen/15 minutes (basic fee differs according to places)
+                                    <br><b>*<a href="<%= delivery_pricing_url %>" target="_blank">Click here for pricing details and terms</a></b>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-4 mb-3">
+                                    <h4>Total Price</h4>
+                                  </div>
+                                  <div class="col-md-8 mb-3">
+                                    <h4>¥<%= @delivery.price %></h4>
+                                  </div>
+                                </div>
+                              </div>                   
+                              <% end %>
+                              <hr class="mb-4">
+                              <%= link_to 'Check Out', checkout_order_path, class: "btn btn-primary col-12", method: :post %>
+                              <!-- 
+                              <% if @delivery.payment_method_cd == 3 %>
+                                <%= link_to 'Check Out', checkout_create_path(id: @delivery.id, price: @items_price), class: "btn btn-primary col-12", method: :post, remote: true %>
+                              <% elsif @delivery.payment_method_cd == 2 %>
+                                <%= link_to 'Check Out', checkout_create_source_path(id: @delivery.id, price: @items_price), class: "btn btn-primary col-12", method: :post %>
+                              <% end %> --> 
+                              <a href="<%= order_delivery_url %>" class="btn btn-danger col-12">Edit Order</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                </div>
+            </div>
+    </div>
+</div>

@@ -69,7 +69,6 @@
                   *(万一有几个地方)
                 </div>
               <% end %>
-              
             </div>
             <div class="tab-pane fade" id="checkout-delivery" role="tabpanel" aria-labelledby="checkout-delivery-tab">
               <b>目的地</b>
@@ -93,7 +92,7 @@
                   </div>
                   <div class="col-md-4 mb-3">
                     <%= builder.label :postal_code, "邮政编码" %>
-                    <%= builder.text_field :postal_code, class: "form-control", required: true %>                      
+                    <%= builder.text_field :postal_code, class: "form-control" %>                      
                   </div>
                   <%= builder.hidden_field :user_id, value: current_user.id, required: true %>
                 </div>
@@ -108,7 +107,7 @@
               </div>
               <div class="d-block my-3">
                 <h6>运送日期</h6>
-                <%= f.datetime_local_field :delivery_date, class: "datetimepicker", style: "z-index: 1000;", required: true %><br>
+                <%= f.datetime_local_field :shipping_date, class: "datetimepicker", style: "z-index: 1000;", required: true %><br>
               </div>
               <div class="d-block my-3">
                 <h6>价格</h6>

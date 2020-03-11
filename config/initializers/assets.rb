@@ -21,6 +21,7 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
  	sub/custom.js
  	sub/owl.js
  	sub/rails-gmaps.js
+ 	sub/qrcode.min.js
  	ckeditor/config.js
  	rails_admin/custom/ui.js
  )

@@ -3,14 +3,16 @@ Rails.application.routes.draw do
   get 'about_us', :to => 'infos#about_us'
   get 'terms_and_conditions', :to => 'infos#terms'
   get 'delivery_pricing', :to => 'infos#delivery_pricing'
+  get 'job_app_terms_conditions', :to => 'infos#job_app_terms_conditions'
   get 'contact_us', :to => 'tickets#new'
+  get 'apply_for_job', :to => 'jobs_applications#new'
+  #get 'loaderio-5fff137063d23362ea7c8793a61bad99', :to => 'home#loaderio' 
   get '/en/register' => redirect('/')
 
   mount RailsAdmin::Engine => '/dashboard', as: 'rails_admin'
   mount Ckeditor::Engine => '/ckeditor'
-  mount Ahoy::Engine => "/ahoy", as: :my_ahoy
+  mount StripeEvent::Engine, at: '/stripe-webhooks'
 
-  resources :orders
   resources :addresses do
     collection do
       post 'set_primary'
@@ -28,6 +30,8 @@ Rails.application.routes.draw do
       post 'contact_seller'
     end
   end
+
+  resources :jobs_applications
 
   resources :notifications
   resources :products
@@ -49,22 +53,42 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :deliveries do
+  scope '/checkout' do
+    post 'create', to: 'checkout#create', as: 'checkout_create'
+    post 'create_source', to: 'checkout#create_source', as: 'checkout_create_source'
+    get 'cancel', to: 'checkout#cancel', as: 'checkout_cancel'
+    get 'success', to: 'checkout#success', as: 'checkout_success'
+    post 'source_charge', to: 'checkout#source_charge', as: 'checkout_source_charge'
+  end
+
+  resources :orders do
     member do
       get :delete
-      post 'add_to_delivery'
-      post 'remove_from_delivery'
     end
   end
+  get 'order_delivery' => "orders#order_delivery"
+  post 'order_delivery' => "orders#order_delivery"
+  get 'review_order' => "orders#review"
+  post 'review_order' => "orders#review"
+  get 'submit_order' => "orders#submit_order"
+  post 'submit_order' => "orders#submit_order"
+  post 'add_to_delivery' => "orders#add_to_delivery"
+  post 'remove_from_delivery' => "orders#remove_from_delivery"
+  post 'checkout_order' => "orders#checkout"
+
+  post 'confirm_order' => "order_products#confirm_order"
 
   resources :comments
   resources :tickets
+  resources :wallets
 
   as :user do
   	get 'profile', :to => 'users/registrations#edit', :as => :user_root
     get 'listed_product', :to => 'users/registrations#edit_product', :as => :user_product
     get 'shipping_address', :to => 'users/registrations#edit_address', :as => :user_address
     get 'delivery_order', :to => 'users/registrations#edit_delivery', :as => :user_delivery
+    get 'applied_job', :to => 'users/registrations#edit_job_application', :as => :user_job_app
+    get 'item_order', :to => 'users/registrations#edit_item_order', :as => :user_item_order
   end
 
   match "/404", :to => "errors#not_found", :via => :all

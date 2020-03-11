@@ -27,7 +27,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def edit_delivery
-    @deliveries = Delivery.where(user_id: current_user.id)
+    @deliveries = Order.where(user_id: current_user.id)
     render :layout => 'application'
   end
 
@@ -49,6 +49,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def edit_address
     @addresses = Address.where(user_id: current_user.id)
     @newaddress = Address.new
+    render :layout => 'application'
+  end
+
+  def edit_job_application
+    @jobapps = JobsApplication.where(user_id: current_user.id)
+    render :layout => 'application'
+  end
+
+  def edit_item_order
+    @orderproducts = OrderProduct.where(user_id: current_user.id) 
     render :layout => 'application'
   end
 

@@ -15,7 +15,6 @@
 //= require rails-ujs
 //= require popper
 //= require cocoon
-//= require ahoy
 //= require social-share-button
 //= require social-share-button/wechat
 //= require rippleria/js/jquery.rippleria.min

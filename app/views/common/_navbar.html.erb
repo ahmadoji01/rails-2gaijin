@@ -95,7 +95,7 @@
         <ul class="navbar-nav navbar-right">
             <li class="dropdown dropdown-list-toggle" style="margin-left: -15px;">
                 <% if user_signed_in? %>
-                <a href="#" id="package-notif-beep" data-toggle="modal" style="position: relative;" data-target="#deliveryModal" class="nav-link nav-link-lg message-toggle">
+                <a href="<%= order_delivery_url %>" id="package-notif-beep" style="position: relative;" class="nav-link nav-link-lg message-toggle">
                     <i class="fa fa-truck"></i>
                     <span id="del-md-notif-num" class="d-lg-none badge badge-primary" style="position: absolute; top: -5px; right: 0; max-width: 10px;">
                         <center id="del-md-notif-num-text" style="position: relative; left: -2.5px; font-size: 10px;"><%= new_delivery.products.count %></center>
@@ -103,7 +103,7 @@
                     <!-- <span class="d-none d-lg-block">Packages</span> -->
                     <span id="del-notif-num" class="d-none d-lg-inline badge badge-primary"><%= new_delivery.products.count %></span>
                 <% else %>
-                <a href="<%= new_user_session_path %>" id="package-notif-beep" class="nav-link nav-link-lg message-toggle"><i class="fa fa-truck"></i> <b>Delivery</b>
+                <a href="<%= order_delivery_url %>" id="package-notif-beep" class="nav-link nav-link-lg message-toggle"><i class="fa fa-truck"></i> <b>Delivery</b>
                 <% end %>
                 </a>
             </li>
@@ -111,11 +111,9 @@
                 <% if user_signed_in? %>
                 <a href="#" id="msg-notif-beep" data-toggle="dropdown" style="position: relative;" class="nav-link nav-link-lg message-toggle">
                     <i class="fa fa-envelope"></i>
-                    <span id="msg-md-notif-num" class="d-lg-none badge badge-primary <%= current_user.message_read == false ? "beep" : "" %>" style="position: absolute; top: -5px; right: 0; max-width: 10px;">
-                        <center id="msg-md-notif-num-text" style="position: relative; left: -2.5px; font-size: 10px;"><%= user_unread_rooms %></center>
+                    <span id="msg-md-notif-num" class="d-lg-none <%= current_user.message_read == false ? "beep" : "" %>" style="position: absolute; top: 0; right: 0; max-width: 10px;">
                     </span>
-                    <!-- <span class="d-none d-lg-block">Packages</span> -->
-                    <span id="msg-notif-num" class="d-none d-lg-inline badge badge-primary <%= current_user.message_read == false ? "beep" : "" %>"><%= user_unread_rooms %></span>
+                    <span id="msg-notif-num" class="d-none d-lg-inline <%= current_user.message_read == false ? "beep" : "" %>" style="position: absolute; top: 0; right: 0;"></span>
                 <% end %>
                 </a>
                 <div class="dropdown-menu dropdown-list dropdown-menu-right">
@@ -162,11 +160,9 @@
             <li id="notif-nav" class="dropdown dropdown-list-toggle" style="margin-left: -12px;">
                 <% if user_signed_in? %>
                 <a href="#" data-toggle="dropdown" style="position: relative;" class="nav-link nav-link-lg message-toggle"><i class="fa fa-bell"></i>
-                    <!-- <span class="d-none d-lg-block">Packages</span> -->
-                    <span id="total-md-notif-number" class="d-lg-none badge badge-warning <%= current_user.notif_read == false ? "beep" : "" %>" style="position: absolute; top: -5px; right: 0; max-width: 10px;">
-                        <center style="position: relative; left: -2.5px; font-size: 10px;"><%= user_unread_notifs %></center>
+                    <span id="total-md-notif-number" class="d-lg-none <%= current_user.notif_read == false ? "beep" : "" %>" style="position: absolute; top: 0; right: 0;">
                     </span>
-                    <span class="d-none d-lg-inline badge badge-warning <%= current_user.notif_read == false ? "beep" : "" %>" id="total-notif-number"><%= user_unread_notifs %></span>
+                    <span class="d-none d-lg-inline <%= current_user.notif_read == false ? "beep" : "" %>" id="total-notif-number" style="position: absolute; top: 0; right: 0;"></span>
                 <% end %>
                 </a>
                 <div class="dropdown-menu dropdown-list dropdown-menu-right">
@@ -272,6 +268,9 @@
                         <a href="<%= user_address_url %>" class="dropdown-item has-icon">
                             <i class="fas fa-map-marked"></i> Shipping Address
                         </a>
+                        <a href="<%= user_job_app_url %>" class="dropdown-item has-icon">
+                            <i class="fas fa-briefcase"></i> Job Application
+                        </a>
                         <% if current_user.role == :admin %>
                             <a href="<%= rails_admin.dashboard_path %>" class="dropdown-item has-icon">
                                 <i class="fa fa-toolbox"></i> Dashboard
@@ -337,6 +336,9 @@
                         </a>
                         <a href="<%= user_address_url %>" class="dropdown-item has-icon">
                             <i class="fas fa-map-marked"></i> Shipping Address
+                        </a>
+                        <a href="<%= user_job_app_url %>" class="dropdown-item has-icon">
+                            <i class="fas fa-briefcase"></i> Job Application
                         </a>
                         <% if current_user.role == :admin %>
                             <a href="<%= rails_admin.dashboard_path %>" class="dropdown-item has-icon">

@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Age:</strong>
+  <%= @jobs_application.age %>
+</p>
+
+<p>
+  <strong>Nationality:</strong>
+  <%= @jobs_application.nationality %>
+</p>
+
+<p>
+  <strong>Expiry:</strong>
+  <%= @jobs_application.expiry %>
+</p>
+
+<p>
+  <strong>Addresslat:</strong>
+  <%= @jobs_application.addresslat %>
+</p>
+
+<p>
+  <strong>Addresslong:</strong>
+  <%= @jobs_application.addresslong %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @jobs_application.phone %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @jobs_application.email %>
+</p>
+
+<%= link_to 'Edit', edit_jobs_application_path(@jobs_application) %> |
+<%= link_to 'Back', jobs_applications_path %>

@@ -15,7 +15,6 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
-    ahoy.track "Viewed Product", id: @product.id.to_s
     if params.has_key?(:notification_id)
       notif = Notification.find(id: params[:notification_id])
       if notif.unread?

@@ -1,6 +1,6 @@
 <div class="tab-pane active" id="delivery-order" role="tabpanel" aria-labelledby="delivery-order">
     <div class="mb-2">
-        <button class="btn btn-primary btn-lg btn-icon icon-left" data-toggle="modal" data-target="#deliveryModal"><i class="fa fa-plus"></i> Order New Delivery</button>
+        <a href="<%= order_delivery_url %>" class="btn btn-primary btn-lg btn-icon icon-left"><i class="fa fa-plus"></i> Order New Delivery</a>
     </div>
     <hr>
     <div class="col-12 table-responsive">
@@ -19,7 +19,7 @@
                     <% if !delivery.name.nil? %>
                         <tr>
                             <td><p><%= delivery.address.full_address %> <%= delivery.address.apartment %></p></td>
-                            <td class="text-center msg_time"><%= delivery.delivery_date %></td>
+                            <td class="text-center msg_time"><%= delivery.shipping_date %></td>
                             <td class="text-center">
                                 <% if delivery.processed? %>
                                     <span class="badge badge-warning">Processed</span>

@@ -135,12 +135,12 @@ RailsAdmin.config do |config|
     end
   end
 
-  config.model 'Delivery' do
+  config.model 'Order' do
     field :name
     field :email
     field :phone
     
-    field :delivery_date
+    field :shipping_date
     field :price
     
     field :address

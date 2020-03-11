@@ -7,6 +7,6 @@ class DeliveryItem
   field :latitude, type: BigDecimal
   field :longitude, type: BigDecimal
   
-  belongs_to :delivery
+  belongs_to :order
 
 end

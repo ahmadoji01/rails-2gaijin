@@ -7,4 +7,7 @@ class InfosController < ApplicationController
 
   def delivery_pricing
   end
+
+  def job_app_terms_conditions
+  end
 end

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  total: 
+  withdrawal_date: 2020-02-21 19:54:25
+  status: 
+
+two:
+  total: 
+  withdrawal_date: 2020-02-21 19:54:25
+  status: 

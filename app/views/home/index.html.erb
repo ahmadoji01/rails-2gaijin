@@ -8,7 +8,26 @@
 
 <div id="carouselExampleIndicators" class="carousel slide mb-n5" data-ride="carousel" style="position: relative; margin-top: 70px;">
     <div class="carousel-inner">
-        <a href="#" data-toggle="modal" data-target="#deliveryModal" class="carousel-item active">
+        <!-- <div class="carousel-item active" style="padding: 0px; margin: 0px;">
+            <div class="row" style="padding: 0px; margin: 0px;">
+                <div class="col-4" style="padding: 0px; margin: 0px;">
+                    <a href="<%= new_jobs_application_path(jobtype: "appdev") %>">
+                        <%= image_tag "banner/jobbanner1.jpg", class: "w-100", alt: "App Dev Promo" %>
+                    </a>
+                </div>
+                <div class="col-4" style="padding: 0px; margin: 0px;">
+                    <a href="<%= new_jobs_application_path(jobtype: "convstaff") %>">
+                        <%= image_tag "banner/jobbanner2.jpg", class: "w-100", alt: "App Dev Promo" %>
+                    </a>
+                </div>
+                <div class="col-4" style="padding: 0px; margin: 0px;">
+                    <a href="<%= new_jobs_application_path(jobtype: "bedmaking") %>">
+                        <%= image_tag "banner/jobbanner3.jpg", class: "w-100", alt: "App Dev Promo" %>
+                    </a>
+                </div>
+            </div>
+        </div> -->
+        <a href="<%= order_delivery_url %>" class="carousel-item active">
             <%= image_tag "banner/delivery1.png", class: "w-100", alt: "Delivery Promo" %>
         </a>
         <a href="<%= new_product_path %>" class="carousel-item" onclick="<%= new_product_path %>">

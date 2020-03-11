@@ -57,10 +57,10 @@
               <h6 style="margin-top: 10px;">Other Items</h6>
               <%= f.fields_for :delivery_items do |item| %>
                 <div class="mb-3">
-                  <%= render "deliveries/delivery_item_fields", f: item %>
+                  <%= render "orders/delivery_item_fields", f: item %>
                 </div>
                 <div class="mb-3" style="height: 100%">
-                  <%= link_to_add_association f, :delivery_items, render_options: { wrapper: 'bootstrap' }, partial: 'deliveries/delivery_item_fields' do %>
+                  <%= link_to_add_association f, :delivery_items, render_options: { wrapper: 'bootstrap' }, partial: 'orders/delivery_item_fields' do %>
                     <button class="btn btn-primary" style="width: 120px">Add Location</button>
                   <% end %>
                   *In case of multiple places
@@ -105,7 +105,7 @@
               </div>
               <div class="d-block my-3">
                 <h6>Delivery Date</h6>
-                <%= f.datetime_local_field :delivery_date, class: "datetimepicker", style: "z-index: 1000;", required: true %><br>
+                <%= f.datetime_local_field :shipping_date, class: "datetimepicker", style: "z-index: 1000;", required: true %><br>
               </div>
               <div class="d-block my-3">
                 <h6>Price</h6>
