@@ -42,7 +42,7 @@ class OrdersController < ApplicationController
     if user_signed_in?
       @product = Product.find(params[:id])
 
-      @delivery = Order.where(:status_cd => 1, user_id: current_user.id)[0]
+      @delivery = Order.where(:status_cd => 1, buyer_id: current_user.id)[0]
 
       @delivery.products << @product
       if @delivery.update
@@ -56,7 +56,7 @@ class OrdersController < ApplicationController
   def remove_from_delivery
     @product = Product.find(params[:id])
 
-    @delivery = Order.where(:status_cd => 1, user_id: current_user.id)[0]
+    @delivery = Order.where(:status_cd => 1, buyer_id: current_user.id)[0]
 
     if @delivery.products.delete(@product)
       render json: "success".to_json
@@ -69,7 +69,7 @@ class OrdersController < ApplicationController
       order_product = OrderProduct.new
       order_product.order = @delivery
       order_product.product = product
-      order_product.user = product.user
+      order_product.seller = product.user
       order_product.status = :open
       order_product.save
     end
@@ -238,7 +238,7 @@ class OrdersController < ApplicationController
 
     def active_delivery
       if user_signed_in?
-        delivery = Order.where(:user_id => current_user.id, :status_cd => 1)
+        delivery = Order.where(:buyer_id => current_user.id, :status_cd => 1)
         address = Address.where(:user_id => current_user.id, :is_primary => true)
 
         if address.present?

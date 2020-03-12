@@ -42,7 +42,7 @@
                                 </div>
                             </a>
                         </td>
-                        <td><p><%= orderproduct.user.first_name %></p></td>
+                        <td><p><%= orderproduct.order.buyer.first_name %></p></td>
                         <td class="text-center msg_time"><%= orderproduct.order.shipping_date %></td>
                         <td class="text-center">
                             <% if orderproduct.open? %>

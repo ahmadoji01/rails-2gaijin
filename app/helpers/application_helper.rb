@@ -54,7 +54,7 @@ module ApplicationHelper
 
 	def new_delivery
 		if user_signed_in?
-			delivery = Order.where(:user_id => current_user.id, :status_cd => 1)
+			delivery = Order.where(:buyer_id => current_user.id, :status_cd => 1)
 			address = Address.where(:user_id => current_user.id, :is_primary => true)
 
 			if address.present?

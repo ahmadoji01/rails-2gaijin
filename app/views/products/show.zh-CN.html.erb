@@ -91,7 +91,7 @@
                                 <% if user_signed_in? %>
                                     <% if current_user != @product.user %>
                                         <% if @product.status == :active %>
-                                            <% if Order.where(:status_cd => 1, user_id: current_user.id, product_ids: @product.id).present? %>
+                                            <% if Order.where(:status_cd => 1, buyer_id: current_user.id, product_ids: @product.id).present? %>
                                                 <button data-id="<%= @product.id.to_s %>" data-method="remove_from_delivery" class="btn btn-lg btn-block btn-outline-danger delivery_btn" remote>
                                                     <i class="fas fa-truck"></i> <span id="delivery_text">从物流列表中移除</span>
                                                 </button>

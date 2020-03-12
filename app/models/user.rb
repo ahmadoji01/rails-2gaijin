@@ -36,7 +36,7 @@ class User
   as_enum :role, :admin => 94, :user => 0, :transporter => 3
   as_enum :locale, :en => 1, "zh-CN" => 2, :ja => 3
 
-  has_many :orders
+  has_many :orders, inverse_of: :buyer
   has_many :addresses
   has_many :products
   has_and_belongs_to_many :rooms

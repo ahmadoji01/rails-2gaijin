@@ -160,7 +160,7 @@ RailsAdmin.config do |config|
       end
     end
 
-    field :user_id, :enum do
+    field :buyer_id, :enum do
       enum do
         User.all.collect {|p| [p.first_name, p.id]}
       end
