@@ -108,6 +108,7 @@ class OrdersController < ApplicationController
   # PATCH/PUT /deliveries/1
   # PATCH/PUT /deliveries/1.json
   def update
+    @delivery.buyer = current_user
     if @delivery.update(order_params)
       redirect_to review_order_url
     else
