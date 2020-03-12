@@ -192,7 +192,7 @@
                                     </div>
                                 <% end %>
                             <% elsif notification.type == :order %>
-                                <%= link_to contact_seller_rooms_path(seller_id: notification.orderer.id, notification_id: notification.id), method: :post, id: "notif-bar-" + notification.id, class: "dropdown-item" do %>
+                                <%= link_to user_item_order_path, id: "notif-bar-" + notification.id, class: "dropdown-item" do %>
                                     <div class="dropdown-item-avatar">
                                         <% if notification.product? %>
                                             <% if notification.product.product_images? %>

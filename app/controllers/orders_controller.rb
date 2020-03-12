@@ -72,6 +72,8 @@ class OrdersController < ApplicationController
       order_product.seller = product.user
       order_product.status = :open
       order_product.save
+      time = @delivery.shipping_date.strftime("%Y-%m-%d %H:%M")
+      send_item_order_notif(order_product.order.buyer, @delivery, time)
     end
 
     @delivery.update_attribute(:status_cd, 5)
@@ -156,6 +158,9 @@ class OrdersController < ApplicationController
   # DELETE /deliveries/1
   # DELETE /deliveries/1.json
   def destroy
+    @delivery.order_products.each do |orderproduct|
+      orderproduct.destroy
+    end
     @delivery.destroy
     respond_to do |format|
       format.html { redirect_to user_delivery_url + "#deliveryRemoved", notice: 'Delivery was successfully destroyed.' }
@@ -197,7 +202,7 @@ class OrdersController < ApplicationController
       ActionCable.server.broadcast "notification_channel_#{user.id}", unreadnotifs: count_unread_notifs(user),
                                                                       notifid: notification.id.to_s, 
                                                                       name: notification.name, 
-                                                                      link: contact_seller_rooms_path(seller_id: notification.orderer.id, notification_id: notification.id),
+                                                                      link: user_item_order_path,
                                                                       image_url: product_image_url,
                                                                       time: notification.created_at,
                                                                       action: action
@@ -262,6 +267,24 @@ class OrdersController < ApplicationController
           if delivery.save
             return delivery
           end
+        end
+      end
+    end
+
+    def send_item_order_notif(buyer, order, time)
+      if order.products.count > 0
+        order.products.each do |product|
+          @notification = Notification.create name: buyer.first_name + " ordered your " + product.name + " for " + time,
+                                              created_at: DateTime.now,
+                                              user: product.user,
+                                              product: product,
+                                              status: :unread,
+                                              type: :order,
+                                              orderer: buyer
+
+          @notification.user.update_attribute :notif_read, false
+          broadcast_notif(@notification, @notification.user, "Add")
+          DeliveryMailer.new_item_from_delivery_order_email_later(order.id.to_s, product.id.to_s, which_room(order.buyer.id.to_s, product.user.id.to_s).id.to_s).deliver_later(wait: 1.second)
         end
       end
     end
