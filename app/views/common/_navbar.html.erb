@@ -271,6 +271,14 @@
                         <a href="<%= user_job_app_url %>" class="dropdown-item has-icon">
                             <i class="fas fa-briefcase"></i> Job Application
                         </a>
+                        <a href="<%= user_item_order_url %>" class="dropdown-item has-icon">
+                            <i class="fas fa-credit-card"></i> Item Orders
+                        </a>
+                        <% if current_user.role == :transporter %>
+                        <a href="<%= user_delivery_offer_url %>" class="dropdown-item has-icon">
+                            <i class="fa fa-truck-loading"></i> Delivery Offers
+                        </a>
+                        <% end %>
                         <% if current_user.role == :admin %>
                             <a href="<%= rails_admin.dashboard_path %>" class="dropdown-item has-icon">
                                 <i class="fa fa-toolbox"></i> Dashboard

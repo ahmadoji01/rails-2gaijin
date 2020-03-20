@@ -62,6 +62,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
     render :layout => 'application'
   end
 
+  def edit_delivery_offer
+    if current_user.transporter? || current_user.admin?
+      @deliveryoffers = OrderTransporter.where(transporter_id: current_user.id)
+    else
+      raise ActionController::RoutingError.new('Not Found')
+    end
+    render :layout => 'application'
+  end
+
   # PUT /resource
   # def update
   #   super

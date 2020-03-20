@@ -16,6 +16,10 @@ $(document).ready(function() {
             swal("Order Successfully Removed!", "We will notify our member immediately!", "success");
         } else if(target=="jobSuccess"){
             swal("Job Application Successfully Received!", "We will notify our partner immediately! The response will be sent via your email", "success");
+        } else if(target=="offerAccepted"){
+            swal("Offer Successfully Accepted!", "You can proceed with the delivery on the defined date!", "success")
+        } else if(target=="offerRejected"){
+            swal("Offer Successfully Rejected!", "You have successfully rejected the delivery order!", "success")
         }
     }
 

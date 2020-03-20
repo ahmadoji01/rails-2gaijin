@@ -1,0 +1,56 @@
+<div class="tab-pane active" id="delivery-order" role="tabpanel" aria-labelledby="delivery-order">
+    <div class="mb-2">
+        <a href="<%= order_delivery_url %>" class="btn btn-primary btn-lg btn-icon icon-left"><i class="fa fa-plus"></i> Order New Delivery</a>
+    </div>
+    <hr>
+    <div class="col-12 table-responsive">
+        <table class="table">
+            <thead style="color: none;">
+                <tr>
+                    <!-- <th scope="col">Product's Name</th> -->
+                    <th class="text-center" width="300px">Destination</th>
+                    <th class="text-center">Delivery Date</th>
+                    <th class="text-center">Items</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @deliveryoffers.each do |delivery| %>
+                    <% if delivery.open? || delivery.accepted? || delivery.waiting_buyer? %>
+                        <tr>
+                            <td><p><% if !delivery.order.address.nil? %><%= delivery.order.address.full_address %> <%= delivery.order.address.apartment %><% end %></p></td>
+                            <td class="text-center msg_time"><%= delivery.order.shipping_date %></td>
+                            <td class="text-center">
+                                <% delivery.order.products.each do |product| %>
+                                   <a href="<%= product_path(product) %>" target="_blank"><%= product.name %></a><br>
+                                <% end %>
+                                <% delivery.order.delivery_items.each do |item| %>
+                                   <%= item.name %>: <%= item.address %><br> 
+                                <% end %>
+                            </td>
+                            <td>
+                                <center>
+                                    <% if delivery.order.waiting_confirmation? %>
+                                        <% if delivery.open? %>
+                                            <%= link_to accept_delivery_path(id: delivery.order.id, transporter_id: current_user.id), method: :post, data: { confirm: 'Are you sure?' } do %>
+                                            <button class="btn btn-outline-primary btn-icon icon-left"><i class="fas fa-check-circle"></i> Accept</button>
+                                            <% end %>
+                                            <%= link_to reject_delivery_path(id: delivery.order.id, transporter_id: current_user.id), method: :post, data: { confirm: 'Are you sure?' } do %>
+                                            <button class="btn btn-outline-danger btn-icon icon-left"><i class="fa fa-times-circle"></i> Reject</button>
+                                            <% end %>
+                                        <% elsif delivery.waiting_buyer? %>
+                                            Waiting Confirmation from Buyer
+                                        <% end %>
+                                    <% elsif delivery.order.processed? %>
+                                        Processing
+                                    <% end %>
+                                </center>
+                            </td>
+                        </tr>
+                    <% end %>
+                <% end %>
+            </tbody>
+        </table>
+        <hr>
+    </div>                                
+</div>

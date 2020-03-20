@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   before_action :set_delivery, only: [:show, :edit, :update, :order_delivery, :destroy]
   before_action :authenticate_user!
-  before_action :authorized_user, except: [:create, :update, :destroy, :order_delivery, :add_to_delivery, :remove_from_delivery]
+  before_action :authorized_user, except: [:create, :update, :destroy, :order_delivery, :add_to_delivery, :remove_from_delivery, :accept_delivery, :reject_delivery]
   invisible_captcha only: [:update]
   before_action :send_cancel_email, only: [:destroy]
 
@@ -63,6 +63,8 @@ class OrdersController < ApplicationController
     end
   end
 
+  
+
   def checkout
     @delivery = active_delivery
     @delivery.products.each do |product|
@@ -77,6 +79,18 @@ class OrdersController < ApplicationController
     end
 
     @delivery.update_attribute(:status_cd, 5)
+
+    if @delivery.delivery_2gaijin?
+      transporters = User.transporters
+      transporters.each do |transporter|
+        order_transporter = OrderTransporter.new
+        order_transporter.order = @delivery
+        order_transporter.transporter = transporter
+        order_transporter.status = :open
+        order_transporter.save
+      end
+    end
+
     redirect_to user_delivery_url + "#deliverySuccess"
   end
 
@@ -160,7 +174,13 @@ class OrdersController < ApplicationController
   def destroy
     @delivery.order_products.each do |orderproduct|
       orderproduct.destroy
+      notify_seller(orderproduct.seller)
     end
+    @delivery.order_transporters.each do |ordertransporter|
+      ordertransporter.destroy
+      notify_transporter(ordertransporter.transporter)
+    end
+
     @delivery.destroy
     respond_to do |format|
       format.html { redirect_to user_delivery_url + "#deliveryRemoved", notice: 'Delivery was successfully destroyed.' }
@@ -209,6 +229,40 @@ class OrdersController < ApplicationController
     end
 
   private
+    def delivery_offer_taken(offers, transporter)
+      offers.each do |offer|
+        if !offer.transporter == transporter
+          offer.update_attribute(:status_cd, 5)
+        end
+      end
+    end
+
+    def notify_transporter(transporter)
+    end
+
+    def notify_seller(seller)
+    end
+
+    def issue_payment
+    end
+
+    def order_confirmed?(order)
+      allconfirmed = true
+
+      if !order.transporter.nil?
+        allconfirmed = false
+        return allconfirmed
+      end
+
+      order.order_products.each do |orderproduct|
+        if !orderproduct.confirmed?
+          allconfirmed = false
+          return allconfirmed
+        end
+      end
+
+      return allconfirmed
+    end
 
     def items_price(delivery)
       total_price = 0
@@ -341,7 +395,7 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:name, :email, :phone, :wechat, :shipping_date, :price, :payment_method, :status_cd,
+      params.require(:order).permit(:name, :email, :phone, :wechat, :shipping_date, :price, :payment_method, :delivery_method, :status_cd,
                                        address_attributes: [:id, :full_address, :apartment, :city, :state, :postal_code, :user_id, :latitude, :longitude],
                                        delivery_items_attributes: [:id, :name, :address, :size])
     end

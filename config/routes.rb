@@ -77,6 +77,8 @@ Rails.application.routes.draw do
   post 'checkout_order' => "orders#checkout"
 
   post 'confirm_order' => "order_products#confirm_order"
+  post 'accept_delivery' => "order_products#accept_delivery"
+  post 'reject_delivery' => "order_products#reject_delivery"
 
   resources :comments
   resources :tickets
@@ -89,6 +91,7 @@ Rails.application.routes.draw do
     get 'delivery_order', :to => 'users/registrations#edit_delivery', :as => :user_delivery
     get 'applied_job', :to => 'users/registrations#edit_job_application', :as => :user_job_app
     get 'item_order', :to => 'users/registrations#edit_item_order', :as => :user_item_order
+    get 'delivery_offer', :to => 'users/registrations#edit_delivery_offer', :as => :user_delivery_offer
   end
 
   match "/404", :to => "errors#not_found", :via => :all

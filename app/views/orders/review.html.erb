@@ -113,6 +113,24 @@
                               <% end %>
                               <hr class="mb-4">
                               <div class="d-block my-3">
+                                <h6>Shipment Method</h6>
+                                <% if @delivery.delivery_2gaijin? %>
+                                  <div class="pretty p-default p-curve">
+                                    <%= f.radio_button :delivery_method, 'delivery_2gaijin', class: "custom-control-input" %>
+                                    <div class="state p-primary-o">
+                                        <label>2Gaijin Delivery</label>
+                                    </div> 
+                                  </div>
+                                <% elsif @delivery.handover? %>
+                                  <div class="pretty p-default p-curve">
+                                    <%= f.radio_button :delivery_method, 'handover', class: "custom-control-input" %>
+                                    <div class="state p-primary-o">
+                                        <label>Direct Hand Over with Buyers</label>
+                                    </div>  
+                                  </div>
+                                <% end %>
+                              </div>
+                              <div class="d-block my-3">
                                 <h6>Payment Method</h6>
                                 <% if @delivery.cod? %>
                                   <div class="pretty p-default p-curve">

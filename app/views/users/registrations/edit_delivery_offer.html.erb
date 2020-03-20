@@ -9,7 +9,7 @@
                                 <a class="nav-link" href="<%= user_root_url %>"><h4>Edit Profile</h4></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="<%= user_product_url %>"><h4>Listed Items</h4></a>
+                                <a class="nav-link active" href="<%= user_product_url %>"><h4>Listed Items</h4></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="<%= user_address_url %>"><h4>Shipping Address</h4></a>
@@ -27,7 +27,7 @@
                     </div>
                     <div class="card-body">
                         <div class="tab-content">
-                            <%= render 'users/registrations/profile/password' %>
+                            <%= render 'users/registrations/profile/delivery_offer' %>
                         </div>
                     </div>
                 </div>
@@ -35,4 +35,3 @@
         </div>
     </div>
 </div>
-

@@ -38,7 +38,7 @@
                         <div class="col-md-12 col-lg-6">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5>Items to be Delivered</h5>
+                                    <h5>Ordered Items</h5>
                                     <h6>Items from this Website</h6>
                                     <% if @delivery.products.count > 0 %>
                                         <% @delivery.products.each do |product| %>
@@ -100,9 +100,24 @@
                                 </div>
                               <% end %>
                               <hr class="mb-4">
+                              <div class="d-block my-3">
+                                <h6>Shipping Method</h6>
+                                <div class="pretty p-default p-curve">
+                                  <%= f.radio_button :delivery_method, 'delivery_2gaijin', class: "custom-control-input", required: true %>
+                                  <div class="state p-primary-o">
+                                      <label>2Gaijin Delivery</label>
+                                  </div> 
+                                </div>
+                                <div class="pretty p-default p-curve" >
+                                  <%= f.radio_button :delivery_method, 'handover', class: "custom-control-input" %>
+                                  <div class="state p-primary-o">
+                                      <label>Direct Hand Over with Buyers</label>
+                                  </div>  
+                                </div>
+                              </div>
                               <h6>Payment Method</h6>
                               <div class="pretty p-default p-curve">
-                                <%= f.radio_button :payment_method, 'cod', class: "custom-control-input" %>
+                                <%= f.radio_button :payment_method, 'cod', class: "custom-control-input", required: true %>
                                 <div class="state p-primary-o">
                                     <label>Cash on Delivery</label>
                                 </div> 
